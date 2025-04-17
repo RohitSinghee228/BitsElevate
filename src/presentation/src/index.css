@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fix for SweetAlert2 dark theme */
+.swal2-popup {
+  background-color: #fff !important;
+  color: #000 !important;
+  font-size: 1.2rem !important;
+  width: auto !important;
+  min-width: 32em !important;
+  padding: 2em !important;
+}
+
+.swal2-title, 
+.swal2-content, 
+.swal2-html-container {
+  color: #000 !important;
+}
+
+.swal2-title {
+  font-size: 1.8em !important;
+  font-weight: 600 !important;
+}
+
+.swal2-content {
+  font-size: 1.3em !important;
+}
+
+.swal2-backdrop {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Reset dark overlays */
+.swal2-container.swal2-backdrop-show {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+body {
+  background-color: #fff !important;
+}
+
+/* Make sure modal content is clearly visible */
+.swal2-popup .swal2-input, 
+.swal2-popup .swal2-select {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 1px solid #d9d9d9 !important;
+  font-size: 1.2em !important;
+  height: auto !important;
+  padding: 0.7em 1em !important;
+}
+
+.swal2-confirm, 
+.swal2-cancel {
+  font-size: 1.2em !important;
+  padding: 0.8em 2em !important;
+}

@@ -1,0 +1,64 @@
+<div class="hero-section text-center py-5 bg-light">
+    <h1 class="display-4">Welcome to EduPulse</h1>
+    <p class="lead">Your gateway to quality education and professional growth</p>
+    <a href="/courses" class="btn btn-primary btn-lg">Browse Courses</a>
+</div>
+
+<div class="featured-courses mt-5">
+    <h2 class="text-center mb-4">Featured Courses</h2>
+    <div class="row">
+        <% featuredCourses.forEach(course => { %>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="<%= course.thumbnail %>" class="card-img-top" alt="<%= course.title %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= course.title %></h5>
+                        <p class="card-text"><%= course.description %></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-primary">₹<%= course.price %></span>
+                            <a href="/courses/<%= course._id %>" class="btn btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<div class="categories mt-5">
+    <h2 class="text-center mb-4">Popular Categories</h2>
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <i class="fas fa-code fa-3x mb-3 text-primary"></i>
+                    <h5>Programming</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <i class="fas fa-chart-line fa-3x mb-3 text-primary"></i>
+                    <h5>Business</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <i class="fas fa-paint-brush fa-3x mb-3 text-primary"></i>
+                    <h5>Design</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <i class="fas fa-music fa-3x mb-3 text-primary"></i>
+                    <h5>Music</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

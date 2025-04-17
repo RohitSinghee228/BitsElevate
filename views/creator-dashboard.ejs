@@ -1,0 +1,97 @@
+<div class="dashboard-header mb-4">
+    <h1>Creator Dashboard</h1>
+    <p class="lead">Welcome back, <%= user.name %>!</p>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>My Courses</h5>
+                <a href="/creator/courses/new" class="btn btn-primary">Create New Course</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <% createdCourses.forEach(course => { %>
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <img src="<%= course.thumbnail %>" class="card-img-top" alt="<%= course.title %>">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= course.title %></h5>
+                                    <p class="card-text"><%= course.description %></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-muted"><%= course.enrolledStudents %> students</span>
+                                        <div>
+                                            <a href="/creator/courses/<%= course._id %>/edit" class="btn btn-outline-primary btn-sm">Edit</a>
+                                            <a href="/creator/courses/<%= course._id %>/analytics" class="btn btn-outline-info btn-sm">Analytics</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Earnings Overview</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h6>Total Earnings</h6>
+                    <h3 class="text-primary">₹<%= earnings.total %></h3>
+                </div>
+                <div class="mb-3">
+                    <h6>This Month</h6>
+                    <h4 class="text-success">₹<%= earnings.thisMonth %></h4>
+                </div>
+                <div>
+                    <h6>Last Month</h6>
+                    <h4 class="text-secondary">₹<%= earnings.lastMonth %></h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Course Analytics</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h6>Total Students</h6>
+                    <h4><%= analytics.totalStudents %></h4>
+                </div>
+                <div class="mb-3">
+                    <h6>Average Rating</h6>
+                    <div class="d-flex align-items-center">
+                        <h4 class="mb-0 me-2"><%= analytics.averageRating %></h4>
+                        <div class="text-warning">
+                            <% for(let i = 0; i < Math.floor(analytics.averageRating); i++) { %>
+                                <i class="fas fa-star"></i>
+                            <% } %>
+                            <% if (analytics.averageRating % 1 !== 0) { %>
+                                <i class="fas fa-star-half-alt"></i>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h6>Completion Rate</h6>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" 
+                             style="width: <%= analytics.completionRate %>%;" 
+                             aria-valuenow="<%= analytics.completionRate %>" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100">
+                            <%= analytics.completionRate %>%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

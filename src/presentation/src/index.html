@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BITS Elevate - Learning Platform</title>
+    <style>
+      /* Add some basic styles to debug what's loading */
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      #error-container {
+        background: #fff0f0;
+        border: 1px solid #ffcaca;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 20px;
+        color: #d32f2f;
+        display: none;
+      }
+      #loading-indicator {
+        background: #f0f8ff;
+        border: 1px solid #c0dfff;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 20px;
+        color: #0288d1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading-indicator">Loading application...</div>
+    <div id="error-container"></div>
+    <div id="root"></div>
+    <script>
+      // Error handling script to debug blank screen issues
+      window.addEventListener('error', function(event) {
+        const errorContainer = document.getElementById('error-container');
+        errorContainer.style.display = 'block';
+        errorContainer.innerHTML += `<p>Error: ${event.message} at ${event.filename}:${event.lineno}</p>`;
+        console.error('Caught error:', event);
+      });
+
+      // Check if React is loading
+      setTimeout(function() {
+        const root = document.getElementById('root');
+        if (!root.hasChildNodes()) {
+          const errorContainer = document.getElementById('error-container');
+          errorContainer.style.display = 'block';
+          errorContainer.innerHTML += '<p>React did not render within 5 seconds. Check the console for errors.</p>';
+        }
+        
+        // Hide loading indicator if either React has loaded or we displayed an error
+        const loadingIndicator = document.getElementById('loading-indicator');
+        loadingIndicator.style.display = 'none';
+      }, 5000);
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html> 

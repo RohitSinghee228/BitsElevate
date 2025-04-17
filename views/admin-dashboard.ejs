@@ -1,0 +1,136 @@
+<div class="dashboard-header mb-4">
+    <h1>Admin Dashboard</h1>
+    <p class="lead">Welcome back, <%= user.name %>!</p>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Users</h5>
+                <h2><%= platformStats.totalUsers %></h2>
+                <p class="card-text">Active: <%= platformStats.activeUsers %></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Courses</h5>
+                <h2><%= platformStats.totalCourses %></h2>
+                <p class="card-text">Active: <%= platformStats.activeCourses %></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Revenue</h5>
+                <h2>₹<%= platformStats.totalRevenue %></h2>
+                <p class="card-text">This Month: ₹<%= platformStats.monthlyRevenue %></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <h5 class="card-title">Active Sessions</h5>
+                <h2><%= platformStats.activeSessions %></h2>
+                <p class="card-text">Peak Today: <%= platformStats.peakSessions %></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Recent Activities</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>User</th>
+                                <th>Action</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% recentActivities.forEach(activity => { %>
+                                <tr>
+                                    <td><%= new Date(activity.timestamp).toLocaleString() %></td>
+                                    <td><%= activity.userName %></td>
+                                    <td><%= activity.action %></td>
+                                    <td><%= activity.details %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="/admin/users" class="list-group-item list-group-item-action">
+                        <i class="fas fa-users me-2"></i>Manage Users
+                    </a>
+                    <a href="/admin/courses" class="list-group-item list-group-item-action">
+                        <i class="fas fa-book me-2"></i>Manage Courses
+                    </a>
+                    <a href="/admin/payments" class="list-group-item list-group-item-action">
+                        <i class="fas fa-money-bill me-2"></i>View Payments
+                    </a>
+                    <a href="/admin/settings" class="list-group-item list-group-item-action">
+                        <i class="fas fa-cog me-2"></i>Platform Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5>System Status</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h6>Server Status</h6>
+                    <div class="d-flex align-items-center">
+                        <div class="me-2">
+                            <i class="fas fa-circle text-success"></i>
+                        </div>
+                        <span>All systems operational</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <h6>Database Status</h6>
+                    <div class="d-flex align-items-center">
+                        <div class="me-2">
+                            <i class="fas fa-circle text-success"></i>
+                        </div>
+                        <span>Connected and healthy</span>
+                    </div>
+                </div>
+                <div>
+                    <h6>Last Backup</h6>
+                    <div class="d-flex align-items-center">
+                        <div class="me-2">
+                            <i class="fas fa-circle text-success"></i>
+                        </div>
+                        <span><%= new Date(platformStats.lastBackup).toLocaleString() %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
