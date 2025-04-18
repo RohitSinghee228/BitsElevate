@@ -1,5 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 
+import { ENDPOINTS, getAuthHeader } from "../../utils/apiConfig";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -22,12 +23,14 @@ const AllUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:7073/api/userManagement/getAll", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-        setUsers(response.data);
+        const response = await axios.get(
+          "http://localhost:3001/api/users/userManagement/getAll",
+          {
+            headers: getAuthHeader(),
+          }
+        );
+        console.log("Users response:", response.data);
+        setUsers(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -38,11 +41,12 @@ const AllUsers = () => {
   // Remove user by ID
   const removeUser = async (id: string) => {
     try {
-      const response = await axios.delete(`http://localhost:7073/api/userManagement/remove/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      const response = await axios.delete(
+        `http://localhost:3001/api/users/userManagement/remove/${id}`,
+        {
+          headers: getAuthHeader(),
+        }
+      );
       console.log(response.data);
       // Update users state after deletion
       setUsers(users.filter(user => user._id !== id));
@@ -65,11 +69,13 @@ const AllUsers = () => {
   // Save edited user data
   const saveEditedUser = async () => {
     try {
-      const response = await axios.put(`http://localhost:7073/api/userManagement/update/${editingUserId}`, editedUserData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      const response = await axios.put(
+        `http://localhost:3001/api/users/userManagement/update/${editingUserId}`,
+        editedUserData,
+        {
+          headers: getAuthHeader(),
+        }
+      );
       console.log(response.data);
       // Update the users state with the edited user data
       setUsers(users.map(user => user._id === editingUserId ? { ...user, ...editedUserData } : user));
@@ -99,8 +105,8 @@ const AllUsers = () => {
             <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">First Name</th>
             <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
             <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Role</th>
-            <th className="px-6 py-3 bg-gray-50"></th> {/* Empty header for delete button */}
-            <th className="px-6 py-3 bg-gray-50"></th> {/* Empty header for edit button */}
+            <th className="px-6 py-3 bg-gray-50"></th>
+            <th className="px-6 py-3 bg-gray-50"></th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">

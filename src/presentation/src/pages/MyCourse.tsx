@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+
 import CourseContent from "../components/Home/Courses/CourseContent";
 import MyCourseSideBar from "../components/Home/Courses/MyCourseSideBar";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const MyCourse = () => {
   const { userId, courseId } = useParams();
@@ -16,7 +17,7 @@ const MyCourse = () => {
 
     const fetchCourse = async () => {
       try {
-        const response = await axios.get(`http://localhost:7071/api/courseManagement/enrolledCourses/${userId}/${courseId}`, {
+        const response = await axios.get(`http://localhost:3001/api/courses/courseManagement/enrolledCourses/${userId}/${courseId}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

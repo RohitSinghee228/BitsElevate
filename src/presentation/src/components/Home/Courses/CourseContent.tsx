@@ -51,7 +51,7 @@ const CourseContent = ({ course }: { course: Course }) => {
     try {
       if (currentContentIndex === courseContent.length - 1) {
         const response = await axios.post(
-          `http://localhost:7071/api/courseManagement/completedCourse`,
+          `http://localhost:3001/api/courses/courseManagement/completedCourse`,
           {
             userId: user?.id,
             courseId: courseId._id,
@@ -74,7 +74,7 @@ const CourseContent = ({ course }: { course: Course }) => {
         }
       } else {
         const response = await axios.post(
-          `http://localhost:7071/api/courseManagement/saveProgress`,
+          `http://localhost:3001/api/courses/courseManagement/saveProgress`,
           {
             userId: user?.id,
             courseId: courseId._id,

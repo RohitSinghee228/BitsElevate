@@ -20,7 +20,7 @@ const LatestCourses = () => {
   useEffect(() => {
     async function fetchCourses() {
       try {
-        const response = await fetch("http://localhost:7071/api/courseManagement/getAll", {
+        const response = await fetch("http://localhost:3001/api/courses/courseManagement/getAll", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

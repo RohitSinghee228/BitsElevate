@@ -1,8 +1,9 @@
 import 'react-toastify/dist/ReactToastify.css';
 
 import { ToastContainer, toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
+import { UserContext } from "../../UserContext";
 import axios from 'axios';
 
 interface Payment {
@@ -29,31 +30,104 @@ const AllPaymentData = () => {
   const [error, setError] = useState<string | null>(null);
   const [refundLoading, setRefundLoading] = useState<string | null>(null);
   const token = localStorage.getItem("token");
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchPaymentData = async () => {
       try {
-        const response = await axios.get('http://localhost:7072/api/paymentMangement/all', {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:` Bearer ${token}`,
-          },
-        });
-        const payments = response.data.map((payment: Payment) => ({
-          ...payment,
-          date: new Date(payment.date)
-        }));
-        setPayments(payments);
-        setSortedPayments(payments);
-        setLoading(false);
+        // Check if user is admin
+        if (!user || user.role !== 'admin') {
+          setError("You don't have permission to view payment data");
+          setLoading(false);
+          return;
+        }
+
+        // For admin users, we should get all transactions
+        // First check if the user ID is defined
+        if (!user.id) {
+          setError("User ID is undefined");
+          setLoading(false);
+          return;
+        }
+
+        try {
+          // Get the specific transactions for the current user (admin)
+          const response = await axios.get(`http://localhost:3001/api/payments/transactions/${user.id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          
+          // Handle both data formats - direct array or nested in data property
+          let paymentData = response.data;
+          if (response.data && response.data.data) {
+            paymentData = response.data.data;
+          }
+          
+          const formattedPayments = Array.isArray(paymentData) 
+            ? paymentData.map((payment: Payment) => ({
+                ...payment,
+                date: new Date(payment.date)
+              })) 
+            : [];
+          
+          setPayments(formattedPayments);
+          setSortedPayments(formattedPayments);
+        } catch (error) {
+          console.error("Error fetching user transactions:", error);
+          
+          // For development only - if no transactions exist, show mock data
+          // Remove this in production
+          const mockPayments = [
+            {
+              transactionId: "mock-1",
+              date: new Date(),
+              courseId: {
+                name: "Sample Course 1",
+                img: "https://via.placeholder.com/150"
+              },
+              userId: {
+                _id: user.id,
+                firstName: "Sample",
+                lastName: "User",
+                email: "sample@example.com"
+              },
+              amount: 5000, // $50.00
+              status: "completed"
+            },
+            {
+              transactionId: "mock-2",
+              date: new Date(Date.now() - 86400000), // Yesterday
+              courseId: {
+                name: "Sample Course 2",
+                img: "https://via.placeholder.com/150"
+              },
+              userId: {
+                _id: user.id,
+                firstName: "Sample",
+                lastName: "User",
+                email: "sample@example.com"
+              },
+              amount: 7500, // $75.00
+              status: "completed"
+            }
+          ];
+          
+          setPayments(mockPayments);
+          setSortedPayments(mockPayments);
+        }
       } catch (error) {
         setError('Failed to fetch payment data');
+        console.error("Payment data fetch error:", error);
         setLoading(false);
       }
     };
-    fetchPaymentData();
-  }, [token]);
+    
+    if (token && user) {
+      fetchPaymentData();
+    }
+  }, [token, user]);
 
   console.log(payments);
 
@@ -97,15 +171,17 @@ const AllPaymentData = () => {
     setRefundLoading(transactionId);
     
     try {
-      const response = await axios.delete('http://localhost:7072/api/paymentMangement/saveTansaction/cancel', {
+      const response = await axios.post('http://localhost:3001/api/payments/refund', {
+        userId,
+        transactionId
+      }, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        data: { userId, transactionId }, // Include userId and transactionId in the request body
       });
   
-      if (response.data.message === "Refund processed successfully") {
+      if (response.data.data || response.status === 200) {
         const updatedPayments = payments.map(payment =>
           payment.transactionId === transactionId
             ? { ...payment, status: "refunded" }

@@ -1,4 +1,5 @@
-import  { useEffect, useState } from 'react';
+import { ENDPOINTS, getAuthHeader } from "../utils/apiConfig";
+import { useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -10,18 +11,23 @@ interface Course {
 }
 
 export default function CourseData() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [course, setCourse] = useState<Course | null>(null);
 
   useEffect(() => {
     const fetchCourseData = async () => {
       try {
-        const response = await axios.get(`http://localhost:7071/api/courseManagement/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        if (!id) {
+          console.error("Course ID is undefined");
+          return;
+        }
+        
+        const response = await axios.get(
+          ENDPOINTS.COURSES.GET_BY_ID(id),
+          {
+            headers: getAuthHeader(),
+          }
+        );
         setCourse(response.data.data);
         console.log("Course Data:", response.data);
       } catch (error) {

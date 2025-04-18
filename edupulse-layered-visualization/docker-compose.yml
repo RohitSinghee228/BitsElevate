@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  layered-visualization:
+    build: .
+    ports:
+      - "3006:3006"
+    environment:
+      - LAYERED_VISUALIZATION_PORT=3006
+      - NODE_ENV=production
+      - VISUALIZATION_SERVICE_URL=http://host.docker.internal:3000
+    networks:
+      - edupulse-network
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  edupulse-network:
+    driver: bridge 

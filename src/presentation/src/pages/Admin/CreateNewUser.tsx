@@ -10,11 +10,11 @@ export default function CreateNewUser() {
   const [role, setRole] = useState("");
   const [loading, setLoading] = useState(false); // State to track loading
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
     try {
-      setLoading(true); // Set loading to true when sign-up process starts
-      const response = await axios.post("http://localhost:7073/api/auth/register", {
+      setLoading(true);
+      const response = await axios.post("http://localhost:3001/api/users/auth/register", {
         firstName,
         lastName,
         email,
@@ -49,7 +49,7 @@ export default function CreateNewUser() {
         <div className="login__content items-center justify-center rounded-lg mt-14 shadow-md p-8 w-[500px]">
           <p className="text-center text-blue-500 font-bold text-2xl mb-8">Create New User!</p>
       
-          <form onSubmit={handleSignUp}>
+          <form onSubmit={handleSubmit}>
             <div className="login__inputs flex  space-y-4 flex-col">
               <select
                 className="mb-2 px-2 py-2 border border-black rounded-md"

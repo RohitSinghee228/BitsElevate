@@ -1,3 +1,4 @@
+import { ENDPOINTS, getAuthHeader } from "../../utils/apiConfig";
 import { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
@@ -6,11 +7,12 @@ import axios from 'axios';
 
 interface Course {
   _id: string;
-  name: string;
-  img: string;
-  createdBy: {
-    firstName: string;
-    lastName: string;
+  title: string;
+  img?: string;
+  instructor?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
   };
   price: number;
 }
@@ -22,12 +24,13 @@ const AllCourses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("http://localhost:7071/api/courseManagement/getAll", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          ENDPOINTS.COURSES.GET_ALL,
+          {
+            headers: getAuthHeader(),
+          }
+        );
+        console.log("Courses data:", response.data.data);
         setCourses(response.data.data);
       } catch (error) {
         console.error("Error fetching courses:", error);
@@ -37,14 +40,15 @@ const AllCourses = () => {
   }, []);
 
   // Delete course by ID
-  const deleteCourse = async (id: string) => {
+  const handleDeleteCourse = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:7071/api/courseManagement/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      setCourses(courses.filter(course => course._id !== id));
+      await axios.delete(
+        ENDPOINTS.COURSES.DELETE(id),
+        {
+          headers: getAuthHeader(),
+        }
+      );
+      setCourses(courses.filter((course) => course._id !== id));
     } catch (error) {
       console.error("Error deleting course:", error);
     }
@@ -59,8 +63,8 @@ const AllCourses = () => {
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course ID</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Instructor</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
@@ -71,15 +75,24 @@ const AllCourses = () => {
                 <tr key={course._id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{course._id}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <img src={course.img} alt={course.name} className="h-10 w-10 rounded-full" />
+                    {course.img ? (
+                      <img src={course.img} alt={course.title} className="h-10 w-10 rounded-full" />
+                    ) : (
+                      <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+                    )}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{course.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{course.createdBy.firstName} {course.createdBy.lastName}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{course.title}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {course.instructor ? 
+                      `${course.instructor.firstName || ''} ${course.instructor.lastName || ''}` : 
+                      'Unknown'
+                    }
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{course.price}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button
-                      className="text-red-600 hover:text-red-900"
-                      onClick={() => deleteCourse(course._id)}
+                      className="text-red-600 hover:text-red-900 mr-2"
+                      onClick={() => handleDeleteCourse(course._id)}
                     >
                       Delete
                     </button>

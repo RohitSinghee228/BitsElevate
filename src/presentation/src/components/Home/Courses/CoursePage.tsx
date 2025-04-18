@@ -48,7 +48,9 @@ const CoursePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:7071/api/courseManagement/${id}`,
+        setLoading(true);
+        const response = await fetch(
+          `http://localhost:3001/api/courses/courseManagement/${id}`,
           {
             method: "GET",
             headers: {

@@ -5,11 +5,14 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "dev:backend": "nodemon src/index.js",
+    "dev:frontend": "cd src/presentation; npm run dev",
+    "dev": "powershell -Command \"Start-Process powershell -ArgumentList '-Command \"npm run dev:backend\"'; Start-Process powershell -ArgumentList '-Command \"cd src/presentation; npm run dev\"'\"",
     "test": "jest",
-    "build": "cd src/presentation && npm install && npm run build && cd ../.."
+    "build": "cd src/presentation; npm install; npm run build; cd ../.."
   },
   "dependencies": {
+    "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
@@ -19,6 +22,7 @@
     "express-session": "^1.17.3",
     "form-data": "^4.0.2",
     "helmet": "^7.1.0",
+    "http-proxy-middleware": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "mailgun.js": "^12.0.1",
     "mongoose": "^7.6.3",

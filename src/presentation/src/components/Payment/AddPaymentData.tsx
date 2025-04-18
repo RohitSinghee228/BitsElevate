@@ -61,7 +61,7 @@ const AddPaymentDataForm: React.FC<AddPaymentDataFormProps> = ({ userId, authTok
       });
 
       const response = await axios.post(
-        'http://localhost:7072/api/paymentMangement/save-card',
+        'http://localhost:3001/api/payments/cards',
         {
           token: token.id,
           userId,

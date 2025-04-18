@@ -1,5 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 
+import { ENDPOINTS, getAuthHeader } from '../utils/apiConfig';
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -22,7 +23,7 @@ export default function Payment() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const courseResponse = await fetch(`http://localhost:7071/api/courseManagement/${id}`, {
+        const courseResponse = await fetch(`http://localhost:3001/api/courses/courseManagement/${id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -46,7 +47,7 @@ export default function Payment() {
       try {
         console.log('Fetching payment data for userId:', userId);
         const response = await fetch(
-          `http://localhost:7072/api/paymentMangement/get-card?userId=${userId}`,
+          `http://localhost:3001/api/payments/card/${userId}`,
           {
             method: 'GET',
             headers: {
@@ -108,7 +109,7 @@ export default function Payment() {
     try {
       setCheckoutLoading(true);
 
-      const paymentResponse = await fetch('http://localhost:7072/api/paymentMangement/saveTansaction', {
+      const paymentResponse = await fetch('http://localhost:3001/api/payments/transactions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +128,7 @@ export default function Payment() {
 
       const paymentData = await paymentResponse.json();
 
-      const enrollResponse = await fetch('http://localhost:7071/api/courseManagement/enroll', {
+      const enrollResponse = await fetch('http://localhost:3001/api/courses/courseManagement/enroll', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

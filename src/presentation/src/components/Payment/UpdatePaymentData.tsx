@@ -37,12 +37,13 @@ const UpdatePaymentDataForm = ({ userId, authToken, onClose }: UpdatePaymentData
       setLoading(false);
     } else {
       try {
+        console.log('Updating payment data for userId:', userId);
         const response = await fetch(
-          `http://localhost:7072/api/paymentMangement/update-card`,
+          'http://localhost:3001/api/payments/cards/update',
           {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${authToken}`,
             },
             body: JSON.stringify({

@@ -24,9 +24,9 @@ const ViewPaymentData: React.FC<ViewPaymentDataProps> = ({ userId, authToken }) 
     const fetchCardDetails = async () => {
       setLoading(true);
       try {
-        console.log('Fetching card details for userId:', userId);
+        console.log('Fetching payment data for userId:', userId);
         const response = await fetch(
-          `http://localhost:7072/api/paymentMangement/get-card?userId=${userId}`,
+          `http://localhost:3001/api/payments/cards/${userId}`,
           {
             method: 'GET',
             headers: {

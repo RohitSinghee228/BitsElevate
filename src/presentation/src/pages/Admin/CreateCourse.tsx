@@ -1,96 +1,93 @@
-import 'react-toastify/dist/ReactToastify.css';
+import * as Yup from "yup";
 
-import { ToastContainer, toast } from 'react-toastify';
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { Field, FieldArray, Form, Formik } from "formik";
 
-import { IoAddCircleSharp } from "react-icons/io5";
-import { MdAddToPhotos } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
-import { MdDeleteForever } from "react-icons/md";
-import { UserContext } from "../../UserContext"
 import axios from "axios";
-import { initializeApp } from "firebase/app";
-import { useContext } from "react";
-import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyAelJ7dlq9btLTsRbGRQKj8p1XRrlo8cVo",
-  authDomain: "codewave-39524.firebaseapp.com",
-  projectId: "codewave-39524",
-  storageBucket: "codewave-39524.appspot.com",
-  messagingSenderId: "1035711570286",
-  appId: "1:1035711570286:web:784b4042cc0cd42cac617f",
-  measurementId: "G-5C37XVK0HF"
-};
-
-const app = initializeApp(firebaseConfig);
+interface Lesson {
+  title: string;
+  content: string;
+  videoUrl: string;
+  duration: number;
+}
 
 interface CourseFormValues {
-  name: string;
+  title: string;
   description: string;
-  createdBy: string;
   price: number;
   duration: number;
+  category: string;
+  level: string;
+  image: string;
+  lessons: Lesson[];
   summary: string[];
-  courseContent: Array<{
-    videoLink: string;
+  courseContent: {
+    title: string;
+    content: string;
     instructions: string[];
-  }>;
-  img?: string;
+  }[];
+}
+
+interface LessonErrors {
+  title?: string;
+  content?: string;
+  videoUrl?: string;
+  duration?: string;
 }
 
 const CreateCourse = () => {
-  const { user } = useContext(UserContext);
-  const userID = user?.id;
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const initialValues = {
-    name: "",
+  const initialValues: CourseFormValues = {
+    title: "",
     description: "",
-    createdBy: userID || "", // Set to empty string if userID is not available yet
     price: 0,
     duration: 0,
+    category: "",
+    level: "",
+    image: "",
+    lessons: [],
     summary: [],
-    courseContent: [{ videoLink: "", instructions: [] }],
+    courseContent: [],
   };
 
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required("Title is required"),
+    description: Yup.string().required("Description is required"),
+    price: Yup.number().required("Price is required").min(0, "Price must be positive"),
+    duration: Yup.number().required("Duration is required").min(0, "Duration must be positive"),
+    category: Yup.string().required("Category is required"),
+    level: Yup.string().required("Level is required"),
+    image: Yup.string().required("Image URL is required"),
+    lessons: Yup.array()
+      .of(
+        Yup.object().shape({
+          title: Yup.string().required("Lesson title is required"),
+          content: Yup.string().required("Lesson content is required"),
+          videoUrl: Yup.string().required("Video URL is required"),
+          duration: Yup.number().required("Lesson duration is required").min(0, "Duration must be positive"),
+        })
+      )
+      .min(1, "At least one lesson is required"),
+    summary: Yup.array().of(Yup.string()),
+    courseContent: Yup.array().of(
+      Yup.object().shape({
+        title: Yup.string().required("Content title is required"),
+        content: Yup.string().required("Content is required"),
+        instructions: Yup.array().of(Yup.string()),
+      })
+    ),
+  });
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    setImageFile(file || null);
-  };
-
-  const uploadImageToFirebase = async () => {
+  const handleSubmit = async (values: CourseFormValues) => {
     try {
-      if (!imageFile) {
-        throw new Error("No image file selected.");
-      }
-
-      const storage = getStorage(app);
-      const storageRef = ref(storage);
-      const imageRef = ref(storageRef, `images/${imageFile.name}`);
-      await uploadBytes(imageRef, imageFile);
-      const imageLink = await getDownloadURL(imageRef);
-      return imageLink;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      return null;
-    }
-  };
-
-  const onSubmit = async (values: CourseFormValues) => {
-    try {
-      const imageLink = await uploadImageToFirebase();
-      if (imageLink) {
-        values.img = imageLink;
-      }
-      // Send the form data to the backend API
-      const response = await axios.post(
-        "http://localhost:7071/api/courseManagement/create",
+      setIsSubmitting(true);
+      await axios.post(
+        "http://localhost:3001/api/courseManagement/create",
         values,
         {
           headers: {
@@ -99,270 +96,229 @@ const CreateCourse = () => {
           },
         }
       );
-      console.log(response.data); // Handle the response as needed
-
-      // Show a success toast message
-      toast.success("Course created successfully!", {
-        position: "top-center",
-        autoClose: 2000,
-      });
-
-
-      //nvaigate to course management page after 2 sec
-      setTimeout(() => {
-        navigate("/admin/course-management");
-      }, 2000);
-
-
+      toast.success("Course created successfully!");
+      navigate("/admin/courses");
     } catch (error) {
-      console.error(error);
+      console.error("Error creating course:", error);
+      toast.error("Failed to create course");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-  });
-
-  const addSummaryPoint = () => {
-    formik.setFieldValue("summary", [...formik.values.summary, ""]);
-  };
-
-  const removeSummaryPoint = (index: number) => {
-    const updatedSummary = [...formik.values.summary];
-    updatedSummary.splice(index, 1);
-    formik.setFieldValue("summary", updatedSummary);
-  };
-
-  const addCourseContent = () => {
-    formik.setFieldValue("courseContent", [
-      ...formik.values.courseContent,
-      { videoLink: "", instructions: [] },
-    ]);
-  };
-
-  const removeCourseContent = (index: number) => {
-    const updatedCourseContent = [...formik.values.courseContent];
-    updatedCourseContent.splice(index, 1);
-    formik.setFieldValue("courseContent", updatedCourseContent);
-  };
-
-  const addInstruction = (contentIndex: number) => {
-    const updatedCourseContent = [...formik.values.courseContent];
-    (updatedCourseContent[contentIndex].instructions as string[]).push("");
-    formik.setFieldValue("courseContent", updatedCourseContent);
-  };
-
-  const removeInstruction = (contentIndex: number, instructionIndex: number) => {
-    const updatedCourseContent = [...formik.values.courseContent];
-    updatedCourseContent[contentIndex].instructions.splice(instructionIndex, 1);
-    formik.setFieldValue("courseContent", updatedCourseContent);
-  };
-
- 
-
   return (
-    <div className="max-w-5x font-mono font-semibold mx-auto min-h-screen">
-      <h1 className="text-2xl font-semibold text-center mt-8 mb-4">Create a Course</h1>
-      <form onSubmit={formik.handleSubmit} className="grid grid-cols-2 gap-6">
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8">Create New Course</h1>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ values, errors, touched }) => (
+          <Form className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Title</label>
+                <Field
+                  type="text"
+                  name="title"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                />
+                {errors.title && touched.title && (
+                  <div className="text-red-500 text-sm mt-1">{errors.title}</div>
+                )}
+              </div>
 
-        <div className="col-span-2">
-          <div>
-            <div className="mb-4">
-              <label htmlFor="image" className="block mb-1">
-                Image:
-              </label>
-              <input
-                id="img"
-                name="img"
-                type="file"
-                onChange={handleImageChange}
-                className="w-full border shadow-md bg-blue-50 border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Description</label>
+                <Field
+                  as="textarea"
+                  name="description"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                />
+                {errors.description && touched.description && (
+                  <div className="text-red-500 text-sm mt-1">{errors.description}</div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Price</label>
+                <Field
+                  type="number"
+                  name="price"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                />
+                {errors.price && touched.price && (
+                  <div className="text-red-500 text-sm mt-1">{errors.price}</div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Duration (hours)</label>
+                <Field
+                  type="number"
+                  name="duration"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                />
+                {errors.duration && touched.duration && (
+                  <div className="text-red-500 text-sm mt-1">{errors.duration}</div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Category</label>
+                <Field
+                  as="select"
+                  name="category"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                >
+                  <option value="">Select a category</option>
+                  <option value="programming">Programming</option>
+                  <option value="design">Design</option>
+                  <option value="business">Business</option>
+                </Field>
+                {errors.category && touched.category && (
+                  <div className="text-red-500 text-sm mt-1">{errors.category}</div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Level</label>
+                <Field
+                  as="select"
+                  name="level"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                >
+                  <option value="">Select a level</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </Field>
+                {errors.level && touched.level && (
+                  <div className="text-red-500 text-sm mt-1">{errors.level}</div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Image URL</label>
+                <Field
+                  type="text"
+                  name="image"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                />
+                {errors.image && touched.image && (
+                  <div className="text-red-500 text-sm mt-1">{errors.image}</div>
+                )}
+              </div>
             </div>
-          </div>
-          <div className="mb-4">
-            <label htmlFor="name" className="block mb-1">
-              Name:
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.name}
-              placeholder="Enter course name"
-              className="w-full  border shadow-md  bg-blue-50 border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="description" className="block mb-1">
-              Description:
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              onChange={formik.handleChange}
-              value={formik.values.description}
-              placeholder="Enter course description"
-              className="w-full border shadow-md  bg-blue-50 border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-              rows={4}
-            />
 
-          </div>
+            <div>
+              <h2 className="text-xl font-semibold mb-4">Lessons</h2>
+              <FieldArray name="lessons">
+                {({ push, remove }) => (
+                  <div className="space-y-4">
+                    {values.lessons.map((_, index) => (
+                      <div key={index} className="border p-4 rounded-lg">
+                        <div className="flex justify-between items-center mb-4">
+                          <h3 className="text-lg font-medium">Lesson {index + 1}</h3>
+                          <button
+                            type="button"
+                            onClick={() => remove(index)}
+                            className="text-red-500 hover:text-red-700"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700">Title</label>
+                            <Field
+                              type="text"
+                              name={`lessons.${index}.title`}
+                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            />
+                            {errors.lessons && typeof errors.lessons === "object" && errors.lessons[index] && (
+                              <div className="text-red-500 text-sm mt-1">
+                                {((errors.lessons[index] as LessonErrors).title as string)}
+                              </div>
+                            )}
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700">Content</label>
+                            <Field
+                              as="textarea"
+                              name={`lessons.${index}.content`}
+                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            />
+                            {errors.lessons && typeof errors.lessons === "object" && errors.lessons[index] && (
+                              <div className="text-red-500 text-sm mt-1">
+                                {((errors.lessons[index] as LessonErrors).content as string)}
+                              </div>
+                            )}
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700">Video URL</label>
+                            <Field
+                              type="text"
+                              name={`lessons.${index}.videoUrl`}
+                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            />
+                            {errors.lessons && typeof errors.lessons === "object" && errors.lessons[index] && (
+                              <div className="text-red-500 text-sm mt-1">
+                                {((errors.lessons[index] as LessonErrors).videoUrl as string)}
+                              </div>
+                            )}
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700">Duration (minutes)</label>
+                            <Field
+                              type="number"
+                              name={`lessons.${index}.duration`}
+                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            />
+                            {errors.lessons && typeof errors.lessons === "object" && errors.lessons[index] && (
+                              <div className="text-red-500 text-sm mt-1">
+                                {((errors.lessons[index] as LessonErrors).duration as string)}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() =>
+                        push({
+                          title: "",
+                          content: "",
+                          videoUrl: "",
+                          duration: 0,
+                        })
+                      }
+                      className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      Add Lesson
+                    </button>
+                  </div>
+                )}
+              </FieldArray>
+              {errors.lessons && typeof errors.lessons === "string" && (
+                <div className="text-red-500 text-sm mt-1">{errors.lessons}</div>
+              )}
+            </div>
 
-          <div className="mb-4">
-            <label htmlFor="price" className="block mb-1">
-              Price:
-            </label>
-            <input
-              id="price"
-              name="price"
-              type="number"
-              onChange={formik.handleChange}
-              value={formik.values.price}
-              placeholder="Enter course price"
-              className="w-full border shadow-md  bg-blue-50 border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="duration" className="block mb-1">
-              Duration:
-            </label>
-            <input
-              id="duration"
-              name="duration"
-              type="number"
-              onChange={formik.handleChange}
-              value={formik.values.duration}
-              placeholder="Enter course duration"
-              className="w-full border shadow-md  bg-blue-50 border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-            />
-          </div>
-
-
-        </div>
-
-
-        <div>
-
-
-          <div className="mb-4">
-            <label htmlFor="summary" className="block mb-1">
-              Summary:
-            </label>
-            {formik.values.summary.map((point, index) => (
-              <div key={index} className="flex items-center mb-2">
-                <input
-                  name={`summary[${index}]`}
-                  type="text"
-                  onChange={formik.handleChange}
-                  value={point}
-                  placeholder="Enter summary point"
-                  className="w-full shadow-md  bg-blue-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500 mr-2"
-                />
-                <button
-                  type="button"
-                  onClick={() => removeSummaryPoint(index)}
-                  className="  px-4 py-2 text-2xl rounded text-red-500 hover:text-red-600 focus:outline-none"
-                >
-                  <MdDelete />
-
-                </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={addSummaryPoint}
-              className="text-blue-500 text-4xl px-4 py-2 rounded hover:text-blue-600 focus:outline-none"
-            >
-              <IoAddCircleSharp />
-
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <div className="mb-4">
-            <label className="block mb-1">Course Content:</label>
-            {formik.values.courseContent.map((content, contentIndex) => (
-              <div key={contentIndex} className="mb-6">
-                <label htmlFor={`videoLink_${contentIndex}`} className="block mb-1">
-                  Video Link:
-                </label>
-                <input
-                  id={`videoLink_${contentIndex}`}
-                  name={`courseContent[${contentIndex}].videoLink`}
-                  type="text"
-                  onChange={formik.handleChange}
-                  value={content.videoLink}
-                  placeholder="Enter video link"
-                  className="w-full border shadow-md  bg-blue-50 border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-                />
-
-
-                <div className="mt-4">
-                  <label className="block mb-1">Instructions:</label>
-                  {content.instructions.map((instruction, instructionIndex) => (
-                    <div key={instructionIndex} className="flex items-center mb-2">
-                      <input
-                        name={`courseContent[${contentIndex}].instructions[${instructionIndex}]`}
-                        type="text"
-                        onChange={formik.handleChange}
-                        value={instruction}
-                        placeholder="Enter instruction"
-                        className="w-full border shadow-md  bg-blue-50 border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500 mr-2"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeInstruction(contentIndex, instructionIndex)}
-                        className="text-red-500 text-2xl  px-4 py-2 rounded hover:text-red-600 focus:outline-none"
-                      >
-                        <MdDeleteForever />
-
-                      </button>
-                    </div>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={() => addInstruction(contentIndex)}
-                    className="text-blue-500   px-4 py-1 rounded hover:text-blue-600 focus:outline-none"
-                  >
-                    <span className="flex space-x-2 flex-row"> <MdAddToPhotos className="text-2xl" /> <span className="text-blue-500">Instruction</span></span>
-                  </button>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => removeCourseContent(contentIndex)}
-                  className="  rounded-xl text-red-600 px-4 py-1   mt-2 focus:outline-none"
-                >
-                  <span className="flex hover:text-red-800 space-x-2 flex-row"> <MdDeleteForever className="text-2xl" /> <span className="text-red-500">Course Content</span></span>
-                </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={addCourseContent}
-              className="bg-blue-50 text-blue-600 border-2  border-blue-400 rounded-2xl font-semibold px-4 py-2 rounded hover:bg-blue-100 focus:outline-none"
-            >
-              Add Course Content
-            </button>
-          </div>
-        </div>
-
-        <div className="col-span-2 mt-2 flex justify-center">
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
-          >
-            Create Course
-          </button>
-        </div>
-
-      </form>
-      <ToastContainer />
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+              >
+                {isSubmitting ? "Creating..." : "Create Course"}
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

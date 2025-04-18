@@ -1,5 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 
+import { ENDPOINTS, getAuthHeader } from "../../utils/apiConfig";
 import { ToastContainer, toast } from 'react-toastify';
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
@@ -29,13 +30,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 interface CourseFormValues {
-  name: string;
+  title: string;
   description: string;
-  createdBy: string;
+  instructor: string;
   price: number;
   duration: number;
-  summary: string[];
-  courseContent: Array<{
+  category: string;
+  level: string;
+  summary?: string[];
+  courseContent?: Array<{
     videoLink: string;
     instructions: string[];
   }>;
@@ -48,11 +51,13 @@ const CcreateNewCourse = () => {
   const navigate = useNavigate();
 
   const initialValues: CourseFormValues = {
-    name: "",
+    title: "",
     description: "",
-    createdBy: userID || "",
+    instructor: userID || "",
     price: 0,
     duration: 0,
+    category: "General",
+    level: "beginner",
     summary: [],
     courseContent: [{ videoLink: "", instructions: [] }],
   };
@@ -85,16 +90,31 @@ const CcreateNewCourse = () => {
   const onSubmit = async (values: CourseFormValues) => {
     try {
       const imageLink = await uploadImageToFirebase();
-      values.img = imageLink || undefined;
+      
+      // Format the course data to match server expectations
+      const courseData = {
+        title: values.title,
+        description: values.description,
+        instructor: values.instructor,
+        price: values.price,
+        duration: values.duration,
+        category: values.category,
+        level: values.level,
+        // Convert summary and content data if needed
+        lessons: values.courseContent?.map(content => ({
+          title: `Lesson ${values.courseContent?.indexOf(content) + 1}`,
+          content: content.instructions.join('\n'),
+          videoUrl: content.videoLink,
+          duration: 0 // Default duration in minutes
+        })) || [],
+        img: imageLink || undefined
+      };
       
       const response = await axios.post(
-        "http://localhost:7071/api/courseManagement/create",
-        values,
+        ENDPOINTS.COURSES.CREATE,
+        courseData,
         {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+          headers: getAuthHeader(),
         }
       );
       console.log(response.data);
@@ -110,6 +130,10 @@ const CcreateNewCourse = () => {
 
     } catch (error) {
       console.error(error);
+      toast.error("Failed to create course. Please check your input and try again.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -174,16 +198,16 @@ const CcreateNewCourse = () => {
             </div>
           </div>
           <div className="mb-4">
-            <label htmlFor="name" className="block mb-1">
-              Name:
+            <label htmlFor="title" className="block mb-1">
+              Title:
             </label>
             <input
-              id="name"
-              name="name"
+              id="title"
+              name="title"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.name}
-              placeholder="Enter course name"
+              value={formik.values.title}
+              placeholder="Enter course title"
               className="w-full  border shadow-md  bg-blue-50 border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
             />
           </div>
@@ -232,6 +256,38 @@ const CcreateNewCourse = () => {
             />
           </div>
 
+          <div className="mb-4">
+            <label htmlFor="category" className="block mb-1">
+              Category:
+            </label>
+            <input
+              id="category"
+              name="category"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.category}
+              placeholder="Enter course category"
+              className="w-full border shadow-md bg-blue-50 border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="level" className="block mb-1">
+              Level:
+            </label>
+            <select
+              id="level"
+              name="level"
+              onChange={formik.handleChange}
+              value={formik.values.level}
+              className="w-full border shadow-md bg-blue-50 border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+            >
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
+
         </div>
 
         <div>
@@ -239,7 +295,7 @@ const CcreateNewCourse = () => {
             <label htmlFor="summary" className="block mb-1">
               Summary:
             </label>
-            {formik.values.summary.map((point, index) => (
+            {formik.values.summary?.map((point, index) => (
               <div key={index} className="flex items-center mb-2">
                 <input
                   name={`summary[${index}]`}
@@ -271,7 +327,7 @@ const CcreateNewCourse = () => {
         <div>
           <div className="mb-4">
             <label className="block mb-1">Course Content:</label>
-            {formik.values.courseContent.map((content, contentIndex) => (
+            {formik.values.courseContent?.map((content, contentIndex) => (
               <div key={contentIndex} className="mb-6">
                 <label htmlFor={`videoLink_${contentIndex}`} className="block mb-1">
                   Video Link:

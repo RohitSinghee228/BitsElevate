@@ -8,6 +8,7 @@ const { setupDatabase } = require('./infrastructure/database');
 const { setupSecurity } = require('./infrastructure/security');
 const { setupLogging } = require('./infrastructure/logging');
 const { setupExternalServices } = require('./infrastructure/external-services');
+const { trackLayerActivity, trackDatabaseActivity } = require('./infrastructure/middleware/activityTracker');
 const fs = require('fs');
 
 // Import routes
@@ -16,7 +17,8 @@ const courseRoutes = require('./presentation/routes/courseRoutes');
 const paymentRoutes = require('./presentation/routes/paymentRoutes');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
+const frontendPort = process.env.FRONTEND_PORT || 3000;
 
 // Middleware
 app.use(helmet({
@@ -25,7 +27,7 @@ app.use(helmet({
 
 // Enhanced CORS configuration
 app.use(cors({
-  origin: '*', // Allow all origins for development
+  origin: process.env.CORS_ORIGIN || `http://localhost:${frontendPort}`,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   exposedHeaders: ['Authorization'],
@@ -40,6 +42,18 @@ setupDatabase();
 setupSecurity(app);
 setupLogging(app);
 setupExternalServices();
+
+// Apply activity tracking middleware
+app.use(trackLayerActivity('presentation'));
+
+// Add tracking for other layers
+app.use('/api', trackLayerActivity('application'));
+app.use('/api', trackLayerActivity('domain'));
+app.use('/api', trackLayerActivity('infrastructure'));
+
+app.use('/api/users', trackDatabaseActivity('users-db'));
+app.use('/api/courses', trackDatabaseActivity('courses-db'));
+app.use('/api/payments', trackDatabaseActivity('payments-db'));
 
 // API Routes - all under /api prefix
 app.use('/api/users', userRoutes);
