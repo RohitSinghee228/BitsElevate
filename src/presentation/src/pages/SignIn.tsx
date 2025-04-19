@@ -236,6 +236,7 @@ export default function SignIn() {
     <>
       <div className="login flex justify-center items-center">
         <div className="login__content rounded-lg mt-14 shadow-md p-10 w-full sm:w-[450px] max-w-[90%]">
+          {/* Sign in with BITS ID button hidden temporarily 
           <button
             type="button"
             onClick={handleGoogleSignIn}
@@ -252,6 +253,7 @@ export default function SignIn() {
             <span className="px-3 text-gray-500 bg-white">or</span>
             <div className="flex-grow h-px bg-gray-300"></div>
           </div>
+          */}
 
           <p className="text-center text-blue-500 font-bold text-2xl mb-6">Login to Your Account</p>
 

@@ -39,7 +39,7 @@ function HeaderPrimary() {
             <Link to="/">
               <div className="udemyLogo">
                 <img
-                  src="/logo.png"
+                  src="/newlogo.jpg"
                   className="logo h-16 w-auto"
                   alt="BITS EduPulse"
                 ></img>

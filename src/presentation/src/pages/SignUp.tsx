@@ -235,6 +235,8 @@ export default function SignUp() {
       <div className="login flex justify-center items-center ">
         <div className="login__content items-center justify-center rounded-lg mt-14 shadow-md p-10 w-full sm:w-[450px] max-w-[90%]">
           <p className="text-center text-blue-500 font-bold text-2xl mb-8">Sign Up and Start Learning!</p>
+          
+          {/* Sign in with BITS ID button hidden temporarily 
           <button
             type="button"
             onClick={() => handleGoogleSignUp()} 
@@ -245,15 +247,18 @@ export default function SignUp() {
             </svg>
             <span>Sign in with BITS ID</span>
           </button>
+          */}
           
+          {/* "or" divider hidden temporarily
           <div className="flex items-center my-4">
             <div className="flex-grow h-px bg-gray-300"></div>
             <span className="px-3 text-gray-500 bg-white">or</span>
             <div className="flex-grow h-px bg-gray-300"></div>
           </div>
+          */}
           
           <div className="mt-8">
-            <p className="text-center text-lg font-semibold mb-4">Or Sign Up with Email</p>
+            <p className="text-center text-lg font-semibold mb-4">Sign Up with Email</p>
             <form onSubmit={handleSignUp} className="space-y-5">
               <div className="flex flex-col space-y-2">
                 <label htmlFor="firstName" className="text-gray-700 text-lg font-medium">First Name</label>

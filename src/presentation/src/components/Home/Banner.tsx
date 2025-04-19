@@ -1,5 +1,5 @@
 import { FaSearch } from "react-icons/fa";
-import cover from "/cover2.jpg";
+import cover from "/titlepic.jpg";
 
 function Banner() {
   return (
