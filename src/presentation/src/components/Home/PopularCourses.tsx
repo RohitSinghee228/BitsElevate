@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { 
-  Box, 
-  Button, 
-  Container, 
-  Flex, 
-  Heading, 
-  SimpleGrid, 
-  Text, 
-  Badge, 
-  Image, 
-  HStack, 
+import {
+  Badge,
+  Box,
+  Button,
+  Container,
+  Flex,
+  HStack,
+  Heading,
   Icon,
+  Image,
+  SimpleGrid,
+  Text,
   useBreakpointValue
 } from '@chakra-ui/react';
-import { FaStar, FaUsers, FaClock, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaClock, FaStar, FaUsers } from 'react-icons/fa';
+import React, { useState } from 'react';
 
 interface CourseProps {
   id: string;
@@ -123,15 +123,15 @@ const Course = ({
             {discountPrice ? (
               <Flex alignItems="baseline">
                 <Text fontWeight="bold" fontSize="xl" color="blue.600">
-                  ${discountPrice}
+                  ₹{discountPrice}
                 </Text>
                 <Text as="s" fontSize="sm" color="gray.500" ml="2">
-                  ${price}
+                  ₹{price}
                 </Text>
               </Flex>
             ) : (
               <Text fontWeight="bold" fontSize="xl" color="blue.600">
-                ${price}
+                ₹{price}
               </Text>
             )}
           </Box>

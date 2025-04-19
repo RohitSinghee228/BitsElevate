@@ -1,37 +1,84 @@
 import { Box, Image, Text } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
 
-import { Link } from "react-router-dom";
 import { UserContext } from "../../../UserContext";
-import { useContext } from "react";
 
-const CourseAbsolute = (props: { onOpen: () => void; price: number; img: string; _id: string}) => {
+const CourseAbsolute = (props: { 
+  onOpen: () => void; 
+  price: number; 
+  img: string; 
+  _id: string;
+  isEnrolled?: boolean;
+}) => {
   const { user } = useContext(UserContext);
-  const { onOpen, price, img, _id} = props;
+  const { onOpen, price, img, _id, isEnrolled } = props;
+  const navigate = useNavigate();
  
-  console.log("userdd", user?.id);
+  useEffect(() => {
+    console.log("CourseAbsolute rendered with props:", {
+      userId: user?.id,
+      courseId: _id,
+      isEnrolled: isEnrolled
+    });
+  }, [user?.id, _id, isEnrolled]);
 
   function handlePayment() {
     onOpen();
     console.log("Payment clicked", _id);
   }
 
+  useEffect(() => {
+    if (isEnrolled) {
+      console.log("User is enrolled, updating UI");
+    }
+  }, [isEnrolled]);
+
+  if (isEnrolled === true) {
+    console.log("Rendering enrolled view");
+    return (
+      <div className="min-h-screen xl:border text-white bg-[#ffffff] xl:text-black xl:border-white xl:shadow-2xl shadow-neutral-800 md:min-w-[300px]">
+        <div>
+          <div>
+            <Image src={img} />
+          </div>
+          <div className="flex justify-around font-semibold text-sm h-[48px] items-center">
+            <div className="cursor-pointer text-center w-full border-b-[1px]">
+              Personal
+            </div>
+          </div>
+        </div>
+        <div className="px-[24px]">
+          <div className="bg-green-600 text-white text-center w-full py-[10px] font-semibold my-6">
+            You're Enrolled!
+          </div>
+          <div className="border-2 w-full text-center py-[7px] bg-blue-400 hover:bg-blue-500 text-white text-sm font-bold">
+            <Link to={`/user-profile`}>
+              Go to My Courses
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  console.log("Rendering non-enrolled view");
   return (
-    <div className=" min-h-screen xl:border text-white bg-[#ffffff] xl:text-black xl:border-white  xl:shadow-2xl shadow-neutral-800  md:min-w-[300px] ">
+    <div className="min-h-screen xl:border text-white bg-[#ffffff] xl:text-black xl:border-white xl:shadow-2xl shadow-neutral-800 md:min-w-[300px]">
       <div>
         <div>
           <Image src={img} />
         </div>
-        <div className="flex justify-around font-semibold text-sm h-[48px] items-center ">
-          <div className={`cursor-pointer text-center w-full border-b-[1px]`}>
+        <div className="flex justify-around font-semibold text-sm h-[48px] items-center">
+          <div className="cursor-pointer text-center w-full border-b-[1px]">
             Personal
           </div>
-
         </div>
       </div>
       <div className="px-[24px]">
         <div>
-          <h3 className="font-serif font-bold max-w-[250px] py-1 ">
-            Subscribe to Edu Pulsde's top courses
+          <h3 className="font-serif font-bold max-w-[250px] py-1">
+            Subscribe to Edu Pulse's top courses
           </h3>
           <p className="text-[12px]">
             Get this course, plus 8,000+ of our top-rated courses with Personal
@@ -40,14 +87,14 @@ const CourseAbsolute = (props: { onOpen: () => void; price: number; img: string;
               Learn more
             </a>
           </p>
-          <div className="bg-blue-50 text-center  w-full py-[4px] font-semibold my-2" onClick={handlePayment}>
+          <div className="bg-blue-50 text-center w-full py-[4px] font-semibold my-2" onClick={handlePayment}>
             Start Learn
           </div>
           <div className="w-full justify-center items-center flex flex-col space-y-[8px]">
             <p className="text-[9px]">Starting at ₹750 per month</p>
             <p className="text-[9px]"> Cancel anytime</p>
           </div>
-          <div className="flex justify-center items-center ">
+          <div className="flex justify-center items-center">
             <div className="h-[1px] bg-slate-200 w-full"></div>
             <p className="text-[10px] mx-1 my-3">or</p>
             <div className="h-[1px] bg-slate-200 w-full"></div>
@@ -55,12 +102,12 @@ const CourseAbsolute = (props: { onOpen: () => void; price: number; img: string;
         </div>
 
         <div className="flex space-x-2 text-lg place-items-baseline">
-          <p className="font-bold ">RS.{price}</p>
-          <p className="line-through  ">RS.</p>
+          <p className="font-bold">₹{price}</p>
+          <p className="line-through">₹</p>
           <p className="text-xs">0 off</p>
         </div>
         <div className="flex text-red-600 items-baseline space-x-1 my-2">
-          <p className="text-xs font-bold">52 minutes </p>
+          <p className="text-xs font-bold">52 minutes</p>
           <p className="text-xs">left at this price!</p>
         </div>
         <Box>
@@ -69,15 +116,19 @@ const CourseAbsolute = (props: { onOpen: () => void; price: number; img: string;
         <div className="border-2 w-full text-center py-[7px] bg-blue-400 hover:bg-blue-500 text-white text-sm font-bold">
           <Link 
             to={`/payment/${_id}/${price}/${user?.id || ''}`} 
-            target="_blank"
-            onClick={handlePayment}
+            onClick={(e) => {
+              handlePayment();
+              if (!user?.id) {
+                e.preventDefault();
+                navigate('/sign-in');
+              }
+            }}
           >
             Buy this course
           </Link>
         </div>
 
         <div className="items-center text-[10px] space-y-1 w-full justify-center flex flex-col py-2">
-
           <p>Full Lifetime Access</p>
         </div>
 
@@ -85,7 +136,6 @@ const CourseAbsolute = (props: { onOpen: () => void; price: number; img: string;
           <div>
             <Link to=''>share</Link>
           </div>
-
         </div>
       </div>
     </div>

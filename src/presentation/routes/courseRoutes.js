@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const courseService = require('../../application/services/CourseService');
 const { authenticateToken } = require('../../infrastructure/security');
+const Course = require('../../domain/models/Course');
 
 // Public routes
 router.get('/courseManagement/getAll', async (req, res) => {
@@ -84,13 +85,22 @@ router.post('/courseManagement/enroll', authenticateToken, async (req, res) => {
   try {
     const { courseId, userId, transactionId } = req.body;
     
+    console.log('Enrollment request received:', { courseId, userId, transactionId });
+    
+    if (!courseId || !userId) {
+      console.error('Missing required fields for enrollment:', { courseId, userId });
+      return res.status(400).json({ message: 'Course ID and User ID are required' });
+    }
+    
     if (req.user.id !== userId && req.user.role !== 'admin') {
       return res.status(403).json({ message: 'You can only enroll yourself in courses' });
     }
     
     const result = await courseService.enrollStudent(courseId, userId, transactionId);
+    console.log('Enrollment successful:', result._id);
     res.json({ data: result });
   } catch (error) {
+    console.error('Error in enrollment process:', error.message);
     res.status(400).json({ message: error.message });
   }
 });
@@ -237,6 +247,25 @@ router.delete('/courseManagement/:id/lessons/:lessonId', authenticateToken, asyn
     res.json({ data: updatedCourse });
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+});
+
+// Get courses by instructor ID
+router.get('/courseManagement/instructor/:id', authenticateToken, async (req, res) => {
+  try {
+    // Allow access if user is requesting their own courses or is an admin
+    if (req.user.id !== req.params.id && req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'You can only view your own courses' });
+    }
+    
+    const courses = await Course.find({ instructor: req.params.id })
+      .populate('instructor', 'firstName lastName email')
+      .populate('studentsEnrolled', 'firstName lastName email');
+    
+    res.json({ data: courses });
+  } catch (error) {
+    console.error("Error fetching instructor courses:", error);
+    res.status(500).json({ message: error.message });
   }
 });
 

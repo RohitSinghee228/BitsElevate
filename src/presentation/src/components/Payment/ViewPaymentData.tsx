@@ -1,4 +1,4 @@
-import { Box, Flex, Spinner, Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, Spinner, Text, VStack, Badge, Divider } from '@chakra-ui/react';
 import { FaCcAmex, FaCcDiscover, FaCcMastercard, FaCcVisa } from 'react-icons/fa';
 import React, { useEffect, useState } from 'react';
 
@@ -8,6 +8,7 @@ interface CardDetails {
   brand: string;
   exp_month: number;
   exp_year: number;
+  isDefault?: boolean;
 }
 
 interface ViewPaymentDataProps {
@@ -16,7 +17,7 @@ interface ViewPaymentDataProps {
 }
 
 const ViewPaymentData: React.FC<ViewPaymentDataProps> = ({ userId, authToken }) => {
-  const [cardDetails, setCardDetails] = useState<CardDetails | null>(null);
+  const [cards, setCards] = useState<CardDetails[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,34 +45,25 @@ const ViewPaymentData: React.FC<ViewPaymentDataProps> = ({ userId, authToken }) 
           throw new Error(data.message || 'Failed to fetch card details');
         }
 
-        if (data.status === 'error') {
-          if (data.code === 'CARD_NOT_FOUND') {
-            setCardDetails(null);
-            setError('No card details found');
-            return;
-          }
-          throw new Error(data.message || 'Failed to fetch card details');
-        }
-
-        // Handle both direct data and nested data structure
-        const cardData = data.data || data;
-        if (cardData) {
-          setCardDetails({
-            id: cardData.id,
-            last4: cardData.last4,
-            brand: cardData.brand,
-            exp_month: cardData.exp_month,
-            exp_year: cardData.exp_year
-          });
+        // Handle data format - could be an array or single object
+        const cardsData = data.data || [];
+        
+        // If it's a single object but not an array, convert it to an array
+        const cardsArray = Array.isArray(cardsData) ? cardsData : [cardsData].filter(Boolean);
+        
+        console.log('Card data after processing:', cardsArray);
+        
+        if (cardsArray && cardsArray.length > 0) {
+          setCards(cardsArray);
           setError(null);
         } else {
-          setCardDetails(null);
+          setCards([]);
           setError('No card details available');
         }
       } catch (error) {
         console.error('Error fetching card details:', error);
         setError(error instanceof Error ? error.message : 'Failed to fetch card details');
-        setCardDetails(null);
+        setCards([]);
       } finally {
         setLoading(false);
       }
@@ -82,11 +74,11 @@ const ViewPaymentData: React.FC<ViewPaymentDataProps> = ({ userId, authToken }) 
     }
   }, [userId, authToken]);
 
-  const renderCardIcon = () => {
-    if (!cardDetails?.brand) return null;
+  const renderCardIcon = (brand?: string) => {
+    if (!brand) return null;
 
-    const brand = cardDetails.brand.toLowerCase();
-    switch (brand) {
+    const brandLower = brand.toLowerCase();
+    switch (brandLower) {
       case 'visa':
         return <FaCcVisa size={24} />;
       case 'mastercard':
@@ -100,15 +92,27 @@ const ViewPaymentData: React.FC<ViewPaymentDataProps> = ({ userId, authToken }) 
     }
   };
 
-  const renderCardDigits = () => {
-    if (!cardDetails?.last4) return null;
-    return `**** **** **** ${cardDetails.last4}`;
+  const formatCardNumber = (last4?: string) => {
+    if (!last4) return null;
+    return `**** **** **** ${last4}`;
+  };
+
+  const formatExpiryDate = (month?: number, year?: number) => {
+    if (!month || !year) return null;
+    
+    // Format month to be two digits
+    const formattedMonth = month < 10 ? `0${month}` : month.toString();
+    
+    // Format year to be last two digits if it's a 4-digit year
+    const formattedYear = year.toString().length > 2 ? year.toString().slice(-2) : year.toString();
+    
+    return `${formattedMonth}/${formattedYear}`;
   };
 
   return (
     <Box p={4} borderWidth="1px" borderRadius="lg">
       <Text fontSize="xl" fontWeight="bold" mb={4}>
-        Card Details
+        Your Payment Cards
       </Text>
       {loading ? (
         <Flex align="center">
@@ -117,16 +121,38 @@ const ViewPaymentData: React.FC<ViewPaymentDataProps> = ({ userId, authToken }) 
         </Flex>
       ) : error ? (
         <Text color="red.500">{error}</Text>
-      ) : cardDetails ? (
-        <VStack spacing={4} align="start">
-          <Flex align="center" gap={2}>
-            {renderCardIcon()}
-            <Text>{renderCardDigits()}</Text>
-          </Flex>
-          <Text>Expiry Date: {cardDetails.exp_month}/{cardDetails.exp_year}</Text>
+      ) : cards.length > 0 ? (
+        <VStack spacing={4} align="stretch" divider={<Divider />}>
+          {cards.map((card, index) => (
+            <Box key={card.id || index} p={3} borderRadius="md" bg="gray.50">
+              <Flex justify="space-between" align="center" mb={2}>
+                <Flex align="center" gap={2}>
+                  {renderCardIcon(card.brand)}
+                  <Text fontWeight="bold">{card.brand}</Text>
+                </Flex>
+                {card.isDefault && (
+                  <Badge colorScheme="green">Default</Badge>
+                )}
+              </Flex>
+              <Text>{formatCardNumber(card.last4)}</Text>
+              <Text fontSize="sm" color="gray.600">
+                Expires: {formatExpiryDate(card.exp_month, card.exp_year)}
+              </Text>
+              {/* Add debug info in development mode */}
+              {process.env.NODE_ENV === 'development' && (
+                <Box mt={2} p={2} bg="gray.100" fontSize="xs" fontFamily="monospace">
+                  <Text>ID: {card.id}</Text>
+                  <Text>Last4: {card.last4}</Text>
+                  <Text>Brand: {card.brand}</Text>
+                  <Text>Exp Month: {card.exp_month}</Text>
+                  <Text>Exp Year: {card.exp_year}</Text>
+                </Box>
+              )}
+            </Box>
+          ))}
         </VStack>
       ) : (
-        <Text>No card details available.</Text>
+        <Text>No cards on file. Add a card to make payments.</Text>
       )}
     </Box>
   );

@@ -43,7 +43,7 @@ const LatestCourses = () => {
   const showMoreHandler = () => {
     // Assuming you use React Router for routing
     // Replace '/allcourses' with the actual route to the AllCourses page
-    window.location.href = '/allcourses';
+    window.location.href = '/all-courses';
   };
 
   return (

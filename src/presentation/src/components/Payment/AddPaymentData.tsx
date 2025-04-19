@@ -54,10 +54,19 @@ const AddPaymentDataForm: React.FC<AddPaymentDataFormProps> = ({ userId, authTok
         return;
       }
 
+      // Extract card details from the token for better card representation
+      const cardInfo = token.card || {};
+      const last4 = cardInfo.last4 || '';
+      
       console.log('Token created successfully:', token.id);
+      console.log('Card info from token:', cardInfo);
       console.log('Sending request to backend with data:', {
         token: token.id,
-        userId
+        userId,
+        cardInfo: {
+          last4: last4,
+          brand: cardInfo.brand
+        }
       });
 
       const response = await axios.post(
@@ -65,6 +74,13 @@ const AddPaymentDataForm: React.FC<AddPaymentDataFormProps> = ({ userId, authTok
         {
           token: token.id,
           userId,
+          // Include card details for mock mode
+          cardDetails: {
+            last4: last4,
+            brand: cardInfo.brand,
+            exp_month: cardInfo.exp_month,
+            exp_year: cardInfo.exp_year
+          }
         },
         {
           headers: {
@@ -76,8 +92,11 @@ const AddPaymentDataForm: React.FC<AddPaymentDataFormProps> = ({ userId, authTok
 
       console.log('Backend response:', response.data);
 
-      // Check for success message in either format
-      if (response.data.message?.includes('Card saved successfully')) {
+      // Check for success message in data object
+      if (response.data.data && (
+          (response.data.data.message && response.data.data.message.includes('Card saved successfully')) ||
+          (response.data.data.card && response.data.data.card.id)
+        )) {
         console.log('Card saved successfully');
         toast.success('Card saved successfully');
         onClose();

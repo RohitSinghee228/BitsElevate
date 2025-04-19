@@ -89,6 +89,30 @@ const CcreateNewCourse = () => {
 
   const onSubmit = async (values: CourseFormValues) => {
     try {
+      // Set submitting state to show loading
+      formik.setSubmitting(true);
+      
+      // Validate that we have course content
+      if (!values.courseContent || values.courseContent.length === 0) {
+        toast.error("Please add at least one course content item", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+        formik.setSubmitting(false);
+        return;
+      }
+
+      // Validate that each content has a video link
+      const missingVideo = values.courseContent.some(content => !content.videoLink.trim());
+      if (missingVideo) {
+        toast.error("Please provide video links for all course content items", {
+          position: "top-center",
+          autoClose: 3000, 
+        });
+        formik.setSubmitting(false);
+        return;
+      }
+
       const imageLink = await uploadImageToFirebase();
       
       // Format the course data to match server expectations
@@ -100,15 +124,14 @@ const CcreateNewCourse = () => {
         duration: values.duration,
         category: values.category,
         level: values.level,
-        // Convert summary and content data if needed
-        lessons: values.courseContent?.map(content => ({
-          title: `Lesson ${values.courseContent?.indexOf(content) + 1}`,
-          content: content.instructions.join('\n'),
-          videoUrl: content.videoLink,
-          duration: 0 // Default duration in minutes
-        })) || [],
-        img: imageLink || undefined
+        summary: values.summary,
+        // Only send courseContent - the backend will handle it appropriately
+        courseContent: values.courseContent,
+        img: imageLink || undefined,
+        image: imageLink || undefined // Add to both fields for compatibility
       };
+      
+      console.log("Submitting course data:", courseData);
       
       const response = await axios.post(
         ENDPOINTS.COURSES.CREATE,
@@ -117,23 +140,32 @@ const CcreateNewCourse = () => {
           headers: getAuthHeader(),
         }
       );
-      console.log(response.data);
+      
+      console.log("Course creation response:", response.data);
 
+      // Show prominent success message
       toast.success("Course created successfully!", {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
       });
 
+      // Navigate after showing the success message
       setTimeout(() => {
         navigate("/admin/course-management");
-      }, 2000);
+      }, 3000);
 
     } catch (error) {
-      console.error(error);
+      console.error("Error creating course:", error);
       toast.error("Failed to create course. Please check your input and try again.", {
         position: "top-center",
         autoClose: 3000,
       });
+    } finally {
+      formik.setSubmitting(false);
     }
   };
 
@@ -394,9 +426,24 @@ const CcreateNewCourse = () => {
         <div className="col-span-2 mt-2 flex justify-center">
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
+            disabled={formik.isSubmitting}
+            className={`${
+              formik.isSubmitting 
+                ? "bg-blue-300" 
+                : "bg-blue-500 hover:bg-blue-600"
+            } text-white px-6 py-3 rounded focus:outline-none transition-colors duration-300 flex items-center space-x-2`}
           >
-            Create Course
+            {formik.isSubmitting ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Creating Course...</span>
+              </>
+            ) : (
+              <span>Create Course</span>
+            )}
           </button>
         </div>
 

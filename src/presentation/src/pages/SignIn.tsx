@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
-import React, { useState, ChangeEvent, FormEvent, useContext, useEffect } from 'react';
-import { AxiosError } from 'axios';
-import { signInWithPopup, signOut } from 'firebase/auth';
+import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
 import { auth, googleProvider } from '../firebase';
+import { signInWithPopup, signOut } from 'firebase/auth';
 
+import { AxiosError } from 'axios';
 import Swal from "sweetalert2";
-import api from '../services/api';
 import { UserContext } from '../UserContext';
+import api from '../services/api';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');

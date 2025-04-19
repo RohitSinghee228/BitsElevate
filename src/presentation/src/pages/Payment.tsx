@@ -123,10 +123,13 @@ export default function Payment() {
       });
 
       if (!paymentResponse.ok) {
-        throw new Error('Failed to save transaction');
+        const errorData = await paymentResponse.json();
+        throw new Error(errorData.message || 'Failed to save transaction');
       }
 
       const paymentData = await paymentResponse.json();
+      
+      console.log('Payment transaction created:', paymentData.data._id);
 
       const enrollResponse = await fetch('http://localhost:3001/api/courses/courseManagement/enroll', {
         method: 'POST',
@@ -141,17 +144,25 @@ export default function Payment() {
         }),
       });
 
-      if (enrollResponse.ok) {
-        toast.success('Successfully enrolled in the course');
-        setTimeout(() => {
-          navigate('/user-profile');
-        }, 2000);
-      } else {
-        throw new Error('Failed to enroll in the course');
+      if (!enrollResponse.ok) {
+        const errorData = await enrollResponse.json();
+        throw new Error(errorData.message || 'Failed to enroll in the course');
       }
+
+      const enrollData = await enrollResponse.json();
+      console.log('Enrollment successful:', enrollData);
+      
+      toast.success('Successfully enrolled in the course');
+      
+      // Instead of going to user profile, redirect back to the course page
+      // with a parameter that indicates payment is complete
+      setTimeout(() => {
+        // Redirect to course page with payment_complete parameter
+        navigate(`/courses/${id}?payment_complete=true`);
+      }, 2000);
     } catch (error) {
       console.error('Error handling payment:', error);
-      toast.error('Error handling payment');
+      toast.error(error.message || 'Error handling payment');
     } finally {
       setCheckoutLoading(false);
     }
@@ -211,7 +222,7 @@ export default function Payment() {
               <p className="font-mono font-semibold text-gray-500">Discount: 0%</p>
             </div>
             <div className="mb-4">
-              <p className="font-mono font-semibold text-red-500">Total: RS.{courseData.price}</p>
+              <p className="font-mono font-semibold text-red-500">Total: ₹{courseData.price}</p>
             </div>
             <div>
               <p>By continuing, you agree to the terms of service.</p>

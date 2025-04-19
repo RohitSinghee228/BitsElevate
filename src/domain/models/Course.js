@@ -34,15 +34,21 @@ const courseSchema = new mongoose.Schema({
     type: Number, // in hours
     required: true
   },
+  img: {
+    type: String,
+    trim: true
+  },
+  image: {
+    type: String,
+    trim: true
+  },
   studentsEnrolled: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
-  lessons: [{
-    title: String,
-    content: String,
-    videoUrl: String,
-    duration: Number // in minutes
+  courseContent: [{
+    videoLink: String,
+    instructions: [String]
   }],
   createdAt: {
     type: Date,

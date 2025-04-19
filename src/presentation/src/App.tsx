@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AllCourses from './pages/StudentDashboard/AllCourses';
@@ -30,6 +30,9 @@ function App() {
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/sign-in" element={<SignIn />} />
               <Route path="/course/:id" element={<CoursePage />} />
+              <Route path="/courses/:id" element={<CourseData />} />
+              <Route path="/course" element={<Navigate to="/all-courses" replace />} />
+              <Route path="/courses" element={<Navigate to="/all-courses" replace />} />
               <Route path="/payment/:id/:price/:userId" element={<Payment />} />
 
               <Route path="/my-course/:userId/:courseId" element={<MyCourse />} />
@@ -37,13 +40,10 @@ function App() {
               <Route path="/all-courses" element={<AllCourses />} />
               <Route path="/search-results" element={<SearchResults />} />
               <Route path="/user-profile" element={<UserProfile />} />
-              <Route path="/courses/:id" element={<CourseData />} />
 
               <Route path="/student-dashboard" element={<StudentDashboard />} />
               <Route path="/admin/*" element={<AdminDashboard />} />
               <Route path="/creator/*" element={<CreatorDashboard />} />
-
-
             </Routes>
             <Footer />
           </div>

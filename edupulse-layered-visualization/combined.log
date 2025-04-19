@@ -21641,3 +21641,468 @@
 {"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T10:42:32.679Z"}
 {"body":{"component":"routes","layerId":"presentation","operation":"Routing API request (GET)","path":"/api/courses/courseManagement/getAll","requestId":"8db4931fe4650f47","status":"active","statusCode":200},"component":"routes","layerId":"presentation","level":"info","message":"Received layer activity:","operation":"Routing API request (GET)","requestId":"8db4931fe4650f47","status":"active","timestamp":"2025-04-18T10:42:37.674Z"}
 {"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T10:42:37.675Z"}
+{"level":"info","message":"Visualization service running on port 3006","timestamp":"2025-04-18T11:11:37.641Z"}
+{"level":"info","message":"Test endpoint available at http://localhost:3006/api/test","timestamp":"2025-04-18T11:11:37.651Z"}
+{"level":"info","message":"Simulation endpoint available at http://localhost:3006/api/simulate-request","timestamp":"2025-04-18T11:11:37.652Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-18T11:11:40.600Z"}
+{"level":"info","message":"Client disconnected","socketId":"w_6lMxGh2-9ZAl4jAAAB","timestamp":"2025-04-18T11:11:41.806Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-18T11:11:41.969Z"}
+{"level":"info","message":"Client requested system state","timestamp":"2025-04-18T11:11:41.982Z"}
+{"level":"info","message":"Client requested system state","timestamp":"2025-04-18T11:11:41.991Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:11:50.454Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:11:50.467Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:11:50.473Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:11:50.494Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:11:50.537Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:11:50.557Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:11:50.574Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:11:50.602Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:11:50.620Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:11:50.641Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T11:11:50.654Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T11:11:50.659Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T11:11:50.671Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T11:11:50.675Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T11:11:50.687Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T11:11:50.690Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:11:50.840Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:11:50.852Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:11:50.857Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:11:50.866Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:11:50.875Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T11:11:50.880Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T11:11:50.882Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:11:50.895Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T11:11:50.912Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T11:11:50.914Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:11:50.957Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:11:50.968Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:11:50.986Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T11:11:50.997Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T11:11:51.000Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:11:52.323Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:11:52.348Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:11:52.449Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:11:52.515Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:11:52.538Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:11:52.722Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:11:52.828Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:11:52.850Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:11:52.950Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:11:53.011Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:11:53.036Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:11:53.222Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:11:53.335Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:11:53.348Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:11:53.446Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:11:53.511Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:11:53.539Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:11:53.731Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:11:53.826Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T11:11:53.828Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:11:53.832Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:11:53.862Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T11:11:53.863Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:11:53.870Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:11:53.948Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T11:11:53.949Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:11:53.955Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:11:54.014Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T11:11:54.015Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:11:54.020Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:11:54.032Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T11:11:54.033Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:11:54.042Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:11:54.233Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T11:11:54.234Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:11:54.238Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:11:55.384Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:12:00.382Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:12:03.860Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:12:03.868Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:12:03.878Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T11:12:03.887Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T11:12:03.889Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:12:04.021Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:12:04.037Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:12:04.054Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T11:12:04.069Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T11:12:04.070Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:12:05.384Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:12:05.520Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:12:05.707Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:12:06.021Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:12:06.204Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:12:06.527Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:12:06.705Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:12:07.017Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T11:12:07.018Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:12:07.024Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:12:07.203Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T11:12:07.204Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:12:07.212Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:12:10.380Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:12:15.390Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:12:20.392Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:12:25.388Z"}
+{"level":"info","message":"Client disconnected","socketId":"MwJuyqa1WsUTzf2-AAAD","timestamp":"2025-04-18T11:13:26.276Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-18T11:13:26.400Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:13:35.225Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:13:35.254Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:13:35.267Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:13:35.281Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T11:13:35.297Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T11:13:35.299Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:13:35.497Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:13:35.510Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:13:35.526Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T11:13:35.541Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T11:13:35.543Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:13:36.985Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:13:37.174Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:13:37.485Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:13:37.679Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:13:37.980Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:13:38.180Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:13:38.481Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T11:13:38.483Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:13:38.490Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:13:38.668Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T11:13:38.669Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:13:38.682Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:13:40.213Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:15:26.406Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:15:26.423Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:15:26.436Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:15:26.450Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T11:15:26.463Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T11:15:26.465Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:15:26.590Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:15:26.606Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:15:26.622Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T11:15:26.635Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T11:15:26.637Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:15:28.078Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:15:28.258Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:15:28.579Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:15:28.756Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:15:29.090Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:15:29.262Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:15:29.583Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T11:15:29.584Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:15:29.593Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:15:29.762Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T11:15:29.763Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:15:29.768Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:15:31.416Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:16:03.066Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:16:03.074Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:16:03.086Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:16:03.096Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T11:16:03.108Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T11:16:03.109Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:16:03.241Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:16:03.259Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:16:03.283Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T11:16:03.295Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T11:16:03.297Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:16:04.737Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:16:04.916Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:16:05.230Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:16:05.411Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:16:05.728Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:16:05.919Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:16:06.248Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T11:16:06.250Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:16:06.256Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:16:06.410Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T11:16:06.412Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:16:06.419Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:16:08.070Z"}
+{"level":"info","message":"Client disconnected","socketId":"T8QBDV2NMDb85gkbAAAF","timestamp":"2025-04-18T11:39:43.229Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-18T11:50:47.432Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:54:08.610Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:54:08.625Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:54:08.644Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:54:08.656Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T11:54:08.670Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T11:54:08.671Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T11:54:09.742Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T11:54:09.747Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T11:54:09.763Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T11:54:09.773Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T11:54:09.775Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:54:11.240Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T11:54:11.393Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:54:11.738Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T11:54:11.897Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:54:12.248Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T11:54:12.389Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:54:12.741Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T11:54:12.742Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:54:12.751Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T11:54:12.896Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T11:54:12.897Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T11:54:12.903Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T11:54:13.609Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T12:27:58.844Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T12:27:58.881Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T12:27:58.884Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T12:27:58.922Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T12:27:58.930Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T12:27:58.934Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T12:27:58.964Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T12:27:58.984Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T12:27:58.998Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T12:27:59.016Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T12:27:59.028Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T12:27:59.047Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T12:27:59.059Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T12:27:59.071Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T12:27:59.107Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T12:27:59.115Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T12:27:59.140Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T12:27:59.145Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T12:27:59.150Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T12:27:59.151Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T12:27:59.160Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T12:27:59.161Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T12:27:59.243Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T12:27:59.244Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T12:27:59.250Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T12:27:59.250Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T12:27:59.323Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T12:27:59.374Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T12:27:59.382Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T12:27:59.465Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T12:27:59.477Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T12:27:59.482Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T12:27:59.484Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T12:27:59.494Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T12:27:59.508Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T12:27:59.509Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T12:27:59.575Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T12:27:59.584Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T12:27:59.593Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T12:27:59.602Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T12:27:59.605Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:28:00.737Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:28:00.861Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:28:01.010Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:28:01.035Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:28:01.071Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:28:01.238Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:28:01.317Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:28:01.368Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:28:01.501Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:28:01.537Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:28:01.570Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:28:01.747Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:28:01.810Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:28:01.858Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:28:01.861Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:28:01.868Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:28:02.013Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:28:02.029Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:28:02.067Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:28:02.249Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T12:28:02.250Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:28:02.255Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:28:02.319Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:28:02.368Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T12:28:02.371Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:28:02.376Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:28:02.388Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:28:02.395Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:28:02.506Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T12:28:02.513Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:28:02.523Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:28:02.539Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T12:28:02.540Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:28:02.550Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:28:02.567Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T12:28:02.568Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:28:02.575Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:28:02.811Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T12:28:02.812Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:28:02.815Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:28:02.867Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:28:02.871Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:28:03.362Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T12:28:03.363Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:28:03.366Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:28:03.371Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T12:28:03.372Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:28:03.375Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T12:28:03.663Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T12:28:08.652Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T12:28:13.648Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T12:28:18.663Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T12:28:23.665Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (POST)","timestamp":"2025-04-18T12:28:25.638Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (POST)","timestamp":"2025-04-18T12:28:25.645Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (POST)","timestamp":"2025-04-18T12:28:25.650Z"}
+{"body":{"dbId":"users-db","operation":"Creating data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Creating data (User records)","status":"active","timestamp":"2025-04-18T12:28:25.660Z"}
+{"level":"info","message":"Database users-db status updated to active - Creating data (User records)","timestamp":"2025-04-18T12:28:25.663Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (POST)","timestamp":"2025-04-18T12:28:26.148Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (POST)","timestamp":"2025-04-18T12:28:26.153Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (POST)","timestamp":"2025-04-18T12:28:26.160Z"}
+{"body":{"dbId":"users-db","operation":"Creating data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Creating data (User records)","status":"active","timestamp":"2025-04-18T12:28:26.166Z"}
+{"level":"info","message":"Database users-db status updated to active - Creating data (User records)","timestamp":"2025-04-18T12:28:26.166Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (POST)","timestamp":"2025-04-18T12:28:26.279Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (POST)","timestamp":"2025-04-18T12:28:26.282Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (POST)","timestamp":"2025-04-18T12:28:26.286Z"}
+{"body":{"dbId":"users-db","operation":"Creating data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Creating data (User records)","status":"active","timestamp":"2025-04-18T12:28:26.294Z"}
+{"level":"info","message":"Database users-db status updated to active - Creating data (User records)","timestamp":"2025-04-18T12:28:26.295Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:28:27.640Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:28:27.772Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:28:27.905Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:28:28.145Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:28:28.272Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:28:28.404Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:28:28.646Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T12:28:28.649Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:28:28.777Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:28:28.907Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:28:29.148Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T12:28:29.148Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:28:29.150Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:28:29.277Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T12:28:29.278Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:28:29.280Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:28:29.398Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T12:28:29.399Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:28:29.402Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T12:28:33.655Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (POST)","timestamp":"2025-04-18T12:28:38.654Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (POST)","timestamp":"2025-04-18T12:28:43.651Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (POST)","timestamp":"2025-04-18T12:28:48.653Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T12:30:35.728Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T12:30:35.741Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T12:30:35.757Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T12:30:35.769Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T12:30:35.788Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T12:30:35.792Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T12:30:36.001Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T12:30:36.021Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T12:30:36.027Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T12:30:36.036Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T12:30:36.039Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:30:37.505Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T12:30:37.746Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:30:37.997Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T12:30:38.240Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:30:38.505Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T12:30:38.738Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:30:39.006Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T12:30:39.007Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:30:39.012Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T12:30:39.244Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T12:30:39.245Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T12:30:39.248Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T12:30:40.727Z"}
+{"level":"info","message":"Client disconnected","socketId":"_vBF1vpArypzhk03AAAH","timestamp":"2025-04-18T12:32:08.161Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-18T12:32:08.260Z"}
+{"level":"info","message":"Client disconnected","socketId":"v1PwHr4wMgLHQ6lAAAAJ","timestamp":"2025-04-18T12:35:54.296Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-18T12:55:38.787Z"}
+{"level":"info","message":"Client disconnected","socketId":"sXWmHdtUoAV37jNAAAAL","timestamp":"2025-04-18T12:55:58.140Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-18T12:55:58.706Z"}
+{"level":"info","message":"Client disconnected","socketId":"xKi7Oevguvhq0GnUAAAN","timestamp":"2025-04-18T13:04:20.986Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-18T13:04:21.020Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T13:04:36.817Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T13:04:36.838Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T13:04:36.846Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T13:04:36.851Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T13:04:36.860Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T13:04:36.862Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T13:04:36.889Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T13:04:36.896Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T13:04:36.905Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T13:04:36.911Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T13:04:36.912Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T13:04:38.414Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T13:04:38.431Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T13:04:38.882Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T13:04:39.067Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T13:04:39.387Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T13:04:39.437Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T13:04:39.945Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T13:04:39.946Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T13:04:39.950Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T13:04:39.951Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T13:04:39.959Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T13:04:39.977Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T13:04:41.806Z"}
+{"level":"info","message":"Client disconnected","socketId":"2pEDMPUVNmXX0emJAAAP","timestamp":"2025-04-18T13:04:50.974Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-18T13:04:51.015Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (POST)","timestamp":"2025-04-18T13:04:59.218Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (POST)","timestamp":"2025-04-18T13:04:59.224Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (POST)","timestamp":"2025-04-18T13:04:59.229Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (POST)","timestamp":"2025-04-18T13:04:59.239Z"}
+{"body":{"dbId":"users-db","operation":"Creating data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Creating data (User records)","status":"active","timestamp":"2025-04-18T13:04:59.248Z"}
+{"level":"info","message":"Database users-db status updated to active - Creating data (User records)","timestamp":"2025-04-18T13:04:59.251Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T13:05:02.128Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T13:05:02.625Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T13:05:03.130Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T13:05:03.625Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T13:05:03.626Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T13:05:03.631Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T13:05:42.580Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T13:05:42.585Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T13:05:42.589Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T13:05:42.602Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T13:05:42.609Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T13:05:42.611Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T13:05:42.743Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T13:05:42.762Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T13:05:42.773Z"}
+{"body":{"dbId":"users-db","operation":"Reading data (User records)","status":"active"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":"Reading data (User records)","status":"active","timestamp":"2025-04-18T13:05:42.782Z"}
+{"level":"info","message":"Database users-db status updated to active - Reading data (User records)","timestamp":"2025-04-18T13:05:42.785Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T13:05:44.237Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T13:05:44.408Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T13:05:44.735Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T13:05:44.918Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T13:05:45.234Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T13:05:45.405Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T13:05:45.737Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T13:05:45.738Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T13:05:45.745Z"}
+{"body":{"dbId":"users-db","operation":null,"status":"inactive"},"dbId":"users-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T13:05:45.918Z"}
+{"level":"info","message":"Database users-db status updated to inactive","timestamp":"2025-04-18T13:05:45.919Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T13:05:45.923Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T13:05:47.576Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T13:06:08.532Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T13:06:08.537Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T13:06:08.541Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T13:06:08.545Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T13:06:08.554Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T13:06:08.555Z"}
+{"level":"info","message":"Layer application status updated to active (component: services) - Executing service operation (GET)","timestamp":"2025-04-18T13:06:08.817Z"}
+{"level":"info","message":"Layer domain status updated to active (component: entities) - Managing entity state (GET)","timestamp":"2025-04-18T13:06:08.824Z"}
+{"level":"info","message":"Layer infrastructure status updated to active (component: repositories) - Accessing data repository (GET)","timestamp":"2025-04-18T13:06:08.842Z"}
+{"body":{"dbId":"courses-db","operation":"Reading data (Course data)","status":"active"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":"Reading data (Course data)","status":"active","timestamp":"2025-04-18T13:06:08.856Z"}
+{"level":"info","message":"Database courses-db status updated to active - Reading data (Course data)","timestamp":"2025-04-18T13:06:08.858Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T13:06:10.321Z"}
+{"level":"info","message":"Layer infrastructure status updated to inactive (component: repositories)","timestamp":"2025-04-18T13:06:10.593Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T13:06:10.813Z"}
+{"level":"info","message":"Layer domain status updated to inactive (component: entities)","timestamp":"2025-04-18T13:06:11.082Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T13:06:11.316Z"}
+{"level":"info","message":"Layer application status updated to inactive (component: services)","timestamp":"2025-04-18T13:06:11.595Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T13:06:11.820Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T13:06:11.821Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T13:06:11.828Z"}
+{"body":{"dbId":"courses-db","operation":null,"status":"inactive"},"dbId":"courses-db","level":"info","message":"Received database activity:","operation":null,"status":"inactive","timestamp":"2025-04-18T13:06:12.081Z"}
+{"level":"info","message":"Database courses-db status updated to inactive","timestamp":"2025-04-18T13:06:12.082Z"}
+{"level":"info","message":"Layer presentation status updated to inactive (component: routes)","timestamp":"2025-04-18T13:06:12.087Z"}
+{"level":"info","message":"Layer presentation status updated to active (component: routes) - Routing API request (GET)","timestamp":"2025-04-18T13:06:13.542Z"}
+{"level":"info","message":"Client disconnected","socketId":"KxAt-Eg78Ku1k3r-AAAR","timestamp":"2025-04-18T14:45:22.785Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-18T15:12:35.890Z"}
+{"level":"info","message":"Client disconnected","socketId":"YEjr-E504rH5ORrSAAAT","timestamp":"2025-04-18T15:56:42.154Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-18T18:35:00.524Z"}
+{"level":"info","message":"Client disconnected","socketId":"jXLstWG9ox3mtOKWAAAV","timestamp":"2025-04-18T18:56:49.068Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-19T04:39:47.261Z"}
+{"level":"info","message":"Client disconnected","socketId":"noYi32jNkaig2Qr0AAAX","timestamp":"2025-04-19T05:57:12.629Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-19T06:04:09.968Z"}
+{"level":"info","message":"Client disconnected","socketId":"sAfZjdFyf-c5byjUAAAZ","timestamp":"2025-04-19T06:07:06.976Z"}
+{"level":"info","message":"Client connected to visualization service","timestamp":"2025-04-19T09:04:53.575Z"}
+{"level":"info","message":"Client disconnected","socketId":"FVqSsFA1C116unCzAAAb","timestamp":"2025-04-19T09:04:57.589Z"}

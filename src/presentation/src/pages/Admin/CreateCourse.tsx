@@ -1,11 +1,26 @@
 import * as Yup from "yup";
 
 import { Field, FieldArray, Form, Formik } from "formik";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 import axios from "axios";
+import { initializeApp } from "firebase/app";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyAelJ7dlq9btLTsRbGRQKj8p1XRrlo8cVo",
+  authDomain: "codewave-39524.firebaseapp.com",
+  projectId: "codewave-39524",
+  storageBucket: "codewave-39524.appspot.com",
+  messagingSenderId: "1035711570286",
+  appId: "1:1035711570286:web:784b4042cc0cd42cac617f",
+  measurementId: "G-5C37XVK0HF"
+};
+
+const app = initializeApp(firebaseConfig);
 
 interface Lesson {
   title: string;
@@ -41,6 +56,8 @@ interface LessonErrors {
 const CreateCourse = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const initialValues: CourseFormValues = {
     title: "",
@@ -62,7 +79,6 @@ const CreateCourse = () => {
     duration: Yup.number().required("Duration is required").min(0, "Duration must be positive"),
     category: Yup.string().required("Category is required"),
     level: Yup.string().required("Level is required"),
-    image: Yup.string().required("Image URL is required"),
     lessons: Yup.array()
       .of(
         Yup.object().shape({
@@ -83,12 +99,57 @@ const CreateCourse = () => {
     ),
   });
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+      // Create a preview URL
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
+    }
+  };
+
+  const uploadImageToFirebase = async () => {
+    try {
+      if (!imageFile) {
+        toast.warning("Please select an image for the course");
+        return null;
+      }
+
+      const storage = getStorage(app);
+      const storageRef = ref(storage);
+      const imageRef = ref(storageRef, `course-images/${Date.now()}-${imageFile.name}`);
+      await uploadBytes(imageRef, imageFile);
+      const imageLink = await getDownloadURL(imageRef);
+      return imageLink;
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image");
+      return null;
+    }
+  };
+
   const handleSubmit = async (values: CourseFormValues) => {
     try {
       setIsSubmitting(true);
+      
+      // Upload image to Firebase and get URL
+      const imageUrl = await uploadImageToFirebase();
+      if (!imageUrl) {
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Add image URL to form values
+      const courseData = {
+        ...values,
+        image: imageUrl,
+        img: imageUrl  // Add to both image and img fields for compatibility
+      };
+
       await axios.post(
-        "http://localhost:3001/api/courseManagement/create",
-        values,
+        "http://localhost:3001/api/courses/courseManagement/create",
+        courseData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -200,14 +261,26 @@ const CreateCourse = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Image URL</label>
-                <Field
-                  type="text"
-                  name="image"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                <label className="block text-sm font-medium text-gray-700">Course Image</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="mt-1 block w-full text-sm text-gray-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-md file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-indigo-50 file:text-indigo-700
+                    hover:file:bg-indigo-100"
                 />
-                {errors.image && touched.image && (
-                  <div className="text-red-500 text-sm mt-1">{errors.image}</div>
+                {imagePreview && (
+                  <div className="mt-2">
+                    <img 
+                      src={imagePreview} 
+                      alt="Course preview" 
+                      className="h-40 w-auto object-cover rounded-md"
+                    />
+                  </div>
                 )}
               </div>
             </div>

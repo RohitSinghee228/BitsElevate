@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
+
 import { FaGraduationCap } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../../UserContext";
+import React from "react";
 
 type CourseType = {
   _id: string;
@@ -16,9 +16,10 @@ const Card: React.FC<CourseType> = ({ _id, img, name, description, price }) => {
   const miniimg =
     "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://images.ctfassets.net/wp1lcwdav1p1/60SA8pGxPXMmJf4n7umK1H/ccec31bbe2358210bf8391dcba6cd2f1/umich.png?auto=format%2Ccompress&dpr=1&w=&h=55";
 
-    const { user } = useContext(UserContext);
+  console.log("Card component received image:", img);
+  
   return (
-    <Link to={`/my-course/${user?.id}/${_id}`} target="_blank">
+    <Link to={`/courses/${_id}`}>
       <Flex
         direction="column"
         gap="5px"
@@ -35,7 +36,7 @@ const Card: React.FC<CourseType> = ({ _id, img, name, description, price }) => {
         }}
         _hover={{ boxShadow: "2xl", cursor: "pointer" }}
       >
-        <Image src={img} alt={name} objectFit="cover" h="150px" />
+        <Image src={img || "https://placehold.co/300x200?text=No+Image"} alt={name} objectFit="cover" h="150px" />
         <Box display="flex" alignItems="center" mb={2}>
           <Image src={miniimg} alt="Logo" boxSize={4} mr={2} />
           <Text fontSize="sm" fontWeight="bold" color="#a7a7a7" textTransform="capitalize">
@@ -46,7 +47,7 @@ const Card: React.FC<CourseType> = ({ _id, img, name, description, price }) => {
           {name}
         </Text>
         <Text fontSize="sm" mb={2} textTransform="capitalize">
-          {description.substring(0, 80)}...
+          {description && description.length > 80 ? `${description.substring(0, 80)}...` : description}
         </Text>
         <Flex color="#0056d2" fontFamily="poppins" gap={2}>
           <Flex alignItems="center">
@@ -54,7 +55,7 @@ const Card: React.FC<CourseType> = ({ _id, img, name, description, price }) => {
           </Flex>
           <Box>Earn a degree</Box>
         </Flex>
-        <Text fontSize="sm">{price}</Text>
+        <Text fontSize="sm">₹{price}</Text>
       </Flex>
     </Link>
   );

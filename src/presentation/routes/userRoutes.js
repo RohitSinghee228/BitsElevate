@@ -85,6 +85,30 @@ router.post('/auth/register', async (req, res) => {
   }
 });
 
+// Add token verification route
+router.get('/auth/verify', authenticateToken, async (req, res) => {
+  try {
+    const user = await userService.getUserById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    res.json({
+      user: {
+        id: user._id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        profilePicture: user.profilePicture
+      }
+    });
+  } catch (error) {
+    console.error('Token verification error:', error.message);
+    res.status(401).json({ message: 'Invalid token' });
+  }
+});
+
 // Legacy routes to maintain backwards compatibility
 router.post('/login', async (req, res) => {
   console.log('Login request received at /login:', req.body);

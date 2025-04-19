@@ -21,6 +21,16 @@ const CreatorSideBar = () => {
         >
           Course Management
         </Link>
+        
+        <Link
+          to="/creator/creator-my-courses"
+          className={`block px-4 py-2 ${
+            pathname.includes('creator-my-courses') ? 'bg-blue-200' : ''
+          }`}
+        >
+          My Courses
+        </Link>
+        
         <Link
           to="/creator/creator-payment-management"
           className={`block px-4 py-2 ${

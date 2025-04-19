@@ -1,14 +1,39 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image, Spinner, Text, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-import { Box } from "@chakra-ui/react";
 import Card from "../../components/Home/Courses/Card";
 import { useLocation } from "react-router-dom";
+
+interface Course {
+  _id: string;
+  title: string;
+  name: string;
+  category: string;
+  description: string;
+  overview?: string;
+  course?: string;
+  img: string;
+  price: number | string;
+  Author?: string;
+  author?: {
+    firstName: string;
+    lastName: string;
+  };
+  instructor?: {
+    firstName: string;
+    lastName: string;
+  };
+  whatYouLearn?: string[];
+  summary?: string[];
+}
 
 export default function SearchResults() {
   const [currentPage, setCurrentPage] = useState(1);
   const coursesPerPage = 6;
   const [searchQuery, setSearchQuery] = useState("");
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -16,106 +41,65 @@ export default function SearchResults() {
     setSearchQuery(searchParams.get("search") || "");
   }, [location]); 
 
-  const allCourses = [
-    {
-        _id: "1",
-        title: "React Course",
-        name: "React Course",
-        category: "Web Development",
-        description: "Learn React for building modern web applications.",
-        course: "React",
-        img: "/react.png",
-        whatYouLearn: [
-          "Build a React application from scratch",
-          "Learn React hooks",
-          "Understand React routing",
-          "Build responsive web applications",
-        ],
-        price: "100",
-        Author: "John Doe",
-    },
-    {
-        _id: "2",
-        title: "JavaScript Course",
-        name: "JavaScript Course",
-        category: "Web Development",
-        description: "Master JavaScript for frontend and backend development.",
-        course: "JavaScript",
-        img: "/js.png",
-        whatYouLearn: [
-          "Understand JavaScript fundamentals",
-          "Learn ES6 features",
-          "Build a JavaScript project",
-          "Understand JavaScript closures",
-        ],
-        price: "100",
-        Author: "John Doe",
-    },
-    {
-        _id: "3",
-        title: "AWS Course",
-        name: "AWS Course",
-        category: "Cloud Computing",
-        description: "Become proficient in AWS cloud services.",
-        course: "AWS",
-        img: "/aws.png",
-        price: "150",
-    },
-    {
-        _id: "4",
-        title: "HTML/CSS/JS Course",
-        name: "HTML/CSS/JS Course",
-        category: "Web Development",
-        description: "Learn the basics of web development with HTML, CSS, and JavaScript.",
-        course: "HTML/CSS/JS",
-        img: "/htmlcssjs.png",
-        price: "80",
-    },
-    {
-        _id: "5",
-        title: "PHP Course",
-        name: "PHP Course",
-        category: "Web Development",
-        description: "Master PHP for server-side web development.",
-        course: "PHP",
-        img: "/php.png",
-        price: "90",
-    },
-    {
-        _id: "6",
-        title: "Java Course",
-        name: "Java Course",
-        category: "Software Development",
-        description: "Learn Java programming for building applications.",
-        course: "Java",
-        img: "/java.png",
-        price: "120",
-    },
-    {
-        _id: "7",
-        title: "C++ Course",
-        name: "C++ Course",
-        category: "Software Development",
-        description: "Master C++ programming for system and application development.",
-        course: "C++",
-        img: "/c++.png",
-        price: "110",
-    },
-    {
-        _id: "8",
-        title: "Docker Course",
-        name: "Docker Course",
-        category: "DevOps",
-        description: "Learn Docker for containerization and deployment.",
-        course: "Docker",
-        img: "/27.png",
-        price: "130",
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:3001/api/courses/courseManagement/getAll');
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch courses: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data && data.data) {
+          setCourses(data.data);
+        } else {
+          setCourses([]);
+        }
+        
+      } catch (error: any) {
+        console.error("Error fetching courses:", error);
+        setError(error.message || "Failed to load courses");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  // Filter courses based on search query
+  const filteredCourses = courses.filter((course) => {
+    if (!searchQuery) return true;
+    
+    const query = searchQuery.toLowerCase();
+    
+    // Search in title/name
+    if ((course.title && course.title.toLowerCase().includes(query)) || 
+        (course.name && course.name.toLowerCase().includes(query))) {
+      return true;
     }
-  ];
- // Filter courses based on search query
-  const filteredCourses = allCourses.filter((course) =>
-    course.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    
+    // Search in description/overview
+    if ((course.description && course.description.toLowerCase().includes(query)) ||
+        (course.overview && course.overview.toLowerCase().includes(query))) {
+      return true;
+    }
+    
+    // Search in category
+    if (course.category && course.category.toLowerCase().includes(query)) {
+      return true;
+    }
+    
+    // Search in course field (if exists)
+    if (course.course && course.course.toLowerCase().includes(query)) {
+      return true;
+    }
+    
+    return false;
+  });
 
   // Calculate the index of the last course on the current page
   const indexOfLastCourse = currentPage * coursesPerPage;
@@ -129,25 +113,51 @@ export default function SearchResults() {
     indexOfLastCourse
   );
 
+  if (loading) {
+    return (
+      <Flex justify="center" align="center" minHeight="50vh">
+        <Spinner size="xl" thickness="4px" color="blue.500" />
+      </Flex>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box textAlign="center" p={10}>
+        <Heading as="h2" size="xl" color="red.500">
+          Error
+        </Heading>
+        <Text mt={4}>{error}</Text>
+      </Box>
+    );
+  }
+
   return (
     <div className="py-8">
       <h1 className="text-4xl text-blue-500 font-extrabold text-center mt-10">
-        {filteredCourses.length > 0 ? "Search Results" : "All Courses"}
+        {searchQuery ? `Search Results for "${searchQuery}"` : "All Courses"}
       </h1>
-      <Flex direction="column" width="80%" p="20px" m="auto">
-        <Flex flexWrap="wrap" justifyContent="center">
-          {/* Render filtered courses */}
-          {currentCourses.map((course) => (
-            <Box
-              key={course._id}
-              width={{ base: "100%", md: "50%", lg: "33.33%" }}
-              p="10px"
-            >
-              <Card {...course} />
-            </Box>
-          ))}
+      {filteredCourses.length === 0 ? (
+        <Box textAlign="center" mt={10}>
+          <Text fontSize="xl">No courses found matching your search.</Text>
+          <Text mt={2} color="gray.600">Try a different search term or browse all courses.</Text>
+        </Box>
+      ) : (
+        <Flex direction="column" width="80%" p="20px" m="auto">
+          <Flex flexWrap="wrap" justifyContent="center">
+            {/* Render filtered courses */}
+            {currentCourses.map((course) => (
+              <Box
+                key={course._id}
+                width={{ base: "100%", md: "50%", lg: "33.33%" }}
+                p="10px"
+              >
+                <Card {...course} />
+              </Box>
+            ))}
+          </Flex>
         </Flex>
-      </Flex>
+      )}
       {/* Pagination */}
       {filteredCourses.length > coursesPerPage && (
         <Flex justifyContent="center" mt="20px">
