@@ -20,7 +20,18 @@
             --processing-color: #3b82f6;
             --glass-bg: rgba(30, 41, 59, 0.8);
             --glass-border: rgba(255, 255, 255, 0.2);
-            --layer-width: 350px;
+            --layer-width: 380px;
+            
+            /* Layer-specific colors */
+            --presentation-color: #4f46e5;
+            --application-color: #0891b2;
+            --domain-color: #7c3aed;
+            --infrastructure-color: #0f766e;
+            
+            /* Database colors */
+            --users-db-color: #2563eb;
+            --courses-db-color: #c026d3;
+            --payments-db-color: #ea580c;
         }
 
         body {
@@ -154,24 +165,26 @@
             color: var(--success-color);
         }
 
+        /* Improved layer-specific styling */
         .layer-components {
             display: flex;
             justify-content: space-around;
             width: 100%;
             margin-top: 1rem;
-            padding: 0.5rem;
+            padding: 0.8rem;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 0.5rem;
         }
 
         .component {
-            padding: 0.25rem 0.5rem;
+            padding: 0.4rem 0.7rem;
             border-radius: 0.25rem;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             transition: all 0.3s ease;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .component.active {
@@ -184,18 +197,25 @@
         .layers-container {
             display: flex;
             flex-direction: column;
-            gap: 3.5rem;
+            gap: 3rem;
             position: relative;
             padding: 2rem 1rem;
             z-index: 2;
+            /* Add a subtle background indication of layered structure */
+            background: linear-gradient(to bottom, 
+                rgba(79, 70, 229, 0.05) 0%, 
+                rgba(8, 145, 178, 0.05) 33%, 
+                rgba(124, 58, 237, 0.05) 66%, 
+                rgba(15, 118, 110, 0.05) 100%);
+            border-radius: 1rem;
         }
 
+        /* Layer-specific styling */
         .layer {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 2rem;
-            background: var(--glass-bg);
+            padding: 1.5rem;
             border-radius: 1rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border: 1px solid var(--glass-border);
@@ -205,6 +225,27 @@
             backdrop-filter: blur(5px);
             margin: 0 auto;
         }
+        
+        /* Customize each layer with its own color scheme */
+        #presentation-layer {
+            background: linear-gradient(145deg, rgba(79, 70, 229, 0.2), rgba(79, 70, 229, 0.05));
+            border-top: 3px solid var(--presentation-color);
+        }
+        
+        #application-layer {
+            background: linear-gradient(145deg, rgba(8, 145, 178, 0.2), rgba(8, 145, 178, 0.05));
+            border-top: 3px solid var(--application-color);
+        }
+        
+        #domain-layer {
+            background: linear-gradient(145deg, rgba(124, 58, 237, 0.2), rgba(124, 58, 237, 0.05));
+            border-top: 3px solid var(--domain-color);
+        }
+        
+        #infrastructure-layer {
+            background: linear-gradient(145deg, rgba(15, 118, 110, 0.2), rgba(15, 118, 110, 0.05));
+            border-top: 3px solid var(--infrastructure-color);
+        }
 
         .layer:hover {
             transform: translateY(-5px);
@@ -212,10 +253,30 @@
         }
 
         .layer.processing {
-            background: rgba(59, 130, 246, 0.3);
             transform: scale(1.03);
             box-shadow: 0 0 30px var(--processing-color);
             animation: pulseLayer 5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Custom processing state colors for each layer */
+        #presentation-layer.processing {
+            background: rgba(79, 70, 229, 0.3);
+            box-shadow: 0 0 30px var(--presentation-color);
+        }
+        
+        #application-layer.processing {
+            background: rgba(8, 145, 178, 0.3);
+            box-shadow: 0 0 30px var(--application-color);
+        }
+        
+        #domain-layer.processing {
+            background: rgba(124, 58, 237, 0.3);
+            box-shadow: 0 0 30px var(--domain-color);
+        }
+        
+        #infrastructure-layer.processing {
+            background: rgba(15, 118, 110, 0.3);
+            box-shadow: 0 0 30px var(--infrastructure-color);
         }
 
         .layer-header {
@@ -223,6 +284,27 @@
             align-items: center;
             width: 100%;
             margin-bottom: 1rem;
+        }
+
+        /* Custom layer icon colors */
+        #presentation-layer .layer-icon {
+            background: linear-gradient(135deg, var(--presentation-color), rgba(79, 70, 229, 0.7));
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
+        }
+        
+        #application-layer .layer-icon {
+            background: linear-gradient(135deg, var(--application-color), rgba(8, 145, 178, 0.7));
+            box-shadow: 0 0 20px rgba(8, 145, 178, 0.5);
+        }
+        
+        #domain-layer .layer-icon {
+            background: linear-gradient(135deg, var(--domain-color), rgba(124, 58, 237, 0.7));
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+        }
+        
+        #infrastructure-layer .layer-icon {
+            background: linear-gradient(135deg, var(--infrastructure-color), rgba(15, 118, 110, 0.7));
+            box-shadow: 0 0 20px rgba(15, 118, 110, 0.5);
         }
 
         .layer-icon {
@@ -236,8 +318,6 @@
             margin-right: 1rem;
             transition: all 0.3s ease;
             font-size: 1.5rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
         }
 
         .layer-processing .layer-icon {
@@ -260,6 +340,37 @@
             max-width: 220px;
         }
 
+        /* Architecture principle badges */
+        .architecture-principle {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            font-size: 0.7rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 0.3rem 0.6rem;
+            border-radius: 1rem;
+            z-index: 10;
+            border: 1px solid var(--glass-border);
+        }
+        
+        #presentation-layer .architecture-principle {
+            background: var(--presentation-color);
+        }
+        
+        #application-layer .architecture-principle {
+            background: var(--application-color);
+        }
+        
+        #domain-layer .architecture-principle {
+            background: var(--domain-color);
+        }
+        
+        #infrastructure-layer .architecture-principle {
+            background: var(--infrastructure-color);
+        }
+
+        /* Rest of the CSS remains the same */
         .layer-status {
             font-size: 0.75rem;
             padding: 0.25rem 0.75rem;
@@ -292,6 +403,7 @@
             display: block;
         }
 
+        /* Database styling with custom colors */
         .databases-container {
             position: absolute;
             right: 2rem;
@@ -314,16 +426,59 @@
             width: 200px;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        /* Custom database styling */
+        #users-db {
+            background: linear-gradient(145deg, rgba(37, 99, 235, 0.2), rgba(37, 99, 235, 0.05));
+            border-left: 3px solid var(--users-db-color);
+        }
+        
+        #courses-db {
+            background: linear-gradient(145deg, rgba(192, 38, 211, 0.2), rgba(192, 38, 211, 0.05));
+            border-left: 3px solid var(--courses-db-color);
+        }
+        
+        #payments-db {
+            background: linear-gradient(145deg, rgba(234, 88, 12, 0.2), rgba(234, 88, 12, 0.05));
+            border-left: 3px solid var(--payments-db-color);
+        }
 
         .database:hover {
             transform: translateX(-5px);
         }
 
         .database.processing {
-            background: rgba(59, 130, 246, 0.3);
             transform: scale(1.05);
-            box-shadow: 0 0 30px var(--processing-color);
             animation: pulseDatabase 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Custom database processing states */
+        #users-db.processing {
+            background: rgba(37, 99, 235, 0.3);
+            box-shadow: 0 0 30px var(--users-db-color);
+        }
+        
+        #courses-db.processing {
+            background: rgba(192, 38, 211, 0.3);
+            box-shadow: 0 0 30px var(--courses-db-color);
+        }
+        
+        #payments-db.processing {
+            background: rgba(234, 88, 12, 0.3);
+            box-shadow: 0 0 30px var(--payments-db-color);
+        }
+        
+        /* Custom database icons */
+        #users-db .database-icon {
+            background: linear-gradient(135deg, var(--users-db-color), rgba(37, 99, 235, 0.7));
+        }
+        
+        #courses-db .database-icon {
+            background: linear-gradient(135deg, var(--courses-db-color), rgba(192, 38, 211, 0.7));
+        }
+        
+        #payments-db .database-icon {
+            background: linear-gradient(135deg, var(--payments-db-color), rgba(234, 88, 12, 0.7));
         }
 
         .database-icon {
@@ -335,7 +490,6 @@
             border-radius: 50%;
             color: white;
             margin-right: 1rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         }
 
         .database.processing .database-icon {
@@ -358,6 +512,7 @@
             opacity: 0.7;
         }
 
+        /* Connection lines with better visualization */
         .connection-lines {
             position: absolute;
             top: 0;
@@ -369,375 +524,436 @@
         }
 
         .connection-line {
-            stroke: var(--secondary-color);
             stroke-width: 2;
             fill: none;
-            opacity: 0.3;
-            filter: drop-shadow(0 0 3px var(--secondary-color));
+            opacity: 0.4;
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
             transition: all 0.3s ease;
+        }
+        
+        /* Layer connection colors */
+        .presentation-to-application {
+            stroke: var(--presentation-color);
+        }
+        
+        .application-to-domain {
+            stroke: var(--application-color);
+        }
+        
+        .domain-to-infrastructure {
+            stroke: var(--domain-color);
+        }
+        
+        .infrastructure-to-db {
+            stroke: var(--infrastructure-color);
+        }
+        
+        .domain-to-db {
+            stroke: var(--domain-color);
+            stroke-dasharray: 5;
         }
 
         .connection-line.active {
-            stroke: var(--processing-color);
             stroke-width: 3;
             opacity: 1;
-            filter: drop-shadow(0 0 10px var(--processing-color));
-            stroke-dasharray: 10;
+            filter: drop-shadow(0 0 10px currentColor);
             animation: flowLine 4s infinite linear;
         }
 
         .arrow-head {
-            fill: var(--secondary-color);
             opacity: 0.7;
             transition: all 0.3s ease;
         }
+        
+        /* Color arrow heads to match their lines */
+        .presentation-to-application + .arrow-head {
+            fill: var(--presentation-color);
+        }
+        
+        .application-to-domain + .arrow-head {
+            fill: var(--application-color);
+        }
+        
+        .domain-to-infrastructure + .arrow-head {
+            fill: var(--domain-color);
+        }
+        
+        .infrastructure-to-db + .arrow-head {
+            fill: var(--infrastructure-color);
+        }
+        
+        .domain-to-db + .arrow-head {
+            fill: var(--domain-color);
+        }
 
         .connection-line.active + .arrow-head {
-            fill: var(--processing-color);
             opacity: 1;
-            filter: drop-shadow(0 0 5px var(--processing-color));
+            filter: drop-shadow(0 0 5px currentColor);
             animation: pulseArrow 2s infinite;
         }
 
-        .data-flow {
-            fill: var(--processing-color);
-            opacity: 0;
+        /* Data flow animation */
+        @keyframes flowLine {
+            from {
+                stroke-dashoffset: 500;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
         }
 
-        .data-flow.active {
-            animation: flowData 5s infinite linear;
+        @keyframes pulseLayer {
+            0% {
+                box-shadow: 0 0 10px currentColor;
+            }
+            50% {
+                box-shadow: 0 0 30px currentColor;
+            }
+            100% {
+                box-shadow: 0 0 10px currentColor;
+            }
         }
 
+        @keyframes pulseDatabase {
+            0% {
+                box-shadow: 0 0 5px currentColor;
+            }
+            50% {
+                box-shadow: 0 0 20px currentColor;
+            }
+            100% {
+                box-shadow: 0 0 5px currentColor;
+            }
+        }
+
+        @keyframes pulseComponent {
+            0% {
+                box-shadow: 0 0 5px currentColor;
+            }
+            50% {
+                box-shadow: 0 0 15px currentColor;
+            }
+            100% {
+                box-shadow: 0 0 5px currentColor;
+            }
+        }
+
+        @keyframes pulseStatus {
+            0% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes rotateIcon {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulseArrow {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+        }
+        
+        /* Tooltip for architecture principles and components */
         .tooltip {
             position: absolute;
-            background: var(--card-background);
+            background: rgba(15, 23, 42, 0.95);
             border: 1px solid var(--glass-border);
             border-radius: 0.5rem;
-            padding: 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            font-size: 0.85rem;
-            max-width: 250px;
-            z-index: 10;
+            padding: 0.8rem;
+            font-size: 0.8rem;
+            max-width: 300px;
+            z-index: 1000;
             opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
             transform: translateY(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+        }
+
+        .tooltip.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .tooltip-title {
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 0.5rem;
-            color: var(--primary-color);
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
         }
 
         .tooltip-content {
             line-height: 1.4;
         }
-
-        .tooltip.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        @keyframes pulseLayer {
-            0% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
-            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8); }
-            100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
-        }
-
-        @keyframes pulseDatabase {
-            0% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
-            50% { box-shadow: 0 0 25px rgba(59, 130, 246, 0.8); }
-            100% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
-        }
-
-        @keyframes pulseComponent {
-            0% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
-            50% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.8); }
-            100% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
-        }
-
-        @keyframes pulseStatus {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { opacity: 0.8; }
-        }
-
-        @keyframes pulseArrow {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { opacity: 0.8; }
-        }
-
-        @keyframes flowLine {
-            0% { stroke-dashoffset: 20; }
-            100% { stroke-dashoffset: 0; }
-        }
-
-        @keyframes flowData {
-            0% { opacity: 1; offset-distance: 0%; }
-            70% { opacity: 1; }
-            100% { opacity: 0; offset-distance: 100%; }
-        }
-
-        @keyframes rotateIcon {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .request-animation {
+        
+        /* Layer transition effects */
+        .layer-transition {
             position: absolute;
-            left: 50%;
-            top: 0;
-            transform: translateX(-50%);
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--processing-color);
-            z-index: 3;
-            opacity: 0;
-        }
-
-        .request-animation.active {
-            animation: requestFlow 8s forwards cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes requestFlow {
-            0% { 
-                top: 10%;
-                opacity: 1;
-                width: 10px;
-                height: 10px;
-            }
-            20% { 
-                top: 30%;
-                opacity: 1;
-                width: 12px;
-                height: 12px;
-            }
-            40% { 
-                top: 50%;
-                opacity: 1;
-                width: 14px;
-                height: 14px;
-            }
-            60% { 
-                top: 70%;
-                opacity: 1;
-                width: 16px;
-                height: 16px;
-            }
-            80% { 
-                top: 90%;
-                opacity: 1;
-                width: 18px;
-                height: 18px;
-            }
-            100% { 
-                top: 95%;
-                opacity: 0;
-                width: 20px;
-                height: 20px;
-            }
-        }
-
-        .controls {
+            height: 30px;
+            width: 100%;
             display: flex;
-            gap: 1rem;
-        }
-
-        .control-btn {
-            padding: 0.5rem 1rem;
-            background: rgba(99, 102, 241, 0.2);
-            border: 1px solid rgba(99, 102, 241, 0.5);
-            border-radius: 0.5rem;
-            color: var(--text-color);
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .control-btn:hover {
-            background: rgba(99, 102, 241, 0.4);
-        }
-
-        .info-badge {
-            display: inline-flex;
-            align-items: center;
             justify-content: center;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--processing-color);
-            color: white;
-            font-size: 0.75rem;
-            margin-left: 0.5rem;
-            cursor: help;
+            align-items: center;
+            z-index: 1;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .dependency-arrow {
+            position: absolute;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            left: 50%;
+            transform: translateX(-50%);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>EduPulse Layered Architecture Visualization <span class="info-badge" id="info-button">i</span></h1>
-            <div class="controls">
-                <button class="control-btn" id="test-btn">Test Visualization</button>
-                <button class="control-btn" id="clear-logs">Clear Logs</button>
+            <h1>EduPulse Layered Architecture Visualization</h1>
+            <div id="info-button" class="info-button">
+                <i class="fas fa-info-circle"></i>
             </div>
         </header>
-        
-        <div class="dashboard">
-        <div class="visualization-container">
-                <div class="request-animation" id="request-animation"></div>
-            <div class="layers-container">
-                <div class="layer" id="presentation-layer">
-                        <div class="layer-header">
-                    <div class="layer-icon">
-                        <i class="fas fa-desktop"></i>
-                    </div>
-                            <div class="layer-title">
-                    <div class="layer-name">Presentation Layer</div>
-                                <div class="layer-description">Handles user interfaces and API endpoints</div>
-                            </div>
-                        </div>
-                    <div class="layer-status">Inactive</div>
-                    <div class="layer-components">
-                            <div class="component" data-component="controllers" data-tooltip="Handles HTTP requests and responses">Controllers</div>
-                            <div class="component" data-component="views" data-tooltip="Renders UI components">Views</div>
-                            <div class="component" data-component="routes" data-tooltip="Defines API endpoints">Routes</div>
-                    </div>
-                        <div class="activity-detail" id="presentation-detail"></div>
-                </div>
-                    
-                <div class="layer" id="application-layer">
-                        <div class="layer-header">
-                    <div class="layer-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                            <div class="layer-title">
-                    <div class="layer-name">Application Layer</div>
-                                <div class="layer-description">Implements business logic and services</div>
-                            </div>
-                        </div>
-                    <div class="layer-status">Inactive</div>
-                    <div class="layer-components">
-                            <div class="component" data-component="services" data-tooltip="Core service implementations">Services</div>
-                            <div class="component" data-component="usecases" data-tooltip="Business use cases">Use Cases</div>
-                            <div class="component" data-component="logic" data-tooltip="Application-specific logic">App Logic</div>
-                    </div>
-                        <div class="activity-detail" id="application-detail"></div>
-                </div>
-                    
-                <div class="layer" id="domain-layer">
-                        <div class="layer-header">
-                    <div class="layer-icon">
-                        <i class="fas fa-project-diagram"></i>
-                    </div>
-                            <div class="layer-title">
-                    <div class="layer-name">Domain Layer</div>
-                                <div class="layer-description">Core business models and rules</div>
-                            </div>
-                        </div>
-                    <div class="layer-status">Inactive</div>
-                    <div class="layer-components">
-                            <div class="component" data-component="entities" data-tooltip="Business entities with behaviors">Entities</div>
-                            <div class="component" data-component="valueobjects" data-tooltip="Immutable data objects">Value Objects</div>
-                            <div class="component" data-component="domainservices" data-tooltip="Domain-specific services">Domain Services</div>
-                    </div>
-                        <div class="activity-detail" id="domain-detail"></div>
-                </div>
-                    
-                <div class="layer" id="infrastructure-layer">
-                        <div class="layer-header">
-                    <div class="layer-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                            <div class="layer-title">
-                    <div class="layer-name">Infrastructure Layer</div>
-                                <div class="layer-description">External integrations and data access</div>
-                            </div>
-                        </div>
-                    <div class="layer-status">Inactive</div>
-                    <div class="layer-components">
-                            <div class="component" data-component="repositories" data-tooltip="Data access implementations">Repositories</div>
-                            <div class="component" data-component="externalservices" data-tooltip="Integrations with external APIs">External Services</div>
-                            <div class="component" data-component="dbaccess" data-tooltip="Database operations">DB Access</div>
-                    </div>
-                        <div class="activity-detail" id="infrastructure-detail"></div>
-                </div>
+
+        <div id="info-tooltip" class="tooltip">
+            <div class="tooltip-title">About Layered Architecture</div>
+            <div class="tooltip-content">
+                <p>This visualization demonstrates a layered architecture with 4 distinct layers:</p>
+                <ul>
+                    <li><strong>Presentation Layer</strong>: User interface and API endpoints</li>
+                    <li><strong>Application Layer</strong>: Application services, use cases, and business operations</li>
+                    <li><strong>Domain Layer</strong>: Core business logic and entities</li>
+                    <li><strong>Infrastructure Layer</strong>: Technical capabilities and external systems</li>
+                </ul>
+                <p>Data flows top-down, while dependencies flow bottom-up, maintaining separation of concerns.</p>
             </div>
-                
-            <div class="databases-container">
-                <div class="database" id="users-db">
-                    <div class="database-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                        <div class="database-info">
-                    <div class="database-name">Users Database</div>
-                            <div class="database-status">No recent activity</div>
-                        </div>
-                </div>
-                <div class="database" id="courses-db">
-                    <div class="database-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                        <div class="database-info">
-                    <div class="database-name">Courses Database</div>
-                            <div class="database-status">No recent activity</div>
-                        </div>
-                </div>
-                <div class="database" id="payments-db">
-                    <div class="database-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                        <div class="database-info">
-                    <div class="database-name">Payments Database</div>
-                            <div class="database-status">No recent activity</div>
-                </div>
-            </div>
-                </div>
-                
-            <svg class="connection-lines" id="connection-lines"></svg>
-                
-                <div class="tooltip" id="info-tooltip">
-                    <div class="tooltip-title">Layered Architecture</div>
-                    <div class="tooltip-content">
-                        This visualization shows the layered architecture of the EduPulse application:
-                        <ul>
-                            <li><strong>Presentation Layer:</strong> UI and API controllers</li>
-                            <li><strong>Application Layer:</strong> Business services and use cases</li>
-                            <li><strong>Domain Layer:</strong> Core business entities and rules</li>
-                            <li><strong>Infrastructure Layer:</strong> Data access and external integrations</li>
-                        </ul>
-                        Watch how data flows through the layers when requests are processed.
         </div>
+
+        <div class="dashboard">
+            <div class="visualization-container">
+                <div class="layers-container">
+                    <!-- Presentation Layer -->
+                    <div id="presentation-layer" class="layer">
+                        <div class="architecture-principle">UI & API Boundary</div>
+                        <div class="layer-header">
+                            <div class="layer-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <div class="layer-title">
+                                <div class="layer-name">Presentation Layer</div>
+                                <div class="layer-description">User interfaces and API endpoints that handle external interactions</div>
+                                <div id="presentation-status" class="layer-status inactive">Inactive</div>
+                            </div>
+                        </div>
+                        <div class="layer-components">
+                            <div id="controllers" class="component" data-tooltip="Handles HTTP requests and responses, responsible for request processing">Controllers</div>
+                            <div id="routes" class="component" data-tooltip="Defines API endpoints and routes requests to appropriate controllers">Routes</div>
+                            <div id="views" class="component" data-tooltip="Renders user interface components and templates">Views</div>
+                        </div>
+                        <div id="presentation-detail" class="activity-detail"></div>
+                    </div>
+                    
+                    <!-- Layer transition indicator -->
+                    <div class="layer-transition">
+                        <span class="dependency-arrow"><i class="fas fa-arrow-down"></i></span>
+                    </div>
+
+                    <!-- Application Layer -->
+                    <div id="application-layer" class="layer">
+                        <div class="architecture-principle">Orchestration</div>
+                        <div class="layer-header">
+                            <div class="layer-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="layer-title">
+                                <div class="layer-name">Application Layer</div>
+                                <div class="layer-description">Orchestrates the business logic and use cases</div>
+                                <div id="application-status" class="layer-status inactive">Inactive</div>
+                            </div>
+                        </div>
+                        <div class="layer-components">
+                            <div id="services" class="component" data-tooltip="Implements application-specific business operations and workflows">Services</div>
+                            <div id="usecases" class="component" data-tooltip="Represents specific business use cases and user interactions">Use Cases</div>
+                            <div id="logic" class="component" data-tooltip="Applies business rules, validations, and transformations">Logic</div>
+                        </div>
+                        <div id="application-detail" class="activity-detail"></div>
+                    </div>
+                    
+                    <!-- Layer transition indicator -->
+                    <div class="layer-transition">
+                        <span class="dependency-arrow"><i class="fas fa-arrow-down"></i></span>
+                    </div>
+
+                    <!-- Domain Layer -->
+                    <div id="domain-layer" class="layer">
+                        <div class="architecture-principle">Core Business</div>
+                        <div class="layer-header">
+                            <div class="layer-icon">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <div class="layer-title">
+                                <div class="layer-name">Domain Layer</div>
+                                <div class="layer-description">Contains core business entities and domain-specific logic</div>
+                                <div id="domain-status" class="layer-status inactive">Inactive</div>
+                            </div>
+                        </div>
+                        <div class="layer-components">
+                            <div id="entities" class="component" data-tooltip="Core business objects with identity and lifecycle">Entities</div>
+                            <div id="valueobjects" class="component" data-tooltip="Immutable objects defined by their attributes">Value Objects</div>
+                            <div id="domainservices" class="component" data-tooltip="Stateless operations that don't belong to any specific entity">Domain Services</div>
+                        </div>
+                        <div id="domain-detail" class="activity-detail"></div>
+                    </div>
+                    
+                    <!-- Layer transition indicator -->
+                    <div class="layer-transition">
+                        <span class="dependency-arrow"><i class="fas fa-arrow-down"></i></span>
+                    </div>
+
+                    <!-- Infrastructure Layer -->
+                    <div id="infrastructure-layer" class="layer">
+                        <div class="architecture-principle">Technical Services</div>
+                        <div class="layer-header">
+                            <div class="layer-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="layer-title">
+                                <div class="layer-name">Infrastructure Layer</div>
+                                <div class="layer-description">Provides technical capabilities and external system integration</div>
+                                <div id="infrastructure-status" class="layer-status inactive">Inactive</div>
+                            </div>
+                        </div>
+                        <div class="layer-components">
+                            <div id="repositories" class="component" data-tooltip="Handles data access and persistence operations">Repositories</div>
+                            <div id="dbaccess" class="component" data-tooltip="Manages direct database connections and queries">DB Access</div>
+                            <div id="externalservices" class="component" data-tooltip="Integrates with external APIs and services">External Services</div>
+                        </div>
+                        <div id="infrastructure-detail" class="activity-detail"></div>
+                    </div>
                 </div>
+
+                <!-- Databases container -->
+                <div class="databases-container">
+                    <div id="users-db" class="database">
+                        <div class="database-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="database-info">
+                            <div class="database-name">Users DB</div>
+                            <div id="users-db-status" class="database-status">Inactive</div>
+                        </div>
+                    </div>
+                    <div id="courses-db" class="database">
+                        <div class="database-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="database-info">
+                            <div class="database-name">Courses DB</div>
+                            <div id="courses-db-status" class="database-status">Inactive</div>
+                        </div>
+                    </div>
+                    <div id="payments-db" class="database">
+                        <div class="database-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="database-info">
+                            <div class="database-name">Payments DB</div>
+                            <div id="payments-db-status" class="database-status">Inactive</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SVG for connection lines -->
+                <svg class="connection-lines">
+                    <!-- Connections between layers -->
+                    <path id="presentation-to-application" class="connection-line presentation-to-application" />
+                    <polygon id="presentation-to-application-arrow" class="arrow-head" />
+                    
+                    <path id="application-to-domain" class="connection-line application-to-domain" />
+                    <polygon id="application-to-domain-arrow" class="arrow-head" />
+                    
+                    <path id="domain-to-infrastructure" class="connection-line domain-to-infrastructure" />
+                    <polygon id="domain-to-infrastructure-arrow" class="arrow-head" />
+                    
+                    <!-- Database connections -->
+                    <path id="infrastructure-to-users-db" class="connection-line infrastructure-to-db" />
+                    <polygon id="infrastructure-to-users-db-arrow" class="arrow-head" />
+                    
+                    <path id="infrastructure-to-courses-db" class="connection-line infrastructure-to-db" />
+                    <polygon id="infrastructure-to-courses-db-arrow" class="arrow-head" />
+                    
+                    <path id="infrastructure-to-payments-db" class="connection-line infrastructure-to-db" />
+                    <polygon id="infrastructure-to-payments-db-arrow" class="arrow-head" />
+                    
+                    <path id="domain-to-users-db" class="connection-line domain-to-db" />
+                    <polygon id="domain-to-users-db-arrow" class="arrow-head" />
+                    
+                    <path id="domain-to-courses-db" class="connection-line domain-to-db" />
+                    <polygon id="domain-to-courses-db-arrow" class="arrow-head" />
+                    
+                    <path id="domain-to-payments-db" class="connection-line domain-to-db" />
+                    <polygon id="domain-to-payments-db-arrow" class="arrow-head" />
+                </svg>
+
+                <!-- Request animation elements -->
+                <div id="request-animation" class="request-animation"></div>
             </div>
-            
+
+            <!-- Activity Panel on the right side -->
             <div class="activity-panel">
+                <h2>System Activity</h2>
+                
                 <div class="stats-container">
                     <div class="stat-card">
                         <div class="stat-label">Active Requests</div>
-                        <div class="stat-value" id="active-requests">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">DB Operations</div>
-                        <div class="stat-value" id="db-operations">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Response Time</div>
-                        <div class="stat-value" id="response-time">0ms</div>
+                        <div id="active-requests" class="stat-value">0</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-label">Total Requests</div>
-                        <div class="stat-value" id="total-requests">0</div>
+                        <div id="total-requests" class="stat-value">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">DB Operations</div>
+                        <div id="db-operations" class="stat-value">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Avg Response Time</div>
+                        <div id="response-time" class="stat-value">0ms</div>
                     </div>
                 </div>
                 
-        <div class="activity-logs-container">
-            <h3>Activity Logs</h3>
-            <div class="activity-logs" id="activity-logs"></div>
+                <div class="activity-logs-container">
+                    <h3>Activity Logs</h3>
+                    <div id="activity-logs" class="activity-logs"></div>
+                </div>
+                
+                <div class="actions" style="margin-top: 1rem;">
+                    <button id="simulate-button" class="button">Simulate Request</button>
                 </div>
             </div>
         </div>
@@ -745,62 +961,86 @@
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script>
-        const socket = io();
-        
-        // Layer details and operations
+        // Layer data and metadata for better visualization
         const layerDetails = {
             'presentation': {
-                description: 'Handles HTTP requests and renders UI',
+                color: getComputedStyle(document.documentElement).getPropertyValue('--presentation-color'),
+                icon: 'desktop',
+                description: 'User interfaces and API endpoints that handle external interactions',
                 operations: {
-                    'controllers': 'Processing HTTP request',
-                    'views': 'Rendering UI components', 
-                    'routes': 'Routing API request'
-                }
+                    'controllers': ['Processing HTTP request', 'Validating input', 'Formatting response'],
+                    'routes': ['Routing API call', 'Parameter binding', 'Authentication check'],
+                    'views': ['Rendering view', 'Template processing', 'UI component update']
+                },
+                principles: ['Separation of UI from business logic', 'API design', 'User experience']
             },
             'application': {
-                description: 'Implements business logic',
+                color: getComputedStyle(document.documentElement).getPropertyValue('--application-color'),
+                icon: 'cogs',
+                description: 'Orchestrates the business logic and use cases',
                 operations: {
-                    'services': 'Executing service operation',
-                    'usecases': 'Processing business use case',
-                    'logic': 'Applying application logic'
-                }
+                    'services': ['Executing service operation', 'Transaction management', 'Cross-cutting concerns'],
+                    'usecases': ['Processing business use case', 'Workflow coordination', 'Business rules application'],
+                    'logic': ['Applying business logic', 'Input validation', 'Data transformation']
+                },
+                principles: ['Use case driven design', 'Service orchestration', 'No direct data access']
             },
             'domain': {
-                description: 'Core business entities and rules',
+                color: getComputedStyle(document.documentElement).getPropertyValue('--domain-color'),
+                icon: 'cubes',
+                description: 'Contains core business entities and domain-specific logic',
                 operations: {
-                    'entities': 'Updating entity state',
-                    'valueobjects': 'Processing value objects',
-                    'domainservices': 'Executing domain service'
-                }
+                    'entities': ['Managing entity state', 'Business invariant enforcement', 'Identity management'],
+                    'valueobjects': ['Processing value objects', 'Immutable data representation', 'Domain calculations'],
+                    'domainservices': ['Executing domain service', 'Cross-entity operations', 'Core business rules']
+                },
+                principles: ['Domain-driven design', 'Business logic encapsulation', 'Rich domain model']
             },
             'infrastructure': {
-                description: 'Handles external systems and data storage',
+                color: getComputedStyle(document.documentElement).getPropertyValue('--infrastructure-color'),
+                icon: 'database',
+                description: 'Provides technical capabilities and external system integration',
                 operations: {
-                    'repositories': 'Accessing data repository',
-                    'externalservices': 'Calling external service',
-                    'dbaccess': 'Performing database operation'
-                }
+                    'repositories': ['Accessing data repository', 'Data persistence', 'Object mapping'],
+                    'dbaccess': ['Performing database operation', 'Query execution', 'Connection management'],
+                    'externalservices': ['Calling external service', 'API integration', 'External system communication']
+                },
+                principles: ['Technology abstraction', 'External system integration', 'Persistence mechanisms']
             }
         };
 
+        // Database operations by database type
         const dbOperations = {
-            'users-db': ['Querying user data', 'Storing user profile', 'Updating user credentials', 'Checking user permissions'],
-            'courses-db': ['Fetching course details', 'Updating course content', 'Recording enrollment', 'Adding assignment results'],
-            'payments-db': ['Processing payment', 'Recording transaction', 'Updating payment status', 'Generating invoice']
+            'users-db': ['User authentication', 'Profile management', 'Account verification', 'User data retrieval'],
+            'courses-db': ['Course listing', 'Course enrollment', 'Content management', 'Progress tracking'],
+            'payments-db': ['Payment processing', 'Invoice generation', 'Transaction recording', 'Payment verification']
         };
 
-        // DOM Elements
+        // Get references to the layer and database elements
         const layers = {
             'presentation': document.getElementById('presentation-layer'),
             'application': document.getElementById('application-layer'),
             'domain': document.getElementById('domain-layer'),
             'infrastructure': document.getElementById('infrastructure-layer')
         };
-        
+
+        const layerStatuses = {
+            'presentation': document.getElementById('presentation-status'),
+            'application': document.getElementById('application-status'),
+            'domain': document.getElementById('domain-status'),
+            'infrastructure': document.getElementById('infrastructure-status')
+        };
+
         const databases = {
             'users-db': document.getElementById('users-db'),
             'courses-db': document.getElementById('courses-db'),
             'payments-db': document.getElementById('payments-db')
+        };
+
+        const dbStatuses = {
+            'users-db': document.getElementById('users-db-status'),
+            'courses-db': document.getElementById('courses-db-status'),
+            'payments-db': document.getElementById('payments-db-status')
         };
 
         const layerDetails_elements = {
@@ -821,6 +1061,31 @@
         // Debug/logging information container
         const activityLogs = document.getElementById('activity-logs');
         const requestAnimation = document.getElementById('request-animation');
+        
+        // Connection lines
+        const connections = {
+            'presentation-to-application': document.getElementById('presentation-to-application'),
+            'application-to-domain': document.getElementById('application-to-domain'),
+            'domain-to-infrastructure': document.getElementById('domain-to-infrastructure'),
+            'infrastructure-to-users-db': document.getElementById('infrastructure-to-users-db'),
+            'infrastructure-to-courses-db': document.getElementById('infrastructure-to-courses-db'),
+            'infrastructure-to-payments-db': document.getElementById('infrastructure-to-payments-db'),
+            'domain-to-users-db': document.getElementById('domain-to-users-db'),
+            'domain-to-courses-db': document.getElementById('domain-to-courses-db'),
+            'domain-to-payments-db': document.getElementById('domain-to-payments-db')
+        };
+        
+        const arrows = {
+            'presentation-to-application': document.getElementById('presentation-to-application-arrow'),
+            'application-to-domain': document.getElementById('application-to-domain-arrow'),
+            'domain-to-infrastructure': document.getElementById('domain-to-infrastructure-arrow'),
+            'infrastructure-to-users-db': document.getElementById('infrastructure-to-users-db-arrow'),
+            'infrastructure-to-courses-db': document.getElementById('infrastructure-to-courses-db-arrow'),
+            'infrastructure-to-payments-db': document.getElementById('infrastructure-to-payments-db-arrow'),
+            'domain-to-users-db': document.getElementById('domain-to-users-db-arrow'),
+            'domain-to-courses-db': document.getElementById('domain-to-courses-db-arrow'),
+            'domain-to-payments-db': document.getElementById('domain-to-payments-db-arrow')
+        };
         
         // Stats tracking
         let stats = {
@@ -875,7 +1140,7 @@
             },
             
             animateRequestFlow: function(layerIndex) {
-                const layerIds = Object.keys(layers);
+                const layerIds = ['presentation', 'application', 'domain', 'infrastructure'];
                 
                 if (layerIndex >= layerIds.length) {
                     // All layers processed, complete the request
@@ -898,9 +1163,46 @@
                 // Activate this layer
                 updateLayerStatus(layerId, 'active', randomComponent);
                 
+                // Activate the connection to next layer
+                if (layerIndex < layerIds.length - 1) {
+                    const nextLayerId = layerIds[layerIndex + 1];
+                    activateConnection(`${layerId}-to-${nextLayerId}`);
+                }
+                
+                // If this is infrastructure layer, also activate a database
+                if (layerId === 'infrastructure') {
+                    const dbIds = Object.keys(databases);
+                    const randomDb = dbIds[Math.floor(Math.random() * dbIds.length)];
+                    updateDbStatus(randomDb, 'active');
+                    activateConnection(`infrastructure-to-${randomDb}`);
+                }
+                
+                // If this is domain layer, sometimes activate a database too (50% chance)
+                if (layerId === 'domain' && Math.random() > 0.5) {
+                    const dbIds = Object.keys(databases);
+                    const randomDb = dbIds[Math.floor(Math.random() * dbIds.length)];
+                    updateDbStatus(randomDb, 'active');
+                    activateConnection(`domain-to-${randomDb}`);
+                }
+                
                 // Schedule next layer activation after this layer completes its animation
                 const layerDuration = 5000; // 5 seconds per layer
                 setTimeout(() => {
+                    // Deactivate current layer and its connections
+                    updateLayerStatus(layerId, 'inactive');
+                    if (layerIndex < layerIds.length - 1) {
+                        deactivateConnection(`${layerId}-to-${layerIds[layerIndex + 1]}`);
+                    }
+                    
+                    // Deactivate databases that were activated
+                    if (layerId === 'infrastructure' || layerId === 'domain') {
+                        Object.keys(databases).forEach(dbId => {
+                            updateDbStatus(dbId, 'inactive');
+                            deactivateConnection(`${layerId}-to-${dbId}`);
+                        });
+                    }
+                    
+                    // Move to next layer
                     this.animateRequestFlow(layerIndex + 1);
                 }, layerDuration);
             },
@@ -959,6 +1261,13 @@
         infoButton.addEventListener('mouseleave', () => {
             infoTooltip.classList.remove('show');
         });
+        
+        // Architecture principles tooltips
+        const principleBadges = document.querySelectorAll('.architecture-principle');
+        principleBadges.forEach(badge => {
+            badge.addEventListener('mouseenter', showPrincipleTooltip);
+            badge.addEventListener('mouseleave', hidePrincipleTooltip);
+        });
 
         // Helper functions
         function showComponentTooltip(e) {
@@ -981,6 +1290,44 @@
         }
         
         function hideComponentTooltip(e) {
+            if (e.target.tooltip) {
+                e.target.tooltip.classList.remove('show');
+                setTimeout(() => {
+                    if (e.target.tooltip && e.target.tooltip.parentNode) {
+                        e.target.tooltip.parentNode.removeChild(e.target.tooltip);
+                    }
+                    e.target.tooltip = null;
+                }, 300);
+            }
+        }
+        
+        function showPrincipleTooltip(e) {
+            const layerId = e.target.closest('.layer').id.replace('-layer', '');
+            const principles = layerDetails[layerId].principles || [];
+            
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            tooltip.innerHTML = `
+                <div class="tooltip-title">Architecture Principles</div>
+                <div class="tooltip-content">
+                    <ul style="padding-left: 1rem; margin: 0.5rem 0;">
+                        ${principles.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            
+            document.body.appendChild(tooltip);
+            
+            const rect = e.target.getBoundingClientRect();
+            tooltip.style.left = `${rect.left + rect.width/2 - tooltip.offsetWidth/2}px`;
+            tooltip.style.top = `${rect.bottom + 10}px`;
+            
+            setTimeout(() => tooltip.classList.add('show'), 10);
+            
+            e.target.tooltip = tooltip;
+        }
+        
+        function hidePrincipleTooltip(e) {
             if (e.target.tooltip) {
                 e.target.tooltip.classList.remove('show');
                 setTimeout(() => {
@@ -1016,11 +1363,7 @@
 
         function getRandomOperation(layerId, componentId) {
             if (componentId && layerDetails[layerId]?.operations[componentId]) {
-                return layerDetails[layerId].operations[componentId];
-            }
-            
-            if (layerDetails[layerId]?.operations) {
-                const operations = Object.values(layerDetails[layerId].operations);
+                const operations = layerDetails[layerId].operations[componentId];
                 return operations[Math.floor(Math.random() * operations.length)];
             }
             
@@ -1047,390 +1390,303 @@
         }
 
         function startRequestAnimation(progress = 0) {
-            requestAnimation.classList.add('active');
-            
-            // Position the animation based on progress (0-1)
-            requestAnimation.style.top = `${10 + progress * 85}%`;
-            
-            setTimeout(() => {
-                requestAnimation.classList.remove('active');
-            }, 8000);
+            // Animation implementation
         }
 
-        function updateLayerStatus(layerId, status, component = null) {
+        function updateLayerStatus(layerId, status, componentId = null) {
             const layer = layers[layerId];
-            const detailElement = layerDetails_elements[layerId];
+            const layerStatus = layerStatuses[layerId];
             
-            if (!layer) return;
-            
-            const operation = getRandomOperation(layerId, component);
-            const statusElement = layer.querySelector('.layer-status');
-            
+            if (layer && layerStatus) {
                 if (status === 'active') {
-                // Update layer visuals
                     layer.classList.add('processing');
-                layer.classList.add('layer-processing');
-                statusElement.textContent = 'Active';
-                statusElement.className = 'layer-status active';
-                
-                // Show activity details
-                if (currentRequest) {
-                    detailElement.innerHTML = `Operation: <strong>${operation}</strong><br>Path: ${currentRequest.path}`;
-                } else {
-                    detailElement.innerHTML = `Operation: <strong>${operation}</strong>`;
-                }
-                detailElement.style.display = 'block';
-                
-                // Activate specific component if provided
-                    if (component) {
-                    const componentElement = layer.querySelector(`.component[data-component="${component}"]`);
-                    if (componentElement) {
-                        componentElement.classList.add('active');
-                        activeComponents.add(componentElement);
+                    layerStatus.textContent = 'Active';
+                    layerStatus.classList.remove('inactive');
+                    layerStatus.classList.add('active');
+                    
+                    // Get operation for this component
+                    const operation = getRandomOperation(layerId, componentId);
+                    
+                    // Update detail section
+                    if (layerDetails_elements[layerId]) {
+                        layerDetails_elements[layerId].innerHTML = `
+                            <strong>Operation:</strong> ${operation}<br>
+                            <strong>Component:</strong> ${componentId || 'unknown'}<br>
+                            <strong>Status:</strong> Processing
+                        `;
                     }
-                }
-                
-                // Update connections
-                activateConnections(layerId);
-                
-                // Log the activity
-                logActivity(`${operation}`, 'info', { 
-                    layer: layerId.charAt(0).toUpperCase() + layerId.slice(1), 
-                    operation: component 
-                });
-                
-                // Schedule deactivation
-                setTimeout(() => {
-                    updateLayerStatus(layerId, 'inactive', component);
-                }, 4500);
+                    
+                    // Activate component if specified
+                    if (componentId) {
+                        const componentEl = document.getElementById(componentId);
+                        if (componentEl) {
+                            componentEl.classList.add('active');
+                            activeComponents.add(componentId);
+                        }
+                    }
+                    
+                    // Log the activity
+                    logActivity(`Layer activated`, 'info', { 
+                        layer: layerId.charAt(0).toUpperCase() + layerId.slice(1),
+                        operation
+                    });
                 } else {
-                // Deactivate the layer
                     layer.classList.remove('processing');
-                layer.classList.remove('layer-processing');
-                statusElement.textContent = 'Inactive';
-                statusElement.className = 'layer-status inactive';
-                detailElement.style.display = 'none';
-                
-                // Deactivate components
-                if (component) {
-                    const componentElement = layer.querySelector(`.component[data-component="${component}"]`);
-                    if (componentElement) {
-                        componentElement.classList.remove('active');
-                        activeComponents.delete(componentElement);
+                    layerStatus.textContent = 'Inactive';
+                    layerStatus.classList.add('inactive');
+                    layerStatus.classList.remove('active');
+                    
+                    // Remove active status from components
+                    // but only if they belong to this layer
+                    if (componentId) {
+                        const componentEl = document.getElementById(componentId);
+                        if (componentEl) {
+                            componentEl.classList.remove('active');
+                            activeComponents.delete(componentId);
+                        }
+                    } else {
+                        // Clear all components in this layer
+                        const layerComponents = layer.querySelectorAll('.component');
+                        layerComponents.forEach(comp => {
+                            comp.classList.remove('active');
+                            activeComponents.delete(comp.id);
+                        });
                     }
+                    
+                    // Log the activity
+                    logActivity(`Layer deactivated`, 'info', { 
+                        layer: layerId.charAt(0).toUpperCase() + layerId.slice(1)
+                    });
                 }
-                
-                updateStatistics();
             }
         }
 
-        function updateDatabaseStatus(dbId, status) {
+        function updateDbStatus(dbId, status) {
             const db = databases[dbId];
-            if (!db) return;
+            const dbStatus = dbStatuses[dbId];
             
-            const operation = getRandomDbOperation(dbId);
-            const statusElement = db.querySelector('.database-status');
-            
+            if (db && dbStatus) {
                 if (status === 'active') {
                     db.classList.add('processing');
-                statusElement.textContent = operation;
-                
-                // Track db operations
-                stats.dbOperations++;
-                updateStatistics();
-                
-                // Log the operation
-                logActivity(`${operation}`, 'info', { 
-                    layer: 'Database', 
-                    operation: dbId 
-                });
-                
-                // Add data flow animation from infrastructure to db
-                addDataFlowAnimation('infrastructure-layer', dbId);
-                
-                // Schedule deactivation after longer time
-                setTimeout(() => {
-                    updateDatabaseStatus(dbId, 'inactive');
-                }, Math.random() * 4000 + 3000);
+                    dbStatus.textContent = getRandomDbOperation(dbId);
+                    
+                    // Update stats
+                    stats.dbOperations++;
+                    updateStatistics();
+                    
+                    // Log the activity
+                    logActivity(`Database operation: ${dbStatus.textContent}`, 'info', { 
+                        layer: 'Database',
+                        operation: dbStatus.textContent
+                    });
                 } else {
                     db.classList.remove('processing');
-                statusElement.textContent = 'No recent activity';
+                    dbStatus.textContent = 'Inactive';
+                }
             }
         }
-
+        
+        // Draw and activate connections between layers and databases
         function drawConnections() {
-            const svg = document.getElementById('connection-lines');
-            svg.innerHTML = '';
-
-            // Create defs for markers
-            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+            // Layer connections
+            drawLayerToLayerConnection('presentation', 'application');
+            drawLayerToLayerConnection('application', 'domain');
+            drawLayerToLayerConnection('domain', 'infrastructure');
             
-            // Arrow marker definition
-            const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-            marker.setAttribute('id', 'arrowhead');
-            marker.setAttribute('markerWidth', '10');
-            marker.setAttribute('markerHeight', '7');
-            marker.setAttribute('refX', '10');
-            marker.setAttribute('refY', '3.5');
-            marker.setAttribute('orient', 'auto');
+            // Database connections
+            Object.keys(databases).forEach(dbId => {
+                drawLayerToDatabaseConnection('infrastructure', dbId);
+                drawLayerToDatabaseConnection('domain', dbId);
+            });
+        }
+        
+        function drawLayerToLayerConnection(fromLayerId, toLayerId) {
+            const fromLayer = layers[fromLayerId];
+            const toLayer = layers[toLayerId];
+            const connection = connections[`${fromLayerId}-to-${toLayerId}`];
+            const arrow = arrows[`${fromLayerId}-to-${toLayerId}`];
             
-            const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-            polygon.setAttribute('points', '0 0, 10 3.5, 0 7');
-            polygon.setAttribute('fill', '#818cf8');
-            
-            marker.appendChild(polygon);
-            defs.appendChild(marker);
-            svg.appendChild(defs);
-            
-            // Draw connections between layers
-            const layerElements = Object.values(layers);
-            
-            for (let i = 0; i < layerElements.length - 1; i++) {
-                const startRect = layerElements[i].getBoundingClientRect();
-                const endRect = layerElements[i + 1].getBoundingClientRect();
+            if (fromLayer && toLayer && connection && arrow) {
+                const fromRect = fromLayer.getBoundingClientRect();
+                const toRect = toLayer.getBoundingClientRect();
                 
-                const svgRect = svg.getBoundingClientRect();
+                const fromX = fromRect.left + fromRect.width / 2;
+                const fromY = fromRect.bottom;
+                const toX = toRect.left + toRect.width / 2;
+                const toY = toRect.top;
                 
-                const start = {
-                    x: startRect.left + startRect.width/2 - svgRect.left,
-                    y: startRect.bottom - svgRect.top
-                };
+                // Adjust for container position
+                const containerRect = document.querySelector('.visualization-container').getBoundingClientRect();
+                const adjustedFromX = fromX - containerRect.left;
+                const adjustedFromY = fromY - containerRect.top;
+                const adjustedToX = toX - containerRect.left;
+                const adjustedToY = toY - containerRect.top;
                 
-                const end = {
-                    x: endRect.left + endRect.width/2 - svgRect.left,
-                    y: endRect.top - svgRect.top
-                };
+                // Draw the connection path
+                connection.setAttribute('d', `M${adjustedFromX},${adjustedFromY} C${adjustedFromX},${(adjustedFromY+adjustedToY)/2} ${adjustedToX},${(adjustedFromY+adjustedToY)/2} ${adjustedToX},${adjustedToY}`);
                 
-                // Create the path with Bezier curve
-                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                path.setAttribute('class', 'connection-line');
-                path.setAttribute('id', `connection-${i}`);
-                path.setAttribute('d', `M ${start.x} ${start.y} 
-                                      C ${start.x} ${start.y + (end.y - start.y)/3},
-                                        ${end.x} ${end.y - (end.y - start.y)/3},
-                                        ${end.x} ${end.y}`);
-                path.setAttribute('marker-end', 'url(#arrowhead)');
-                svg.appendChild(path);
-
-                // Add arrow head as a separate element for better animation control
-                const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                arrow.setAttribute('class', 'arrow-head');
-                arrow.setAttribute('id', `arrow-${i}`);
-                arrow.setAttribute('points', `${end.x-5},${end.y-5} ${end.x},${end.y} ${end.x-5},${end.y+5}`);
-                svg.appendChild(arrow);
+                // Position the arrow
+                const arrowPoints = getArrowPoints(adjustedToX, adjustedToY, adjustedFromX, adjustedFromY);
+                arrow.setAttribute('points', arrowPoints);
             }
-
-            // Draw connections between infrastructure and databases
-            const infraLayer = layerElements[layerElements.length - 1];
-            const infraRect = infraLayer.getBoundingClientRect();
+        }
+        
+        function drawLayerToDatabaseConnection(layerId, dbId) {
+            const layer = layers[layerId];
+            const db = databases[dbId];
+            const connection = connections[`${layerId}-to-${dbId}`];
+            const arrow = arrows[`${layerId}-to-${dbId}`];
             
-            Object.entries(databases).forEach(([dbId, dbElement], index) => {
-                const dbRect = dbElement.getBoundingClientRect();
+            if (layer && db && connection && arrow) {
+                const layerRect = layer.getBoundingClientRect();
+                const dbRect = db.getBoundingClientRect();
                 
-                const start = {
-                    x: infraRect.right - svgRect.left,
-                    y: infraRect.top + infraRect.height/2 - svgRect.top
-                };
+                const layerX = layerRect.right;
+                const layerY = layerRect.top + layerRect.height / 2;
+                const dbX = dbRect.left;
+                const dbY = dbRect.top + dbRect.height / 2;
                 
-                const end = {
-                    x: dbRect.left - svgRect.left,
-                    y: dbRect.top + dbRect.height/2 - svgRect.top
-                };
+                // Adjust for container position
+                const containerRect = document.querySelector('.visualization-container').getBoundingClientRect();
+                const adjustedLayerX = layerX - containerRect.left;
+                const adjustedLayerY = layerY - containerRect.top;
+                const adjustedDbX = dbX - containerRect.left;
+                const adjustedDbY = dbY - containerRect.top;
                 
-                // Create the path
-                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                path.setAttribute('class', 'connection-line');
-                path.setAttribute('id', `db-connection-${dbId}`);
-                path.setAttribute('d', `M ${start.x} ${start.y} 
-                                      C ${start.x + (end.x - start.x)/3} ${start.y},
-                                        ${end.x - (end.x - start.x)/3} ${end.y},
-                                        ${end.x} ${end.y}`);
-                path.setAttribute('marker-end', 'url(#arrowhead)');
-                svg.appendChild(path);
-
-                // Add arrow head
-                const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                arrow.setAttribute('class', 'arrow-head');
-                arrow.setAttribute('id', `db-arrow-${dbId}`);
-                arrow.setAttribute('points', `${end.x-5},${end.y-5} ${end.x},${end.y} ${end.x-5},${end.y+5}`);
-                svg.appendChild(arrow);
+                // Draw the connection path
+                connection.setAttribute('d', `M${adjustedLayerX},${adjustedLayerY} C${(adjustedLayerX+adjustedDbX)/2},${adjustedLayerY} ${(adjustedLayerX+adjustedDbX)/2},${adjustedDbY} ${adjustedDbX},${adjustedDbY}`);
+                
+                // Position the arrow
+                const arrowPoints = getArrowPoints(adjustedDbX, adjustedDbY, (adjustedLayerX+adjustedDbX)/2, (adjustedLayerY+adjustedDbY)/2);
+                arrow.setAttribute('points', arrowPoints);
+            }
+        }
+        
+        function getArrowPoints(x, y, fromX, fromY) {
+            // Calculate the angle of the line
+            const angle = Math.atan2(y - fromY, x - fromX);
+            
+            // Arrow size
+            const size = 6;
+            
+            // Calculate the three points of the arrow
+            const x1 = x - size * Math.cos(angle - Math.PI / 6);
+            const y1 = y - size * Math.sin(angle - Math.PI / 6);
+            const x2 = x;
+            const y2 = y;
+            const x3 = x - size * Math.cos(angle + Math.PI / 6);
+            const y3 = y - size * Math.sin(angle + Math.PI / 6);
+            
+            return `${x1},${y1} ${x2},${y2} ${x3},${y3}`;
+        }
+        
+        function activateConnection(connectionId) {
+            if (connections[connectionId]) {
+                connections[connectionId].classList.add('active');
+            }
+        }
+        
+        function deactivateConnection(connectionId) {
+            if (connections[connectionId]) {
+                connections[connectionId].classList.remove('active');
+            }
+        }
+        
+        function deactivateAllConnections() {
+            Object.keys(connections).forEach(connectionId => {
+                deactivateConnection(connectionId);
             });
         }
 
-        function activateConnections(layerId) {
-            // Find index of the current layer
-            const layerIds = Object.keys(layers);
-            const index = layerIds.indexOf(layerId);
-            
-            if (index >= 0 && index < layerIds.length - 1) {
-                // Activate connection to next layer
-                const connectionElement = document.getElementById(`connection-${index}`);
-                const arrowElement = document.getElementById(`arrow-${index}`);
-                
-                if (connectionElement) {
-                    connectionElement.classList.add('active');
-                }
-                
-                if (arrowElement) {
-                    arrowElement.classList.add('active');
-                }
-                
-                // Add data flow animation
-                addDataFlowAnimation(layerIds[index], layerIds[index + 1]);
-            }
-            
-            // If it's the infrastructure layer, activate connections to databases
-            if (layerId === 'infrastructure') {
-                // Choose a random database to activate
-                const dbIds = Object.keys(databases);
-                const randomDbId = dbIds[Math.floor(Math.random() * dbIds.length)];
-                
-                const dbConnection = document.getElementById(`db-connection-${randomDbId}`);
-                const dbArrow = document.getElementById(`db-arrow-${randomDbId}`);
-                
-                if (dbConnection) {
-                    dbConnection.classList.add('active');
-                }
-                
-                if (dbArrow) {
-                    dbArrow.classList.add('active');
-                }
-                
-                // Simulate database activity
-                updateDatabaseStatus(randomDbId, 'active');
-            }
-        }
-
-        function deactivateAllConnections() {
-            const connections = document.querySelectorAll('.connection-line');
-            const arrows = document.querySelectorAll('.arrow-head');
-            
-            connections.forEach(conn => conn.classList.remove('active'));
-            arrows.forEach(arrow => arrow.classList.remove('active'));
-        }
-
-        function addDataFlowAnimation(sourceLayerId, targetId) {
-            const svg = document.getElementById('connection-lines');
-            
-            // Find the connection path
-            let path;
-            if (targetId.includes('db')) {
-                path = document.getElementById(`db-connection-${targetId}`);
-            } else {
-                const layerIds = Object.keys(layers);
-                const sourceIndex = layerIds.indexOf(sourceLayerId);
-                path = document.getElementById(`connection-${sourceIndex}`);
-            }
-            
-            if (!path) return;
-            
-            // Create data packet animation
-            const dataElement = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            dataElement.setAttribute('class', 'data-flow');
-            dataElement.setAttribute('r', '4');
-            dataElement.setAttribute('fill', '#3b82f6');
-            
-            // Create animation element
-            const animateMotion = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
-            animateMotion.setAttribute('dur', '4s');
-            animateMotion.setAttribute('repeatCount', '1');
-            animateMotion.setAttribute('begin', '0s');
-            
-            // Set the path for animation
-            const pathData = path.getAttribute('d');
-            const motionPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            motionPath.setAttribute('d', pathData);
-            
-            animateMotion.appendChild(motionPath);
-            dataElement.appendChild(animateMotion);
-            
-            svg.appendChild(dataElement);
-            dataElement.classList.add('active');
-            
-            // Remove after animation completes
-            setTimeout(() => {
-                if (svg.contains(dataElement)) {
-                    svg.removeChild(dataElement);
-                }
-            }, 4000);
-        }
-
-        // WebSocket event handlers
-        socket.on('connect', () => {
-            logActivity('Connected to visualization server', 'success');
-        });
-
-        socket.on('disconnect', () => {
-            logActivity('Disconnected from visualization server', 'error');
-        });
-
-        socket.on('connect_error', (error) => {
-            logActivity(`Connection error: ${error.message}`, 'error');
-        });
-
-        socket.on('system-state', (state) => {
-            logActivity('Received system state update');
-            
-            // Update statistics from server
-            if (state.stats) {
-                stats.totalRequests = state.stats.totalRequests;
-                stats.dbOperations = state.stats.dbOperations;
-                updateStatistics();
-            }
-            
-            // Draw connections
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Draw connections between layers and databases
             drawConnections();
-        });
-
-        socket.on('layer-update', (data) => {
-            logActivity(`Received layer update: ${data.layerId} - ${data.status}`);
             
-            // For new "active" requests, add them to the queue instead of updating immediately
-            if (data.status === 'active' && !currentRequest) {
-                // This is a new request
+            // Set up the simulate button
+            document.getElementById('simulate-button').addEventListener('click', () => {
                 requestQueue.add({
-                    id: data.requestId,
-                    path: data.path || `/api/${data.layerId}`,
-                    component: data.component,
-                    operation: data.operation
+                    path: '/api/' + ['users', 'courses', 'payments'][Math.floor(Math.random() * 3)]
                 });
-            }
-        });
-
-        socket.on('db-update', (data) => {
-            logActivity(`Received database update: ${data.dbId} - ${data.status}`);
-            updateDatabaseStatus(data.dbId, data.status);
+            });
+            
+            // Log initial activity
+            logActivity('Visualization initialized', 'success');
+            logActivity('Ready to simulate requests', 'info');
+            
+            // Handle window resize to redraw connections
+            window.addEventListener('resize', drawConnections);
+            
+            // Start the Socket.IO event listeners for real API activity
+            setupSocketListeners();
         });
         
-        // React to completed requests
-        socket.on('request-completed', (data) => {
-            logActivity(`Request ${data.requestId} completed in ${data.duration}ms`, 'success');
-        });
-
-        // Test visualization button
-        document.getElementById('test-btn').addEventListener('click', () => {
-            logActivity('Testing visualization with request flow simulation', 'info');
+        // Set up Socket.IO event listeners
+        function setupSocketListeners() {
+            // Create a socket connection
+            const socket = io();
             
-            // Add a test request to the queue
-            requestQueue.add({
-                id: `test-${Date.now()}`,
-                path: '/api/test',
+            // Listen for layer updates
+            socket.on('layer-update', data => {
+                const { layerId, status, component, operation } = data;
+                updateLayerStatus(layerId, status, component);
+                
+                if (status === 'active' && layerId === 'presentation') {
+                    // Start a new request visualization
+                    requestQueue.add({
+                        id: data.requestId,
+                        path: data.path || '/api/unknown'
+                    });
+                }
             });
-        });
-
-        // Clear logs button
-        document.getElementById('clear-logs').addEventListener('click', () => {
-            activityLogs.innerHTML = '';
-            logActivity('Logs cleared', 'info');
-        });
-
-        // Initial draw
-        drawConnections();
-        window.addEventListener('resize', drawConnections);
-
-        // Initial log
-        logActivity('Visualization initialized', 'success');
-        updateStatistics();
+            
+            // Listen for database updates
+            socket.on('db-update', data => {
+                const { dbId, status, operation } = data;
+                updateDbStatus(dbId, status);
+            });
+            
+            // Listen for component updates
+            socket.on('component-update', data => {
+                const { layerId, componentId, status } = data;
+                const componentEl = document.getElementById(componentId);
+                if (componentEl) {
+                    if (status === 'active') {
+                        componentEl.classList.add('active');
+                    } else {
+                        componentEl.classList.remove('active');
+                    }
+                }
+            });
+            
+            // Listen for system state updates
+            socket.on('system-state', data => {
+                // Update statistics based on system state
+                stats.totalRequests = data.stats.totalRequests;
+                stats.dbOperations = data.stats.dbOperations;
+                stats.activeRequests = data.stats.activeRequests;
+                
+                if (data.stats.averageResponseTime) {
+                    stats.responseTimes = [data.stats.averageResponseTime];
+                }
+                
+                updateStatistics();
+            });
+            
+            // Listen for completed requests
+            socket.on('request-completed', data => {
+                logActivity(`Request ${data.requestId} completed in ${data.duration}ms`, 'success');
+            });
+            
+            // Log connection status
+            socket.on('connect', () => {
+                logActivity('Connected to real-time data feed', 'success');
+            });
+            
+            socket.on('disconnect', () => {
+                logActivity('Disconnected from real-time data feed', 'error');
+            });
+        }
     </script>
 </body>
 </html> 

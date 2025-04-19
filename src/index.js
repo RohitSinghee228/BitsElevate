@@ -43,14 +43,28 @@ setupSecurity(app);
 setupLogging(app);
 setupExternalServices();
 
-// Apply activity tracking middleware
+// Apply activity tracking middleware for presentation layer
 app.use(trackLayerActivity('presentation'));
 
-// Add tracking for other layers
+// API Routes with their specific layer tracking
+// Order matters here - layers should be processed in correct architectural order:
+// presentation -> application -> domain -> infrastructure
+app.use('/api', (req, res, next) => {
+  // Set the request path to help visualization with correct paths
+  req.originalLayeredPath = req.path;
+  next();
+});
+
+// Track the application layer
 app.use('/api', trackLayerActivity('application'));
+
+// Track the domain layer 
 app.use('/api', trackLayerActivity('domain'));
+
+// Track the infrastructure layer
 app.use('/api', trackLayerActivity('infrastructure'));
 
+// Track database activities with more precise paths
 app.use('/api/users', trackDatabaseActivity('users-db'));
 app.use('/api/courses', trackDatabaseActivity('courses-db'));
 app.use('/api/payments', trackDatabaseActivity('payments-db'));

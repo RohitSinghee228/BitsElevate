@@ -62,11 +62,11 @@ const componentMapping = {
     // Application layer components
     'application': {
         'services': {
-            pattern: /^\/api\/.+/,
+            pattern: /^\/api\/(users|courses|payments)(\/[^\/]+)?$/,
             operation: 'Executing service operation'
         },
         'usecases': {
-            pattern: /^\/api\/(users\/auth|courses\/enroll|payments\/process)/,
+            pattern: /^\/api\/((users\/auth)|(courses\/(enroll|search))|(payments\/process))/,
             operation: 'Processing business use case'
         },
         'logic': {
@@ -77,11 +77,11 @@ const componentMapping = {
     // Domain layer components
     'domain': {
         'entities': {
-            pattern: /^\/api\/(users|courses|payments)/,
+            pattern: /^\/api\/(users|courses|payments)(\/[^\/]+)?$/,
             operation: 'Managing entity state'
         },
         'valueobjects': {
-            pattern: /^\/api\/(payments|courses\/rating)/,
+            pattern: /^\/api\/((payments)|(courses\/rating))/,
             operation: 'Processing value objects'
         },
         'domainservices': {
@@ -96,7 +96,7 @@ const componentMapping = {
             operation: 'Accessing data repository'
         },
         'externalservices': {
-            pattern: /^\/api\/(payments|users\/google-auth)/,
+            pattern: /^\/api\/((payments)|(users\/google-auth))/,
             operation: 'Calling external service'
         },
         'dbaccess': {
@@ -106,9 +106,95 @@ const componentMapping = {
     }
 };
 
+// Middleware to track layer activity with enhanced details
+const trackLayerActivity = (layerId) => {
+    // Time to wait between requests for smoother visualization
+    const minTimeBetweenRequests = 5000; // 5 seconds 
+    let lastRequestTime = 0;
+    
+    return async (req, res, next) => {
+        // Generate request ID that will be used across all layers
+        req.visualizationRequestId = req.visualizationRequestId || generateRequestId();
+        
+        // Get current time
+        const now = Date.now();
+        
+        // Get the proper path for better visualization
+        const path = req.originalLayeredPath || req.originalUrl || req.url;
+        
+        // If this is the presentation layer and we've had a recent request, wait a bit
+        if (layerId === 'presentation' && now - lastRequestTime < minTimeBetweenRequests) {
+            const delay = minTimeBetweenRequests - (now - lastRequestTime);
+            logger.info(`Delaying visualization for ${delay}ms to prevent overlap`);
+            
+            // For presentation layer, update the last request time
+            lastRequestTime = now + delay;
+            
+            // Delay the visualization but don't delay the actual request processing
+            setTimeout(async () => {
+                await sendVisualizationUpdate(req, layerId, 'active', path);
+            }, delay);
+        } else {
+            // For presentation layer, update the last request time
+            if (layerId === 'presentation') {
+                lastRequestTime = now;
+            }
+            
+            // Send visualization update immediately
+            await sendVisualizationUpdate(req, layerId, 'active', path);
+        }
+        
+        // Store the original end function
+        const originalEnd = res.end;
+        
+        // Override the end function
+        res.end = async function(chunk, encoding) {
+            // Wait a bit before marking this layer as inactive to ensure the visualization flows smoothly
+            const layerDelay = getLayerDelay(layerId);
+            
+            setTimeout(async () => {
+                // Mark layer as inactive after response
+                await sendVisualizationUpdate(req, layerId, 'inactive', path);
+            }, layerDelay);
+            
+            // Call the original end function
+            originalEnd.call(this, chunk, encoding);
+        };
+        
+        next();
+    };
+    
+    // Helper function to send the visualization update
+    async function sendVisualizationUpdate(req, layerId, status, path) {
+        // Determine component and operation based on request
+        const { component, operation } = determineComponentAndOperation(layerId, req, path);
+        
+        // Send the update
+        await sendLayerActivity(layerId, status, {
+            component,
+            operation: status === 'active' ? operation : null,
+            requestId: req.visualizationRequestId,
+            path: path,
+            statusCode: req.res ? req.res.statusCode : null
+        });
+    }
+    
+    // Helper function to get appropriate delay for each layer
+    function getLayerDelay(layerId) {
+        // Set different delays for different layers to create a cascade effect
+        switch(layerId) {
+            case 'presentation': return 3000; // 3 seconds
+            case 'application': return 2500;
+            case 'domain': return 2000;
+            case 'infrastructure': return 1500;
+            default: return 2000;
+        }
+    }
+};
+
 // Helper function to determine component and operation based on request path
-function determineComponentAndOperation(layerId, req) {
-    const path = req.originalUrl || req.url;
+function determineComponentAndOperation(layerId, req, path) {
+    path = path || req.originalUrl || req.url;
     const method = req.method;
     
     // Default values
@@ -185,100 +271,37 @@ function determineDatabaseOperation(dbId, req) {
             break;
     }
     
-    // Add more specific details based on path
-    if (path.includes('/users')) {
-        operation += ' (User records)';
-    } else if (path.includes('/courses')) {
-        operation += ' (Course data)';
-    } else if (path.includes('/payments')) {
-        operation += ' (Payment information)';
+    // More specific database operations based on path and database
+    if (dbId === 'users-db') {
+        if (path.includes('/auth')) {
+            operation = 'Authentication';
+        } else if (path.includes('/profile')) {
+            operation = 'User profile ' + (method === 'GET' ? 'retrieval' : 'update');
+        } else {
+            operation += ' (User records)';
+        }
+    } else if (dbId === 'courses-db') {
+        if (path.includes('/enroll')) {
+            operation = 'Course enrollment';
+        } else if (path.includes('/search')) {
+            operation = 'Course search';
+        } else if (path.includes('/rating')) {
+            operation = 'Course rating update';
+        } else {
+            operation += ' (Course data)';
+        }
+    } else if (dbId === 'payments-db') {
+        if (path.includes('/process')) {
+            operation = 'Payment processing';
+        } else if (path.includes('/verify')) {
+            operation = 'Payment verification';
+        } else {
+            operation += ' (Payment information)';
+        }
     }
     
     return operation;
 }
-
-// Middleware to track layer activity with enhanced details
-const trackLayerActivity = (layerId) => {
-    // Time to wait between requests for smoother visualization
-    const minTimeBetweenRequests = 5000; // 5 seconds 
-    let lastRequestTime = 0;
-    
-    return async (req, res, next) => {
-        // Generate request ID that will be used across all layers
-        req.visualizationRequestId = req.visualizationRequestId || generateRequestId();
-        
-        // Get current time
-        const now = Date.now();
-        
-        // If this is the presentation layer and we've had a recent request, wait a bit
-        if (layerId === 'presentation' && now - lastRequestTime < minTimeBetweenRequests) {
-            const delay = minTimeBetweenRequests - (now - lastRequestTime);
-            logger.info(`Delaying visualization for ${delay}ms to prevent overlap`);
-            
-            // For presentation layer, update the last request time
-            lastRequestTime = now + delay;
-            
-            // Delay the visualization but don't delay the actual request processing
-            setTimeout(async () => {
-                await sendVisualizationUpdate(req, layerId, 'active');
-            }, delay);
-        } else {
-            // For presentation layer, update the last request time
-            if (layerId === 'presentation') {
-                lastRequestTime = now;
-            }
-            
-            // Send visualization update immediately
-            await sendVisualizationUpdate(req, layerId, 'active');
-        }
-        
-        // Store the original end function
-        const originalEnd = res.end;
-        
-        // Override the end function
-        res.end = async function(chunk, encoding) {
-            // Wait a bit before marking this layer as inactive to ensure the visualization flows smoothly
-            const layerDelay = getLayerDelay(layerId);
-            
-            setTimeout(async () => {
-            // Mark layer as inactive after response
-                await sendVisualizationUpdate(req, layerId, 'inactive');
-            }, layerDelay);
-            
-            // Call the original end function
-            originalEnd.call(this, chunk, encoding);
-        };
-        
-        next();
-    };
-    
-    // Helper function to send the visualization update
-    async function sendVisualizationUpdate(req, layerId, status) {
-        // Determine component and operation based on request
-        const { component, operation } = determineComponentAndOperation(layerId, req);
-        
-        // Send the update
-        await sendLayerActivity(layerId, status, {
-            component,
-            operation: status === 'active' ? operation : null,
-            requestId: req.visualizationRequestId,
-            path: req.originalUrl || req.url,
-            statusCode: req.res ? req.res.statusCode : null
-        });
-    }
-    
-    // Helper function to get appropriate delay for each layer
-    function getLayerDelay(layerId) {
-        // Set different delays for different layers to create a cascade effect
-        switch(layerId) {
-            case 'presentation': return 3000; // 3 seconds
-            case 'application': return 2500;
-            case 'domain': return 2000;
-            case 'infrastructure': return 1500;
-            default: return 2000;
-        }
-    }
-};
 
 // Middleware to track database activity with enhanced details
 const trackDatabaseActivity = (dbId) => {

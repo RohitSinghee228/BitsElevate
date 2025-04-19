@@ -94,19 +94,22 @@ const dbStates = new Map([
         status: 'inactive', 
         lastActive: 0,
         operationCount: 0,
-        lastOperation: null 
+        lastOperation: null,
+        connectedLayers: ['domain', 'infrastructure']
     }],
     ['courses-db', { 
         status: 'inactive', 
         lastActive: 0,
         operationCount: 0,
-        lastOperation: null
+        lastOperation: null,
+        connectedLayers: ['domain', 'infrastructure']
     }],
     ['payments-db', { 
         status: 'inactive', 
         lastActive: 0,
         operationCount: 0,
-        lastOperation: null
+        lastOperation: null,
+        connectedLayers: ['domain', 'infrastructure']
     }]
 ]);
 
@@ -167,6 +170,21 @@ function updateDbStatus(dbId, status, operation = null) {
         if (status === 'active') {
             db.operationCount++;
             stats.dbOperations++;
+            
+            // Also update infrastructure layer dbaccess component when database is active
+            const infraLayer = layerStates.get('infrastructure');
+            if (infraLayer) {
+                infraLayer.components.dbaccess.status = 'active';
+                infraLayer.components.dbaccess.lastActive = now;
+                
+                // Broadcast specific component update
+                io.emit('component-update', {
+                    layerId: 'infrastructure',
+                    componentId: 'dbaccess',
+                    status: 'active',
+                    timestamp: now
+                });
+            }
         }
         
         dbStates.set(dbId, db);
@@ -178,7 +196,8 @@ function updateDbStatus(dbId, status, operation = null) {
             status,
             operation,
             operationCount: db.operationCount,
-            timestamp: now 
+            timestamp: now,
+            connectedLayers: db.connectedLayers
         });
     }
 }
@@ -204,7 +223,8 @@ function getSystemState() {
             status: state.status,
             lastActive: state.lastActive,
             operationCount: state.operationCount,
-            lastOperation: state.lastOperation
+            lastOperation: state.lastOperation,
+            connectedLayers: state.connectedLayers
         })),
         stats: {
             totalRequests: stats.totalRequests,
