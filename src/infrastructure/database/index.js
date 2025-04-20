@@ -6,7 +6,9 @@ const setupDatabase = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       maxPoolSize: process.env.MONGODB_POOL_SIZE || 10,
-      serverSelectionTimeoutMS: process.env.MONGODB_CONNECTION_TIMEOUT || 30000,
+      serverSelectionTimeoutMS: 60000,
+      socketTimeoutMS: 45000,
+      connectTimeoutMS: 60000,
     };
 
     // Remove appName from the URI if it exists

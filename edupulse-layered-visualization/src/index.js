@@ -125,7 +125,7 @@ const stats = {
 };
 
 // Function to update layer status with component details
-function updateLayerStatus(layerId, status, componentId = null, operation = null) {
+function updateLayerStatus(layerId, status, componentId = null, operation = null, requestPath = null) {
     const layer = layerStates.get(layerId);
     if (layer) {
         const now = Date.now();
@@ -144,13 +144,28 @@ function updateLayerStatus(layerId, status, componentId = null, operation = null
         layerStates.set(layerId, layer);
         logger.info(`Layer ${layerId} status updated to ${status}${componentId ? ` (component: ${componentId})` : ''}${operation ? ` - ${operation}` : ''}`);
         
+        // Get the path from active requests if available or use the provided path
+        let path = requestPath;
+        if (!path) {
+            for (const [reqId, req] of activeRequests.entries()) {
+                if (req.currentLayer === layerId) {
+                    path = req.path;
+                    break;
+                }
+            }
+        }
+        
+        // Debug log the path being sent in the event
+        logger.info(`Emitting layer-update with path: ${path}`, { layerId, status, component: componentId, path });
+        
         // Broadcast the update to all connected clients with enhanced details
         io.emit('layer-update', { 
             layerId, 
             status, 
             component: componentId,
             operation,
-            timestamp: now 
+            timestamp: now,
+            path: path
         });
     }
 }
@@ -313,14 +328,19 @@ io.on('connection', (socket) => {
 
 // API endpoint to receive layer activity
 app.post('/api/layer-activity', express.json(), (req, res) => {
-    const { layerId, status, component, operation, requestId } = req.body;
-    logger.info('Received layer activity:', { layerId, status, component, operation, requestId, body: req.body });
+    const { layerId, status, component, operation, requestId, path } = req.body;
+    logger.info('Received layer activity:', { layerId, status, component, operation, requestId, path, body: req.body });
     
     // If request ID is provided, update request flow
     let reqId = requestId;
+    const requestPath = path || req.body.path || `/api/${layerId}`;
+    
+    // Debug log the exact path being used
+    logger.info('Using path for layer activity:', { requestPath, originalPath: path, bodyPath: req.body.path });
+    
     if (status === 'active') {
         if (!reqId) {
-            reqId = startRequest(null, req.body.path || `/api/${layerId}`);
+            reqId = startRequest(null, requestPath);
         }
         updateRequestFlow(reqId, layerId);
     } else if (reqId && layerId === 'infrastructure') {
@@ -328,12 +348,12 @@ app.post('/api/layer-activity', express.json(), (req, res) => {
         endRequest(reqId);
     }
     
-    updateLayerStatus(layerId, status, component, operation);
-    io.emit('system-state', getSystemState());
+    updateLayerStatus(layerId, status, component, operation, requestPath);
     
     res.status(200).json({ 
         message: 'Layer activity received',
-        requestId: reqId 
+        requestId: reqId,
+        path: requestPath
     });
 });
 
@@ -343,7 +363,6 @@ app.post('/api/db-activity', express.json(), (req, res) => {
     logger.info('Received database activity:', { dbId, status, operation, body: req.body });
     
     updateDbStatus(dbId, status, operation);
-    io.emit('system-state', getSystemState());
     
     res.status(200).json({ message: 'Database activity received' });
 });
@@ -392,7 +411,7 @@ app.post('/api/simulate-request', express.json(), (req, res) => {
     };
     
     // Use consistent step time for clearer visualization
-    const stepTime = 5000; // 5 seconds per layer
+    const stepTime = 8000; // 8 seconds per layer
     
     // Simulate layer activations sequentially with fixed delay between layers
     let delay = 0;

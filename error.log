@@ -9078,3 +9078,34 @@
 {"level":"error","message":"Failed to send layer activity: ","timestamp":"2025-04-19T18:06:14.371Z"}
 {"level":"error","message":"Failed to send layer activity: ","timestamp":"2025-04-19T18:06:19.372Z"}
 {"level":"error","message":"Failed to send layer activity: ","timestamp":"2025-04-19T18:06:24.377Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:04.791Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:05.421Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:05.425Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:05.430Z"}
+{"level":"error","message":"Failed to send database activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:05.433Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:07.800Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:07.964Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:07.969Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:08.434Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:08.450Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:09.782Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:14.782Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:16.945Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:17.446Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:17.945Z"}
+{"level":"error","message":"Failed to send database activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:18.447Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:18.447Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:19.782Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:24.783Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:29.787Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:36.502Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:39.507Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:39.629Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:39.722Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:40.141Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:40.358Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:41.505Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:46.506Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:51.509Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-19T19:33:56.506Z"}
+{"level":"error","message":"Failed to send layer activity: connect ECONNREFUSED 127.0.0.1:3006","timestamp":"2025-04-20T06:53:45.670Z"}

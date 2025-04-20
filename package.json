@@ -7,7 +7,7 @@
     "start": "node src/index.js",
     "dev:backend": "nodemon src/index.js",
     "dev:frontend": "cd src/presentation; npm run dev",
-    "dev": "powershell -Command \"Start-Process powershell -ArgumentList '-Command \"npm run dev:backend\"'; Start-Process powershell -ArgumentList '-Command \"cd src/presentation; npm run dev\"'\"",
+    "dev": "npm run dev:backend & cd src/presentation && npm run dev & wait",
     "test": "jest",
     "build": "cd src/presentation; npm install; npm run build; cd ../.."
   },
