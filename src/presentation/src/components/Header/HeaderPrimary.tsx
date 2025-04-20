@@ -33,15 +33,15 @@ function HeaderPrimary() {
   return (
     <div>
       <HeaderPopup/>
-      <div className="headerPrimary bg-[#ffffff] flex justify-between items-center h-24 shadow-lg px-4 sm:px-6 lg:px-8 text-lg">
-        <div className="flex flex-row space-x-20">
+      <div className="headerPrimary bg-[#ffffff] flex flex-wrap justify-between items-center h-auto min-h-24 shadow-lg px-4 sm:px-6 lg:px-8 text-lg py-2">
+        <div className="flex flex-row flex-wrap space-x-4 md:space-x-20">
           <div className="left flex items-center">
             <Link to="/">
-              <div className="udemyLogo">
+              <div className="udemyLogo p-1">
                 <img
                   src="/newlogo.jpg"
-                  className="logo h-16 w-auto"
-                  alt="BITS EduPulse"
+                  className="logo h-20 w-auto"
+                  alt="BITS BitsElevate"
                 ></img>
               </div>
             </Link>
@@ -51,7 +51,7 @@ function HeaderPrimary() {
               <RiSearchLine className="icon mt-2 text-xl" />
             </div>
             <input
-              className="searchBar pl-12 border w-96 border-gray-300 rounded-full h-12 text-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-transparent"
+              className="searchBar pl-12 border w-full max-w-96 border-gray-300 rounded-full h-12 text-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-transparent"
               placeholder="Search for anything"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -59,32 +59,32 @@ function HeaderPrimary() {
             />
           </div>
         </div>
-        <div className="right flex font-sans items-center">
+        <div className="right flex flex-wrap font-sans items-center mt-2 md:mt-0">
           {user ? (
             <>
               {user.role === "admin" && (
-                <div className="w-20 mx-10">
+                <div className="mx-2 md:mx-4 whitespace-nowrap">
                   <span className="business">
                     <Link to="/admin">Your Dashboard</Link>
                   </span>
                 </div>
               )}
               {user.role === "creator" && (
-                <div className="w-20 mx-10">
+                <div className="mx-2 md:mx-4 whitespace-nowrap">
                   <span className="business">
                     <Link to="/creator">Your Dashboard</Link>
                   </span>
                 </div>
               )}
               {user.role === "student" && (
-                <div className="w-20 mx-10">
+                <div className="mx-2 md:mx-4 whitespace-nowrap">
                   <span className="business">
                     <Link to="/student-dashboard">Your Dashboard</Link>
                   </span>
                 </div>
               )}
-              <div className="w-20">
-                <span className="teach">Teach on EduPulse</span>
+              <div className="w-40 mx-2 whitespace-nowrap">
+                <span className="teach">Teach on BitsElevate</span>
               </div>
               <div className="cartDiv ml-4">
                 <RiShoppingCartLine className="icon" />

@@ -10,7 +10,8 @@ export default defineConfig({
     host: true,
     strictPort: true,
     hmr: {
-      port: 5173,
+      clientPort: 3000,
+      port: 3000,
     },
     proxy: {
       '/api': {
@@ -21,7 +22,7 @@ export default defineConfig({
     }
   },
   preview: {
-    port: 5173,
+    port: 3000,
     strictPort: true,
   },
   resolve: {

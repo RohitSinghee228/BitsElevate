@@ -30,6 +30,8 @@ interface EnrolledCourse {
   duration: string;
   progress: number;
   enrollmentId: string;
+  title?: string;      // Optional properties to avoid type errors
+  description?: string;
 }
 
 export default function UserProfile() {

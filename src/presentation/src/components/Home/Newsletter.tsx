@@ -100,7 +100,7 @@ const Newsletter = () => {
               fontWeight="bold"
               color="white"
             >
-              Stay Updated with EduPulse
+              Stay Updated with BitsElevate
             </Heading>
             
             <Text fontSize="lg" color="white" opacity={0.9} mb={2}>

@@ -162,7 +162,8 @@ export default function Payment() {
       }, 2000);
     } catch (error) {
       console.error('Error handling payment:', error);
-      toast.error(error.message || 'Error handling payment');
+      const errorMessage = error instanceof Error ? error.message : 'Error handling payment';
+      toast.error(errorMessage);
     } finally {
       setCheckoutLoading(false);
     }

@@ -35,7 +35,7 @@ const Testimonials = () => {
       name: "Emily Johnson",
       role: "Software Developer",
       avatar: "/images/testimonials/emily.jpg",
-      content: "EduPulse completely transformed my career path. The web development bootcamp was comprehensive and practical. I landed a job as a junior developer within a month of completing the course!",
+      content: "BitsElevate completely transformed my career path. The web development bootcamp was comprehensive and practical. I landed a job as a junior developer within a month of completing the course!",
       rating: 5,
       course: "Web Development Bootcamp"
     },
@@ -80,7 +80,7 @@ const Testimonials = () => {
       name: "James Wilson",
       role: "DevOps Engineer",
       avatar: "/images/testimonials/james.jpg",
-      content: "I was looking to upgrade my skills in cloud infrastructure, and EduPulse delivered exactly what I needed. The course was challenging but well-structured, with excellent support.",
+      content: "I was looking to upgrade my skills in cloud infrastructure, and BitsElevate delivered exactly what I needed. The course was challenging but well-structured, with excellent support.",
       rating: 4,
       course: "DevOps Engineering"
     }
@@ -153,7 +153,7 @@ const Testimonials = () => {
             textAlign="center"
             maxW="2xl"
           >
-            Hear from our students about how EduPulse helped them achieve their learning goals and advance their careers.
+            Hear from our students about how BitsElevate helped them achieve their learning goals and advance their careers.
           </Text>
         </Flex>
         

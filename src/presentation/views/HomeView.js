@@ -4,7 +4,7 @@ class HomeView {
     static async renderHome(req, res) {
         try {
             const data = {
-                title: 'EduPulse - Home',
+                title: 'BitsElevate - Home',
                 user: req.user || null,
                 courses: [], // This will be populated from the application layer
                 featuredCourses: [] // This will be populated from the application layer

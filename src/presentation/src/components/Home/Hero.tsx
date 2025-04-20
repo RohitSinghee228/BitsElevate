@@ -86,7 +86,7 @@ const Hero = () => {
               bgGradient="linear(to-r, blue.600, purple.600)"
               bgClip="text"
             >
-              Accelerate Your Career with EduPulse
+              Accelerate Your Career with BitsElevate
             </Heading>
             
             <Text fontSize={{ base: 'lg', md: 'xl' }} color="gray.600">

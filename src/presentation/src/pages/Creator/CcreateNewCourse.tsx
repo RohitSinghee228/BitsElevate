@@ -175,35 +175,41 @@ const CcreateNewCourse = () => {
   });
 
   const addSummaryPoint = () => {
-    formik.setFieldValue("summary", [...formik.values.summary, ""]);
+    const currentSummary = formik.values.summary || [];
+    formik.setFieldValue("summary", [...currentSummary, ""]);
   };
 
   const removeSummaryPoint = (index: number) => {
+    if (!formik.values.summary) return;
     const updatedSummary = [...formik.values.summary];
     updatedSummary.splice(index, 1);
     formik.setFieldValue("summary", updatedSummary);
   };
 
   const addCourseContent = () => {
+    const currentContent = formik.values.courseContent || [];
     formik.setFieldValue("courseContent", [
-      ...formik.values.courseContent,
+      ...currentContent,
       { videoLink: "", instructions: [] },
     ]);
   };
 
   const removeCourseContent = (index: number) => {
+    if (!formik.values.courseContent) return;
     const updatedCourseContent = [...formik.values.courseContent];
     updatedCourseContent.splice(index, 1);
     formik.setFieldValue("courseContent", updatedCourseContent);
   };
 
   const addInstruction = (contentIndex: number) => {
+    if (!formik.values.courseContent) return;
     const updatedCourseContent = [...formik.values.courseContent];
     updatedCourseContent[contentIndex].instructions.push("");
     formik.setFieldValue("courseContent", updatedCourseContent);
   };
 
   const removeInstruction = (contentIndex: number, instructionIndex: number) => {
+    if (!formik.values.courseContent) return;
     const updatedCourseContent = [...formik.values.courseContent];
     updatedCourseContent[contentIndex].instructions.splice(instructionIndex, 1);
     formik.setFieldValue("courseContent", updatedCourseContent);

@@ -382,7 +382,7 @@ app.get('/api/test', (req, res) => {
     });
 });
 
-// Simulate request endpoint for testing
+// API endpoint to simulate request endpoint for testing
 app.post('/api/simulate-request', express.json(), (req, res) => {
     logger.info('Simulating request flow');
     
@@ -411,56 +411,74 @@ app.post('/api/simulate-request', express.json(), (req, res) => {
     };
     
     // Use consistent step time for clearer visualization
-    const stepTime = 8000; // 8 seconds per layer
+    const stepTime = 4000; // 4 seconds per layer - faster but still clear
     
-    // Simulate layer activations sequentially with fixed delay between layers
-    let delay = 0;
+    // Ensure previous simulations are cleared
+    const existingSimulations = activeRequests.keys();
+    for (const oldReqId of existingSimulations) {
+        if (oldReqId !== reqId && oldReqId.startsWith('req-')) {
+            logger.info(`Cleaning up previous simulation: ${oldReqId}`);
+            endRequest(oldReqId);
+        }
+    }
+    
+    // Deactivate all layers first to ensure clean state
     layerSequence.forEach(layerId => {
-        // Get random component for layer
-        const components = componentsByLayer[layerId];
-        const component = components[Math.floor(Math.random() * components.length)];
-        
-        // Get random operation
-        const layerOps = operations[layerId];
-        const operation = layerOps[Math.floor(Math.random() * layerOps.length)];
-        
-        // Activate layer
-        setTimeout(() => {
-            updateLayerStatus(layerId, 'active', component, operation);
-            updateRequestFlow(reqId, layerId);
-            
-            // If infrastructure layer, also activate a random database
-            if (layerId === 'infrastructure') {
-                const dbIds = Array.from(dbStates.keys());
-                const randomDb = dbIds[Math.floor(Math.random() * dbIds.length)];
-                const dbOps = ['Reading data', 'Writing data', 'Updating record', 'Querying'];
-                const dbOp = dbOps[Math.floor(Math.random() * dbOps.length)];
-                
-                updateDbStatus(randomDb, 'active', dbOp);
-                
-                // Deactivate DB with the layer
-                setTimeout(() => {
-                    updateDbStatus(randomDb, 'inactive');
-                }, stepTime - 500);
-            }
-            
-            // Deactivate layer 
-            setTimeout(() => {
-                updateLayerStatus(layerId, 'inactive');
-                
-                // End request when all layers complete
-                if (layerId === 'infrastructure') {
-                    // Wait a bit more to complete the request for better visualization
-                    setTimeout(() => {
-                        endRequest(reqId);
-                    }, 1000);
-                }
-            }, stepTime - 500);
-        }, delay);
-        
-        // Increment delay for next layer
-        delay += stepTime;
+        updateLayerStatus(layerId, 'inactive');
     });
+    
+    // Add a small delay before starting to ensure clean state
+    setTimeout(() => {
+        // Simulate layer activations sequentially with fixed delay between layers
+        layerSequence.forEach((layerId, index) => {
+            // Get random component for layer
+            const components = componentsByLayer[layerId];
+            const component = components[Math.floor(Math.random() * components.length)];
+            
+            // Get random operation
+            const layerOps = operations[layerId];
+            const operation = layerOps[Math.floor(Math.random() * layerOps.length)];
+            
+            // Activate layer with proper delay
+            setTimeout(() => {
+                // Update request flow tracking
+                updateRequestFlow(reqId, layerId);
+                
+                // Send layer activation
+                updateLayerStatus(layerId, 'active', component, operation, req.body.path || '/api/test');
+                
+                // If infrastructure layer, also activate a random database
+                if (layerId === 'infrastructure') {
+                    const dbIds = Array.from(dbStates.keys());
+                    const randomDb = dbIds[Math.floor(Math.random() * dbIds.length)];
+                    const dbOps = ['Reading data', 'Writing data', 'Updating record', 'Querying'];
+                    const dbOp = dbOps[Math.floor(Math.random() * dbOps.length)];
+                    
+                    setTimeout(() => {
+                        updateDbStatus(randomDb, 'active', dbOp);
+                        
+                        // Deactivate DB with a delay
+                        setTimeout(() => {
+                            updateDbStatus(randomDb, 'inactive');
+                        }, stepTime * 0.5);
+                    }, 300);
+                }
+                
+                // Deactivate layer after its time period
+                setTimeout(() => {
+                    updateLayerStatus(layerId, 'inactive');
+                    
+                    // End request when all layers complete
+                    if (layerId === 'infrastructure') {
+                        // Wait a bit more to complete the request for better visualization
+                        setTimeout(() => {
+                            endRequest(reqId);
+                        }, 500);
+                    }
+                }, stepTime - 500);
+            }, index * stepTime);
+        });
+    }, 500);
 });
 
 // Serve the main visualization page

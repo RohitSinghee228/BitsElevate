@@ -20,9 +20,15 @@ const UserMenu = ({ role, handleLogout }: UserMenuProps) => {
         <Link to="/user-profile">
           <MenuItem>Profile</MenuItem>
         </Link>
-        <Link to="student-dashboard">
-          <MenuItem>Student Dashboard</MenuItem>
-        </Link>
+        {role === "student" ? (
+          <Link to="student-dashboard">
+            <MenuItem>Student Dashboard</MenuItem>
+          </Link>
+        ) : role === "creator" || role === "instructor" ? (
+          <Link to="/creator">
+            <MenuItem>Creator Dashboard</MenuItem>
+          </Link>
+        ) : null}
         {role === "admin" && (
           <>
             <Link to="/admin">

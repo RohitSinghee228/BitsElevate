@@ -152,7 +152,13 @@ export default function SearchResults() {
                 width={{ base: "100%", md: "50%", lg: "33.33%" }}
                 p="10px"
               >
-                <Card {...course} />
+                <Card 
+                  _id={course._id}
+                  img={course.img}
+                  name={course.name || course.title}
+                  description={course.description}
+                  price={String(course.price)}
+                />
               </Box>
             ))}
           </Flex>

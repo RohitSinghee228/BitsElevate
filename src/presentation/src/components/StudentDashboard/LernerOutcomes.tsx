@@ -53,7 +53,7 @@ export default function LernerOutcomes() {
                 lg: "45 px",
               }}
             >
-              Learner outcomes on <b style={{ color: "#0056d2" }}>EduPulse</b>
+              Learner outcomes on <b style={{ color: "#0056d2" }}>BitsElevate</b>
             </Text>
             <Text
               fontFamily={"poppins"}
@@ -63,10 +63,10 @@ export default function LernerOutcomes() {
                 lg: "16px",
               }}
             >
-              According to the latest findings from EduPulse's 2023 report,{" "}
+              According to the latest findings from BitsElevate's 2023 report,{" "}
               <span>
                 <b>an impressive 87% of learners have reported tangible career benefits.</b>
-              </span> These include promotions, enhanced job performance, successful job transitions, increased employability, and skill development. Edupulse's extensive curriculum and industry-recognized certifications have played a pivotal role in facilitating the professional growth of learners, equipping them to thrive in today's fiercely competitive job landscape."
+              </span> These include promotions, enhanced job performance, successful job transitions, increased employability, and skill development. BitsElevate's extensive curriculum and industry-recognized certifications have played a pivotal role in facilitating the professional growth of learners, equipping them to thrive in today's fiercely competitive job landscape."
             </Text>
             <Flex mt='15px' >
               <Button

@@ -172,13 +172,16 @@ export default function CourseData() {
 
   const handleVideoSelect = (index: number) => {
     setActiveVideoIndex(index);
-    // If enrolled, save progress
+    // Only save progress if user is enrolled (not just viewing as instructor)
     if (isEnrolled && user?.id && id) {
       saveProgress(index);
     }
   };
 
   const saveProgress = async (step: number) => {
+    // Only save progress if user is enrolled (not just viewing as instructor)
+    if (!isEnrolled) return;
+    
     try {
       const response = await fetch(
         `http://localhost:3001/api/courses/courseManagement/saveProgress`,
@@ -202,6 +205,7 @@ export default function CourseData() {
   };
 
   const handleCompleteVideo = async () => {
+    // Only allow completion for enrolled users (not course creators viewing their course)
     if (!isEnrolled || !user?.id || !id || !course?.courseContent) return;
     
     // If this is the last video, mark course as completed
@@ -626,8 +630,8 @@ export default function CourseData() {
         </Flex>
       </Box>
 
-      {isEnrolled && course.courseContent && course.courseContent.length > 0 ? (
-        // Course Content - Enrolled User View
+      {(isEnrolled || (user && course && user.id === course.instructor._id)) && course.courseContent && course.courseContent.length > 0 ? (
+        // Course Content - Enrolled User or Course Creator View
         <Grid 
           templateColumns={{ base: "1fr", md: "300px 1fr" }} 
           gap={6}
@@ -648,6 +652,9 @@ export default function CourseData() {
           >
             <Box bg="blue.600" color="white" py={3} px={4}>
               <Heading size="md">Course Content</Heading>
+              {user && course && user.id === course.instructor._id && !isEnrolled && (
+                <Text fontSize="sm" mt={1}>Viewing as instructor</Text>
+              )}
             </Box>
             <VStack spacing={0} align="stretch" maxH="600px" overflowY="auto">
               {course.courseContent.map((content, idx) => (
@@ -737,20 +744,33 @@ export default function CourseData() {
               )}
               
               <Flex justify="space-between" mt={6}>
-                <Button 
-                  colorScheme="blue" 
-                  variant="outline"
-                  onClick={() => handleVideoSelect(Math.max(0, activeVideoIndex - 1))}
-                  isDisabled={activeVideoIndex === 0}
-                >
-                  Previous
-                </Button>
-                <Button 
-                  colorScheme="blue"
-                  onClick={handleCompleteVideo}
-                >
-                  {activeVideoIndex === (course.courseContent.length - 1) ? "Complete Course" : "Next Video"}
-                </Button>
+                {user && course && user.id === course.instructor._id && !isEnrolled ? (
+                  // Controls for instructor view
+                  <Button 
+                    colorScheme="purple" 
+                    onClick={() => navigate('/creator/creator-my-courses')}
+                  >
+                    Manage My Courses
+                  </Button>
+                ) : (
+                  // Controls for enrolled students view
+                  <>
+                    <Button 
+                      colorScheme="blue" 
+                      variant="outline"
+                      onClick={() => handleVideoSelect(Math.max(0, activeVideoIndex - 1))}
+                      isDisabled={activeVideoIndex === 0}
+                    >
+                      Previous
+                    </Button>
+                    <Button 
+                      colorScheme="blue"
+                      onClick={handleCompleteVideo}
+                    >
+                      {activeVideoIndex === (course.courseContent.length - 1) ? "Complete Course" : "Next Video"}
+                    </Button>
+                  </>
+                )}
               </Flex>
             </Box>
           </Box>
@@ -900,6 +920,15 @@ export default function CourseData() {
                     </Button>
                     <Button colorScheme="blue" w="100%" onClick={() => navigate('/user-profile')}>
                       Go to My Courses
+                    </Button>
+                  </Box>
+                ) : user && course && user.id === course.instructor._id ? (
+                  <Box>
+                    <Button colorScheme="purple" w="100%" mb={4} disabled>
+                      You are the instructor of this course
+                    </Button>
+                    <Button colorScheme="blue" w="100%" onClick={() => navigate('/creator')}>
+                      Go to Creator Dashboard
                     </Button>
                   </Box>
                 ) : (

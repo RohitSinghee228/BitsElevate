@@ -185,15 +185,15 @@ class PaymentService {
 
     try {
       const emailContent = {
-        from: `EduPulse <noreply@${process.env.MAILGUN_DOMAIN}>`,
+        from: `BitsElevate <noreply@${process.env.MAILGUN_DOMAIN}>`,
         to: user.email,
         subject: 'Course Enrollment Confirmation',
-        text: `Dear ${user.firstName},\n\nYou have successfully enrolled in the course "${course.title}".\n\nThank you for choosing EduPulse!`,
+        text: `Dear ${user.firstName},\n\nYou have successfully enrolled in the course "${course.title}".\n\nThank you for choosing BitsElevate!`,
         html: `
           <h1>Course Enrollment Confirmation</h1>
           <p>Dear ${user.firstName},</p>
           <p>You have successfully enrolled in the course <strong>${course.title}</strong>.</p>
-          <p>Thank you for choosing EduPulse!</p>
+          <p>Thank you for choosing BitsElevate!</p>
         `
       };
 

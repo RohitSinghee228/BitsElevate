@@ -1,6 +1,6 @@
 import Banner from '../components/Home/Banner'
 import BecomeInstructor from '../components/Home/BecomeInstructor'
-import EduPulseForBusiness from '../components/Home/EduPulseForBusiness'
+import BitsElevateForBusiness from '../components/Home/BitsElevateForBusiness'
 import Feature1 from '../components/Home/Featured/Feature1'
 import Feature2 from '../components/Home/Featured/Feature2'
 import FillerDiv from '../components/Home/FillerDiv'
@@ -25,7 +25,7 @@ export default function Home() {
       <Modern3DTestimonials />
       <BecomeInstructor />
       <Modern3DNewsletter />
-      <EduPulseForBusiness />
+      <BitsElevateForBusiness />
       <Modern3DCallToAction />
       <Feature2 />
     </div>

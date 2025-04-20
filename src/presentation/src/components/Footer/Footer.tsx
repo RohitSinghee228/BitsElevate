@@ -36,7 +36,7 @@ const Footer = () => {
           <Box>
             {" "}
             <Text fontSize="13.5px">
-              © 2023 EduPulse Inc. All rights reserved.
+              © 2025 BitsElevate Inc. All rights reserved.
             </Text>
           </Box>
           <Flex overflow='hidden'>

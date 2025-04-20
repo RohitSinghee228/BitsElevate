@@ -83,12 +83,12 @@ const CallToAction = () => {
               color="white"
               lineHeight="1.2"
             >
-              Transform Your Future with EduPulse
+              Transform Your Future with BitsElevate
             </Heading>
             
             <Text fontSize={{ base: 'lg', md: 'xl' }} color="white" opacity={0.9}>
               Join thousands of learners worldwide who are advancing their careers, 
-              acquiring new skills, and achieving their educational goals with EduPulse's 
+              acquiring new skills, and achieving their educational goals with BitsElevate's 
               cutting-edge learning platform.
             </Text>
             

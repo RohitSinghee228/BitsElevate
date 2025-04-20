@@ -108,19 +108,17 @@ const componentMapping = {
 
 // Middleware to track layer activity with enhanced details
 const trackLayerActivity = (layerId) => {
-    // Time to wait between requests for smoother visualization
-    const minTimeBetweenRequests = 5000; // 5 seconds 
+    const minTimeBetweenRequests = 15000; // Dramatically increased to 15 seconds between requests
     let lastRequestTime = 0;
+    const activeRequests = new Map();
     
     return async (req, res, next) => {
-        // Generate request ID that will be used across all layers
-        req.visualizationRequestId = req.visualizationRequestId || generateRequestId();
-        
-        // Get current time
         const now = Date.now();
+        const path = req.originalUrl || req.url;
         
-        // Get the proper path for better visualization
-        const path = req.originalLayeredPath || req.originalUrl || req.url;
+        // Special handling for login and payment operations
+        const isLoginOperation = path.includes('/api/users/login');
+        const isPaymentOperation = path.includes('/api/payments');
         
         // If this is the presentation layer and we've had a recent request, wait a bit
         if (layerId === 'presentation' && now - lastRequestTime < minTimeBetweenRequests) {
@@ -140,6 +138,14 @@ const trackLayerActivity = (layerId) => {
                 lastRequestTime = now;
             }
             
+            // Track this request as active
+            activeRequests.set(req.visualizationRequestId, {
+                path,
+                timestamp: now,
+                isLoginOperation,
+                isPaymentOperation
+            });
+            
             // Send visualization update immediately
             await sendVisualizationUpdate(req, layerId, 'active', path);
         }
@@ -149,13 +155,29 @@ const trackLayerActivity = (layerId) => {
         
         // Override the end function
         res.end = async function(chunk, encoding) {
+            // Remove this request from active requests
+            activeRequests.delete(req.visualizationRequestId);
+            
             // Wait a bit before marking this layer as inactive to ensure the visualization flows smoothly
-            const layerDelay = getLayerDelay(layerId);
+            const layerDelay = getLayerDelay(layerId, isLoginOperation, isPaymentOperation);
+            
+            // Add an extra staggered delay based on layer type to prevent layers from completing at the same time
+            // This ensures layers finish processing in a predictable sequence with clear timing between them
+            let extraDelay = 0;
+            if (layerId === 'presentation') {
+                extraDelay = 15000; // Presentation layer stays active longest
+            } else if (layerId === 'application') {
+                extraDelay = 10000; // Application layer next
+            } else if (layerId === 'domain') {
+                extraDelay = 5000;  // Domain layer next
+            } else if (layerId === 'infrastructure') {
+                extraDelay = 0;     // Infrastructure layer deactivates first
+            }
             
             setTimeout(async () => {
-                // Mark layer as inactive after response
+                // Mark layer as inactive after response and additional delay
                 await sendVisualizationUpdate(req, layerId, 'inactive', path);
-            }, layerDelay);
+            }, layerDelay + extraDelay);
             
             // Call the original end function
             originalEnd.call(this, chunk, encoding);
@@ -177,18 +199,31 @@ const trackLayerActivity = (layerId) => {
             path: path,
             statusCode: req.res ? req.res.statusCode : null
         });
+        
+        // Only log active states, skip logging inactive states
+        if (status === 'active') {
+            // Log the activity with request ID
+            logger.info(`${layerId.charAt(0).toUpperCase() + layerId.slice(1)} layer: ${operation}`, { 
+                requestId: req.visualizationRequestId,
+                path: path
+            });
+        }
     }
     
     // Helper function to get appropriate delay for each layer
-    function getLayerDelay(layerId) {
-        // Set different delays for different layers to create a cascade effect
-        switch(layerId) {
-            case 'presentation': return 3000; // 3 seconds
-            case 'application': return 2500;
-            case 'domain': return 2000;
-            case 'infrastructure': return 1500;
-            default: return 2000;
-        }
+    function getLayerDelay(layerId, isLoginOperation, isPaymentOperation) {
+        // Base delays for different layers - significantly increased
+        const baseDelays = {
+            'presentation': 12000,    // Increased to 12 seconds
+            'application': 11000,     // Increased to 11 seconds
+            'domain': 10000,          // Increased to 10 seconds
+            'infrastructure': 9000    // Increased to 9 seconds
+        };
+        
+        // Additional delay for login and payment operations
+        const specialOperationDelay = (isLoginOperation || isPaymentOperation) ? 5000 : 0; // Increased to 5 seconds
+        
+        return baseDelays[layerId] + specialOperationDelay;
     }
 };
 
@@ -306,6 +341,13 @@ function determineDatabaseOperation(dbId, req) {
 // Middleware to track database activity with enhanced details
 const trackDatabaseActivity = (dbId) => {
     return async (req, res, next) => {
+        // Skip payment database activation for GET requests on course routes
+        if (dbId === 'payments-db' && req.method === 'GET' && 
+            (req.originalUrl.includes('/courses/') || req.originalUrl.includes('/courseManagement/'))) {
+            // Don't activate payment database for course viewing operations
+            return next();
+        }
+        
         // Determine operation based on request
         const operation = determineDatabaseOperation(dbId, req);
         
@@ -321,7 +363,7 @@ const trackDatabaseActivity = (dbId) => {
             setTimeout(async () => {
             // Mark database as inactive after response
             await sendDatabaseActivity(dbId, 'inactive');
-            }, 3000); // 3 second delay for smoother visualization
+            }, 12000); // Increased to 12 seconds for much slower visualization
             
             // Call the original end function
             originalEnd.call(this, chunk, encoding);

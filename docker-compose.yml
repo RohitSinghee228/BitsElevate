@@ -1,18 +1,18 @@
 version: '3.8'
 
 services:
-  edupulse-app:
+  BitsElevate-app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: edupulse-app
+    container_name: BitsElevate-app
     restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - MONGODB_URI=mongodb://mongodb:27017/edupulse
+      - MONGODB_URI=mongodb://mongodb:27017/BitsElevate
       - JWT_SECRET=your_jwt_secret
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - MAILGUN_API_KEY=${MAILGUN_API_KEY}
@@ -21,7 +21,7 @@ services:
     depends_on:
       - mongodb
     networks:
-      - edupulse-network
+      - BitsElevate-network
 
   mongodb:
     image: mongo:latest
@@ -32,10 +32,10 @@ services:
     volumes:
       - mongodb-data:/data/db
     networks:
-      - edupulse-network
+      - BitsElevate-network
 
 networks:
-  edupulse-network:
+  BitsElevate-network:
     driver: bridge
 
 volumes:

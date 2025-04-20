@@ -10,11 +10,11 @@ services:
       - NODE_ENV=production
       - VISUALIZATION_SERVICE_URL=http://host.docker.internal:3000
     networks:
-      - edupulse-network
+      - BitsElevate-network
     restart: unless-stopped
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
 networks:
-  edupulse-network:
+  BitsElevate-network:
     driver: bridge 

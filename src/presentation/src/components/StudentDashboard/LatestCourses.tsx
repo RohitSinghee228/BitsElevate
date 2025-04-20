@@ -48,7 +48,7 @@ const LatestCourses = () => {
 
   return (
     <div className="mt-10 min-h-screen">
-      <h1 className="text-4xl  text-gray-700 font-extrabold px-20">Recomand For you</h1>
+      <h1 className="text-4xl  text-gray-700 font-extrabold px-20">Recommendations for you</h1>
       <Flex direction="column" width="80%" p="20px" m="auto">
         <Carousel slidesToShow={4}>
           {courses.map((course) => (

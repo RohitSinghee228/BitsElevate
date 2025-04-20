@@ -1,7 +1,7 @@
 {
-  "name": "edupulse-layered",
+  "name": "BitsElevate-layered",
   "version": "1.0.0",
-  "description": "EduPulse Education Platform - Layered Architecture",
+  "description": "BitsElevate Education Platform - Layered Architecture",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",

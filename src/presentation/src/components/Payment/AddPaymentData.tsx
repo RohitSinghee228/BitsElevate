@@ -55,7 +55,14 @@ const AddPaymentDataForm: React.FC<AddPaymentDataFormProps> = ({ userId, authTok
       }
 
       // Extract card details from the token for better card representation
-      const cardInfo = token.card || {};
+      interface CardInfo {
+        last4?: string;
+        brand?: string;
+        exp_month?: number;
+        exp_year?: number;
+      }
+      
+      const cardInfo: CardInfo = token.card || {};
       const last4 = cardInfo.last4 || '';
       
       console.log('Token created successfully:', token.id);

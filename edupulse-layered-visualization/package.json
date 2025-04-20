@@ -1,7 +1,7 @@
 {
-  "name": "edupulse-layered-visualization",
+  "name": "BitsElevate-layered-visualization",
   "version": "1.0.0",
-  "description": "Visualization service for EduPulse Layered Architecture",
+  "description": "Visualization service for BitsElevate Layered Architecture",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",

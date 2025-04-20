@@ -102,10 +102,10 @@ const WhyChooseUs = () => {
                 mt: 3
               }}
             >
-              Why Choose EduPulse?
+              Why Choose BitsElevate?
             </Heading>
             <Text fontSize="lg" color="gray.700" mb={6}>
-              At EduPulse, we're committed to transforming education through technology, 
+              At BitsElevate, we're committed to transforming education through technology, 
               accessibility, and excellence. Our platform offers more than just courses—it 
               provides a complete ecosystem for your professional growth.
             </Text>

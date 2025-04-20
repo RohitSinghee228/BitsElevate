@@ -215,30 +215,32 @@
             overflow-y: auto;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 0.75rem;
-            padding: 0.5rem;
-            font-family: monospace;
-            font-size: 0.8rem;
+            padding: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
             color: var(--text-color);
             margin-top: 0.5rem;
             max-height: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .log-entry {
-            margin-bottom: 0.2rem;
-            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background: rgba(30, 41, 59, 0.3);
             border-left: 3px solid rgba(255, 255, 255, 0.1);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.4;
-            font-size: 0.75rem;
-            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            transition: all 0.3s ease;
         }
 
         .log-entry:hover {
-            white-space: normal;
-            overflow: visible;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(30, 41, 59, 0.5);
+            transform: translateX(2px);
         }
 
         .log-entry.success {
@@ -255,44 +257,73 @@
 
         .log-entry .timestamp {
             color: var(--secondary-color);
-            font-size: 0.7rem;
-            min-width: 50px;
-            flex-shrink: 0;
+            font-size: 0.75rem;
+            opacity: 0.8;
         }
 
         .log-entry .layer {
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 0.7rem;
+            font-weight: 600;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            display: inline;
-            padding: 0;
-            margin: 0;
-            background: none;
-            border: none;
-            box-shadow: none;
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            margin: 0.25rem 0;
+        }
+
+        /* Layer-specific colors for log entries */
+        .log-entry .layer.presentation {
+            background: var(--presentation-color);
+            color: white;
+        }
+
+        .log-entry .layer.application {
+            background: var(--application-color);
+            color: white;
+        }
+
+        .log-entry .layer.domain {
+            background: var(--domain-color);
+            color: white;
+        }
+
+        .log-entry .layer.infrastructure {
+            background: var(--infrastructure-color);
+            color: white;
+        }
+
+        .log-entry .layer.database {
+            background: var(--users-db-color);
+            color: white;
         }
 
         .log-entry .operation {
             color: var(--success-color);
-            font-size: 0.7rem;
-            min-width: 100px;
-            flex-shrink: 0;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .log-entry .path {
             color: var(--secondary-color);
-            font-size: 0.7rem;
-            min-width: 120px;
-            flex-shrink: 0;
+            font-size: 0.8rem;
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            display: inline-block;
         }
 
         .log-entry .message {
             color: var(--text-color);
-            font-size: 0.7rem;
-            flex-grow: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .log-entry .request-id {
+            font-size: 0.75rem;
+            color: var(--secondary-color);
+            opacity: 0.8;
+            font-family: 'Fira Code', monospace;
         }
 
         .log-entry.success {
@@ -394,7 +425,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border: 1px solid var(--glass-border);
             width: var(--layer-width);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 4s cubic-bezier(0.4, 0, 0.2, 1); /* Increased from 0.8s to 4s */
             position: relative;
             backdrop-filter: blur(5px);
             margin: 0 auto;
@@ -495,7 +526,7 @@
             border-radius: 50%;
             color: white;
             margin-right: 0.8rem;
-            transition: all 0.3s ease;
+            transition: all 4s ease; /* Increased from 0.3s to 4s */
             font-size: 1.2rem;
         }
 
@@ -774,41 +805,50 @@
             fill: none;
             opacity: 0.4;
             filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
-            transition: all 0.3s ease;
+            transition: all 4s ease; /* Increased from 0.3s to 4s */
         }
         
         /* Layer connection colors */
         .presentation-to-application {
             stroke: var(--presentation-color);
+            stroke-dasharray: 30;
+            animation-duration: 20s; /* Dramatically slow animation */
         }
         
         .application-to-domain {
             stroke: var(--application-color);
+            stroke-dasharray: 30;
+            animation-duration: 20s; /* Dramatically slow animation */
         }
         
         .domain-to-infrastructure {
             stroke: var(--domain-color);
+            stroke-dasharray: 30;
+            animation-duration: 20s; /* Dramatically slow animation */
         }
         
         .infrastructure-to-db {
             stroke: var(--infrastructure-color);
+            stroke-dasharray: 30;
+            animation-duration: 20s; /* Dramatically slow animation */
         }
         
         .domain-to-db {
             stroke: var(--domain-color);
-            stroke-dasharray: 5;
+            stroke-dasharray: 30;
+            animation-duration: 20s; /* Dramatically slow animation */
         }
 
         .connection-line.active {
             stroke-width: 2.5;
             opacity: 1;
             filter: drop-shadow(0 0 10px currentColor);
-            animation: flowLine 6s infinite linear;
+            animation: flowLine 20s infinite linear; /* Increased from 6s to 20s */
         }
 
         .arrow-head {
             opacity: 0.7;
-            transition: all 0.3s ease;
+            transition: all 4s ease; /* Increased from 0.3s to 4s */
         }
         
         /* Color arrow heads to match their lines */
@@ -872,37 +912,30 @@
             }
         }
 
-        @keyframes pulseComponent {
-            0% {
-                box-shadow: 0 0 5px currentColor;
-            }
-            50% {
-                box-shadow: 0 0 15px currentColor;
-            }
-            100% {
-                box-shadow: 0 0 5px currentColor;
-            }
-        }
-
-        @keyframes pulseStatus {
-            0% {
-                opacity: 0.8;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0.8;
-            }
-        }
-
         @keyframes rotateIcon {
-            from {
+            0% {
                 transform: rotate(0deg);
             }
-            to {
+            100% {
                 transform: rotate(360deg);
             }
+        }
+        
+        /* Set slow animation durations globally */
+        .layer.processing {
+            animation: pulseLayer 10s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .database.processing {
+            animation: pulseDatabase 10s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .layer-processing .layer-icon {
+            animation: rotateIcon 10s infinite linear;
+        }
+        
+        .database.processing .database-icon {
+            animation: rotateIcon 10s infinite linear;
         }
 
         @keyframes pulseArrow {
@@ -951,7 +984,7 @@
             z-index: 1000;
             opacity: 0;
             transform: translateY(10px);
-            transition: all 0.3s ease;
+            transition: all 4s ease; /* Increased from 0.3s to 4s */
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             pointer-events: none;
         }
@@ -1467,20 +1500,20 @@
                     currentRequest.layers.push(layerId);
                 }
                 
-                // Clear any active connections before starting new ones
-                if (layerIndex === 0) {
-                    deactivateAllConnections();
-                }
+                // Deactivate ALL layers first to prevent multiple active layers
+                ['presentation', 'application', 'domain', 'infrastructure'].forEach(id => {
+                    if (id !== layerId) { // Don't deactivate the current layer we're about to activate
+                        updateLayerStatus(id, 'inactive');
+                    }
+                });
+                
+                // Deactivate all connections
+                deactivateAllConnections();
                 
                 // Start animation for this layer
                 startRequestAnimation(layerIndex / (layerIds.length - 1));
                 
-                // Make sure previous layers are deactivated
-                for (let i = 0; i < layerIndex; i++) {
-                    updateLayerStatus(layerIds[i], 'inactive');
-                }
-                
-                // Activate this layer
+                // Activate only this layer
                 updateLayerStatus(layerId, 'active', randomComponent);
                 
                 // Activate the connection to next layer if there is one
@@ -1496,7 +1529,7 @@
                     setTimeout(() => {
                         const dbIds = Object.keys(databases);
                         const randomDb = dbIds[Math.floor(Math.random() * dbIds.length)];
-                        updateDbStatus(randomDb, 'active');
+                        updateDbStatus(randomDb, 'active', currentRequest ? currentRequest.id : null);
                         activateConnection(`infrastructure-to-${randomDb}`);
                     }, 500); // Slight delay after layer activation
                 }
@@ -1506,7 +1539,7 @@
                     setTimeout(() => {
                         const dbIds = Object.keys(databases);
                         const randomDb = dbIds[Math.floor(Math.random() * dbIds.length)];
-                        updateDbStatus(randomDb, 'active');
+                        updateDbStatus(randomDb, 'active', currentRequest ? currentRequest.id : null);
                         activateConnection(`domain-to-${randomDb}`);
                     }, 500); // Slight delay after layer activation
                 }
@@ -1669,45 +1702,39 @@
             }
         }
 
-        // Update the logActivity function to create simple plain text log entries
-        function logActivity(message, type = 'info', details = {}) {
-            const timestamp = new Date().toISOString().slice(11, 19);
-            const logEntry = document.createElement('div');
-            logEntry.className = `log-entry ${type}`;
+        // Log an activity and display it in the UI
+        function logActivity(message, level = 'info', details = null) {
+            const timestamp = new Date().toLocaleTimeString();
             
-            // Only log if it's an API action or operation
-            if (details.path || details.operation) {
-                let logText = timestamp;
-                
-                // Add layer if available
-                if (details.layer) {
-                    logText += ' ' + details.layer;
-                }
-                
-                // Add operation if available
-                if (details.operation) {
-                    logText += ' ' + details.operation;
-                }
-                
-                // Add API action if path is available
-                if (details.path) {
-                    const apiAction = getApiAction(details.path);
-                    logText += ' ' + apiAction;
-                }
-                
-                // Set the plain text content
-                logEntry.textContent = logText;
-                
-                activityLogs.prepend(logEntry);
-                
-                // Limit to last 20 entries and fade out older ones
-                const entries = activityLogs.querySelectorAll('.log-entry');
-                if (entries.length > 20) {
-                    for (let i = 20; i < entries.length; i++) {
-                        entries[i].style.opacity = '0.5';
-                    }
-                }
+            // Skip logging "Layer completed processing" messages
+            if (message.includes("completed processing") || message.includes("Layer completed")) {
+                return;
             }
+            
+            // Create log entry
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${level}`;
+            
+            // Populate log entry
+            logEntry.innerHTML = `
+                <span class="timestamp">${timestamp}</span>
+                ${details && details.layer ? `<span class="log-layer">${details.layer}</span>` : ''}
+                <span class="log-message">${message}</span>
+                ${details && details.operation ? `<div class="log-operation">${details.operation}</div>` : ''}
+                ${details && details.path ? `<div class="log-path">${details.path}</div>` : ''}
+                ${details && details.requestId ? `<div class="log-requestId">Request ID: ${details.requestId}</div>` : ''}
+            `;
+            
+            // Add to logs container
+            document.getElementById('activity-logs').prepend(logEntry);
+            
+            // Limit number of logs
+            const logs = document.getElementById('activity-logs').children;
+            if (logs.length > 100) {
+                document.getElementById('activity-logs').removeChild(logs[logs.length - 1]);
+            }
+            
+            console.log(`[${timestamp}] ${message}`, details);
         }
 
         function getRandomOperation(layerId, componentId) {
@@ -1781,17 +1808,21 @@
             currentApiPath = path;
             currentRequestId = requestId;
             
+            // Check if this is a login or payment operation
+            const isLoginOperation = path.includes('/api/users/login');
+            const isPaymentOperation = path.includes('/api/payments');
+            
             // Deactivate all layers first
             ['presentation', 'application', 'domain', 'infrastructure'].forEach(layerId => {
                 updateLayerStatus(layerId, 'inactive');
             });
             deactivateAllConnections();
             
-            // Start the sequence
-            advanceToNextLayer();
+            // Start the sequence with appropriate timing
+            advanceToNextLayer(isLoginOperation, isPaymentOperation);
         }
 
-        function advanceToNextLayer() {
+        function advanceToNextLayer(isLoginOperation = false, isPaymentOperation = false) {
             sequenceIndex++;
             
             // Check if we've reached the end of the sequence
@@ -1817,29 +1848,39 @@
             if (sequenceIndex < layerSequence.length - 1) {
                 setTimeout(() => {
                     activateConnection(`${layerId}-to-${layerSequence[sequenceIndex + 1]}`);
-                }, 300);
+                }, 8000); // Increased from 4000ms to 8000ms
             }
             
-            // Only activate database for infrastructure layer, and only once
-            if (layerId === 'infrastructure') {
+            // Special handling for database connections
+            if (layerId === 'infrastructure' || (layerId === 'domain' && (isLoginOperation || isPaymentOperation))) {
                 setTimeout(() => {
                     const dbIds = Object.keys(databases);
-                    const randomDb = dbIds[Math.floor(Math.random() * dbIds.length)];
-                    updateDbStatus(randomDb, 'active', currentRequestId);
-                    activateConnection(`infrastructure-to-${randomDb}`);
+                    const relevantDb = isLoginOperation ? 'users-db' : 
+                                     isPaymentOperation ? 'payments-db' : 
+                                     dbIds[Math.floor(Math.random() * dbIds.length)];
                     
-                    // Deactivate database after a short while
+                    updateDbStatus(relevantDb, 'active', currentRequestId);
+                    activateConnection(`${layerId}-to-${relevantDb}`);
+                    
+                    // Keep database active longer for login/payment operations
+                    const dbActiveTime = (isLoginOperation || isPaymentOperation) ? 15000 : 12000; // Increased to 15s/12s
+                    
                     setTimeout(() => {
-                        updateDbStatus(randomDb, 'inactive');
-                        deactivateConnection(`infrastructure-to-${randomDb}`);
-                    }, 2000);
-                }, 500);
+                        updateDbStatus(relevantDb, 'inactive');
+                        deactivateConnection(`${layerId}-to-${relevantDb}`);
+                    }, dbActiveTime);
+                }, 8000); // Increased from 4000ms to 8000ms
             }
             
-            // Schedule the next layer after a suitable delay
+            // Calculate layer duration based on operation type
+            const baseLayerDuration = 15000; // Increased from 8000ms to 15000ms
+            const specialOperationDuration = (isLoginOperation || isPaymentOperation) ? 8000 : 0; // Increased from 4000ms to 8000ms
+            const layerDuration = baseLayerDuration + specialOperationDuration;
+            
+            // Schedule next layer activation
             setTimeout(() => {
-                advanceToNextLayer();
-            }, 3000);
+                advanceToNextLayer(isLoginOperation, isPaymentOperation);
+            }, layerDuration);
         }
 
         function updateLayerStatus(layerId, status, componentId = null, apiPath = null, requestId = null) {
@@ -1868,12 +1909,12 @@
                         apiBadge.className = 'api-path';
                         layer.appendChild(apiBadge);
                     }
-                    apiBadge.textContent = `${path} (${requestId})`;
+                    apiBadge.textContent = requestId ? `${path} (${requestId})` : path;
                     
                     // Update detail section with more information
                     if (layerDetails_elements[layerId]) {
                         const detailHtml = `
-                            <strong>Request ID:</strong> ${requestId}<br>
+                            ${requestId ? `<strong>Request ID:</strong> ${requestId}<br>` : ''}
                             <strong>API Call:</strong> ${apiAction}<br>
                             <strong>Operation:</strong> ${operation}<br>
                             <strong>Component:</strong> ${componentId || 'unknown'}<br>
@@ -1884,7 +1925,7 @@
                     }
                     
                     // Log the activity with request ID
-                    logActivity(`Processing ${apiAction}`, 'info', { 
+                    logActivity(`${operation}`, 'info', { 
                         layer: layerId.charAt(0).toUpperCase() + layerId.slice(1),
                         operation,
                         path,
@@ -1919,10 +1960,10 @@
                         });
                     }
                     
-                    // Log the activity
-                    logActivity(`Layer completed processing`, 'info', { 
-                        layer: layerId.charAt(0).toUpperCase() + layerId.slice(1)
-                    });
+                    // Don't log layer completion
+                    // logActivity(`Layer completed processing`, 'info', { 
+                    //    layer: layerId.charAt(0).toUpperCase() + layerId.slice(1)
+                    // });
                 }
             }
         }
@@ -1935,7 +1976,7 @@
                 if (status === 'active') {
                     db.classList.add('processing');
                     const operation = getRandomDbOperation(dbId);
-                    dbStatus.textContent = `${operation} (${requestId})`;
+                    dbStatus.textContent = requestId ? `${operation} (${requestId})` : operation;
                     
                     // Update stats
                     stats.dbOperations++;
@@ -2209,97 +2250,188 @@
             let sequenceIndex = -1;
             let currentApiPath = '/api/courses/all'; // Default to a valid path
             
-            // Queue to collect updates while a visualization is in progress
-            const layerUpdateQueue = [];
+            // Enhanced layer tracking and sequencing
+            const visualizationState = {
+                active: false,
+                currentRequest: null,
+                currentApiPath: null,
+                pendingUpdates: [], 
+                lastUpdateTime: 0,
+                currentSequenceIndex: -1,
+                activeLayerId: null,
+                activeConnectionId: null,
+                processingPending: false,
+                layerTransitionDelay: 3000, // 3 seconds per layer for better visualization
+                debounceTime: 500 // Prevents rapid flickering by debouncing updates
+            };
             
             // Start a new visualization sequence
-            function startNewVisualization(path) {
-                // Reset sequence
-                sequenceIndex = -1;
-                visualizationInProgress = true;
-                currentApiPath = path || currentApiPath;
+            function startNewVisualization(path, requestId) {
+                // If already active, store this as a pending update
+                if (visualizationState.active) {
+                    visualizationState.pendingUpdates.push({
+                        path,
+                        requestId, 
+                        timestamp: Date.now()
+                    });
+                    return;
+                }
                 
-                // Deactivate all layers first
+                // Reset sequence state
+                visualizationState.active = true;
+                visualizationState.currentRequest = requestId || `req-${Date.now()}`;
+                visualizationState.currentApiPath = path || currentApiPath;
+                visualizationState.currentSequenceIndex = -1;
+                visualizationState.lastUpdateTime = Date.now();
+                
+                // Clean state
+                deactivateAllConnections();
                 ['presentation', 'application', 'domain', 'infrastructure'].forEach(layerId => {
                     updateLayerStatus(layerId, 'inactive');
                 });
-                deactivateAllConnections();
+                
+                // Log start of visualization
+                logActivity(`Starting visualization for ${visualizationState.currentApiPath}`, 'info');
                 
                 // Start the sequence
-                advanceToNextLayer();
+                setTimeout(() => advanceToNextLayer(), 500);
             }
             
             // Advance to the next layer in the sequence
             function advanceToNextLayer() {
-                sequenceIndex++;
+                // Increment sequence counter
+                visualizationState.currentSequenceIndex++;
                 
                 // Check if we've reached the end of the sequence
-                if (sequenceIndex >= layerSequence.length) {
+                if (visualizationState.currentSequenceIndex >= layerSequence.length) {
                     completeVisualization();
                     return;
                 }
                 
-                const layerId = layerSequence[sequenceIndex];
+                const layerId = layerSequence[visualizationState.currentSequenceIndex];
                 const components = Object.keys(layerDetails[layerId].operations);
                 const randomComponent = components[Math.floor(Math.random() * components.length)];
                 
+                // Deactivate previous layer's connection if there was one
+                if (visualizationState.activeConnectionId) {
+                    deactivateConnection(visualizationState.activeConnectionId);
+                    visualizationState.activeConnectionId = null;
+                }
+                
                 // Deactivate previous layer if there was one
-                if (currentActiveLayer) {
-                    updateLayerStatus(currentActiveLayer, 'inactive');
+                if (visualizationState.activeLayerId) {
+                    updateLayerStatus(visualizationState.activeLayerId, 'inactive');
                 }
                 
                 // Activate the current layer
-                currentActiveLayer = layerId;
-                updateLayerStatus(layerId, 'active', randomComponent, currentApiPath);
+                visualizationState.activeLayerId = layerId;
+                updateLayerStatus(layerId, 'active', randomComponent, visualizationState.currentApiPath);
                 
                 // Activate connection to the next layer if there is one
-                if (sequenceIndex < layerSequence.length - 1) {
-                    const nextLayerId = layerSequence[sequenceIndex + 1];
+                if (visualizationState.currentSequenceIndex < layerSequence.length - 1) {
+                    const nextLayerId = layerSequence[visualizationState.currentSequenceIndex + 1];
                     setTimeout(() => {
-                        activateConnection(`${layerId}-to-${nextLayerId}`);
+                        visualizationState.activeConnectionId = `${layerId}-to-${nextLayerId}`;
+                        activateConnection(visualizationState.activeConnectionId);
                     }, 300);
                 }
                 
-                // Only activate database for infrastructure layer, and only once
+                // Only activate database for infrastructure layer
                 if (layerId === 'infrastructure') {
                     setTimeout(() => {
                         const dbIds = Object.keys(databases);
                         const randomDb = dbIds[Math.floor(Math.random() * dbIds.length)];
-                        updateDbStatus(randomDb, 'active');
-                        activateConnection(`infrastructure-to-${randomDb}`);
+                        const dbConnectionId = `infrastructure-to-${randomDb}`;
                         
-                        // Deactivate database after a short while
+                        updateDbStatus(randomDb, 'active');
+                        activateConnection(dbConnectionId);
+                        
+                        // Deactivate database after a suitable delay
                         setTimeout(() => {
                             updateDbStatus(randomDb, 'inactive');
-                            deactivateConnection(`infrastructure-to-${randomDb}`);
-                        }, 2000);
+                            deactivateConnection(dbConnectionId);
+                        }, visualizationState.layerTransitionDelay * 0.6);
                     }, 500);
                 }
                 
                 // Schedule the next layer after a suitable delay
                 setTimeout(() => {
                     advanceToNextLayer();
-                }, 3000); // 3 seconds per layer
+                }, visualizationState.layerTransitionDelay);
             }
             
             // Complete the visualization sequence
             function completeVisualization() {
-                // Deactivate the last layer
-                if (currentActiveLayer) {
-                    updateLayerStatus(currentActiveLayer, 'inactive');
-                    currentActiveLayer = null;
+                // Deactivate last active layer and connection
+                if (visualizationState.activeLayerId) {
+                    updateLayerStatus(visualizationState.activeLayerId, 'inactive');
+                    visualizationState.activeLayerId = null;
                 }
                 
-                deactivateAllConnections();
-                visualizationInProgress = false;
+                if (visualizationState.activeConnectionId) {
+                    deactivateConnection(visualizationState.activeConnectionId);
+                    visualizationState.activeConnectionId = null;
+                }
                 
-                // Add completion log
-                logActivity(`Request completed successfully`, 'success');
+                // Update statistics
+                stats.requestsProcessed++;
+                updateStatistics();
+                
+                // Log completion
+                logActivity(`Request completed: ${visualizationState.currentApiPath}`, 'success');
+                
+                // Reset visualization state
+                visualizationState.active = false;
+                visualizationState.currentRequest = null;
+                visualizationState.currentSequenceIndex = -1;
+                
+                // Process any pending updates, but only after a delay
+                setTimeout(processPendingUpdates, visualizationState.debounceTime);
             }
             
-            // Process incoming layer update
-            function processLayerUpdate(data) {
-                const { path, requestId } = data;
+            // Process any pending layer updates
+            function processPendingUpdates() {
+                // Prevent multiple simultaneous processing
+                if (visualizationState.processingPending) return;
+                visualizationState.processingPending = true;
+                
+                try {
+                    // If there are pending updates, process the most recent one
+                    if (visualizationState.pendingUpdates.length > 0) {
+                        // Sort pending updates by timestamp, newest first
+                        visualizationState.pendingUpdates.sort((a, b) => b.timestamp - a.timestamp);
+                        
+                        // Take the most recent update
+                        const nextUpdate = visualizationState.pendingUpdates.shift();
+                        console.log('[processPendingUpdates] Processing next update:', nextUpdate);
+                        
+                        // Start visualization for this update
+                        startNewVisualization(nextUpdate.path, nextUpdate.requestId);
+                    }
+                } finally {
+                    visualizationState.processingPending = false;
+                }
+            }
+            
+            // Debounce function to prevent rapid flickering
+            function debounce(func, wait) {
+                let timeout;
+                return function() {
+                    const context = this;
+                    const args = arguments;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        func.apply(context, args);
+                    }, wait);
+                };
+            }
+            
+            // Process incoming layer update with debouncing
+            const processLayerUpdate = debounce((data) => {
+                const { path, requestId, layerId, status } = data;
+                
+                // Only process 'active' status updates to start visualizations
+                if (status !== 'active') return;
                 
                 // Generate a unique request ID if not provided
                 const reqId = requestId || `req-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
@@ -2316,22 +2448,31 @@
                         });
                         
                         // Log the start of a new request
-                        logActivity(`Starting request ${reqId}`, 'info', { 
+                        logActivity(`New request: ${path}`, 'info', { 
                             path: path,
                             requestId: reqId
                         });
                     }
                     
-                    // Start a new visualization for this request
-                    startNewVisualization(path, reqId);
+                    // If not currently visualizing, start new visualization
+                    if (!visualizationState.active) {
+                        startNewVisualization(path, reqId);
+                    } else {
+                        // Otherwise queue it
+                        visualizationState.pendingUpdates.push({
+                            path,
+                            requestId: reqId,
+                            timestamp: Date.now()
+                        });
+                    }
                 }
-            }
+            }, 300); // 300ms debounce time
             
             // Listen for layer updates
             socket.on('layer-update', data => {
                 console.log('[Socket] Received layer update:', data);
                 
-                // Process this update
+                // Process this update with debouncing to prevent flickering
                 processLayerUpdate(data);
             });
             
@@ -2353,7 +2494,7 @@
                     path: randomPath
                 };
                 
-                // Process it
+                // Process it with debouncing
                 processLayerUpdate(simulatedUpdate);
             });
             
@@ -2566,6 +2707,130 @@
             // Visualize the request
             visualizeRequest(requestId, path);
             return requestId;
+        }
+
+        // Global variables to track visualization state
+        let visualizationInProgress = false;
+        let currentActiveLayer = null;
+        let sequenceIndex = -1;
+        let currentApiPath = null;
+        let currentRequestId = null;
+        let layerSequence = ['presentation', 'application', 'domain', 'infrastructure'];
+        let layerDeactivationInProgress = {}; // Track which layers are currently being deactivated
+        let lastLayerUpdateTime = {}; // Track when each layer was last updated
+        let minimumLayerDisplayTime = 10000; // Minimum time a layer should be displayed (10 seconds)
+        
+        // Initialize layer tracking objects
+        layerSequence.forEach(layer => {
+            layerDeactivationInProgress[layer] = false;
+            lastLayerUpdateTime[layer] = 0;
+        });
+
+        // Handle layer activity messages from WebSocket
+        function handleLayerActivity(data) {
+            const { layerId, status, component, operation, requestId, path } = data;
+            
+            // Get current time to track update timing
+            const now = Date.now();
+            
+            // Skip rapid updates to the same layer
+            if (now - lastLayerUpdateTime[layerId] < 2000) {
+                console.log(`Skipping rapid update to ${layerId} layer (too soon after last update)`);
+                return;
+            }
+            
+            // Update the last update time for this layer
+            lastLayerUpdateTime[layerId] = now;
+            
+            if (status === 'active') {
+                // If this is the presentation layer and a new request, start a new visualization
+                if (layerId === 'presentation' && (!visualizationInProgress || requestId !== currentRequestId)) {
+                    startNewVisualization(path, requestId);
+                } else if (visualizationInProgress) {
+                    // If layer deactivation is in progress, cancel it
+                    if (layerDeactivationInProgress[layerId]) {
+                        console.log(`Cancelling deactivation of ${layerId} layer as it's being activated again`);
+                        layerDeactivationInProgress[layerId] = false;
+                    }
+                    
+                    // Update the layer status to active with component
+                    updateLayerStatus(layerId, 'active', component, path, requestId);
+                    
+                    // If this is a next layer in sequence, activate the connection
+                    const prevLayerIndex = layerSequence.indexOf(currentActiveLayer);
+                    const thisLayerIndex = layerSequence.indexOf(layerId);
+                    if (prevLayerIndex >= 0 && thisLayerIndex === prevLayerIndex + 1) {
+                        activateConnection(`${currentActiveLayer}-to-${layerId}`);
+                    }
+                    
+                    // Update current active layer
+                    currentActiveLayer = layerId;
+                }
+            } else if (status === 'inactive' && visualizationInProgress) {
+                // Don't immediately deactivate - schedule it with a minimum display time
+                if (!layerDeactivationInProgress[layerId]) {
+                    layerDeactivationInProgress[layerId] = true;
+                    
+                    const timeActiveMs = now - lastLayerUpdateTime[layerId];
+                    const additionalDelayNeeded = Math.max(0, minimumLayerDisplayTime - timeActiveMs);
+                    
+                    console.log(`Scheduling deactivation of ${layerId} layer in ${additionalDelayNeeded}ms`);
+                    
+                    setTimeout(() => {
+                        // Only deactivate if still marked for deactivation
+                        if (layerDeactivationInProgress[layerId]) {
+                            updateLayerStatus(layerId, 'inactive');
+                            layerDeactivationInProgress[layerId] = false;
+                            
+                            // If this was the last layer, complete the visualization
+                            if (layerId === 'infrastructure' && currentActiveLayer === 'infrastructure') {
+                                setTimeout(() => {
+                                    completeVisualization();
+                                }, 5000); // Wait 5 seconds after last layer completes
+                            }
+                        }
+                    }, additionalDelayNeeded);
+                }
+            }
+        }
+
+        // Setup WebSocket connection
+        function setupWebSocket() {
+            const ws = new WebSocket(`ws://${window.location.host}`);
+            
+            ws.onopen = () => {
+                logActivity('Connected to real-time data feed', 'success');
+            };
+            
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                
+                if (data.type === 'layer-activity') {
+                    // Handle layer activity with our enhanced handler that prevents rapid transitions
+                    handleLayerActivity(data);
+                } else if (data.type === 'db-activity') {
+                    // Process database activity
+                    const { dbId, status, operation } = data;
+                    if (status === 'active') {
+                        updateDbStatus(dbId, 'active', operation);
+                    } else {
+                        // Only deactivate db if enough time has passed (at least 8 seconds)
+                        setTimeout(() => {
+                            updateDbStatus(dbId, 'inactive');
+                        }, 8000);
+                    }
+                }
+            };
+            
+            ws.onclose = () => {
+                logActivity('Connection to data feed closed', 'error');
+                // Try to reconnect after a delay
+                setTimeout(setupWebSocket, 5000);
+            };
+            
+            ws.onerror = (error) => {
+                logActivity(`WebSocket error: ${error.message}`, 'error');
+            };
         }
     </script>
 </body>
