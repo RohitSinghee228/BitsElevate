@@ -1,6 +1,6 @@
-# EduPulse - Layered Architecture
+# BitsElevate - Layered Architecture
 
-EduPulse is an education platform that was originally built using a microservices architecture and has been converted to a layered architecture.
+BitsElevate is an education platform that was originally built using a microservices architecture and has been converted to a layered architecture.
 
 ## Layered Architecture
 
@@ -62,8 +62,8 @@ src/
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/edupulse-layered.git
-   cd edupulse-layered
+   git clone https://github.com/yourusername/BitsElevate-layered.git
+   cd BitsElevate-layered
    ```
 
 2. Install dependencies:
@@ -75,7 +75,7 @@ src/
    ```
    NODE_ENV=development
    PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/edupulse
+   MONGODB_URI=mongodb://localhost:27017/BitsElevate
    JWT_SECRET=your_jwt_secret
    STRIPE_SECRET_KEY=your_stripe_secret_key
    MAILGUN_API_KEY=your_mailgun_api_key
