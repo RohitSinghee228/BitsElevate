@@ -8,7 +8,7 @@ const { setupDatabase } = require('./infrastructure/database');
 const { setupSecurity } = require('./infrastructure/security');
 const { setupLogging } = require('./infrastructure/logging');
 const { setupExternalServices } = require('./infrastructure/external-services');
-const { trackLayerActivity, trackDatabaseActivity } = require('./infrastructure/middleware/activityTracker');
+const { setupActivityTracking } = require('./infrastructure/middleware/activityTracker');
 const fs = require('fs');
 
 // Import routes
@@ -43,31 +43,8 @@ setupSecurity(app);
 setupLogging(app);
 setupExternalServices();
 
-// Apply activity tracking middleware for presentation layer
-app.use(trackLayerActivity('presentation'));
-
-// API Routes with their specific layer tracking
-// Order matters here - layers should be processed in correct architectural order:
-// presentation -> application -> domain -> infrastructure
-app.use('/api', (req, res, next) => {
-  // Set the request path to help visualization with correct paths
-  req.originalLayeredPath = req.path;
-  next();
-});
-
-// Track the application layer
-app.use('/api', trackLayerActivity('application'));
-
-// Track the domain layer 
-app.use('/api', trackLayerActivity('domain'));
-
-// Track the infrastructure layer
-app.use('/api', trackLayerActivity('infrastructure'));
-
-// Track database activities with more precise paths
-app.use('/api/users', trackDatabaseActivity('users-db'));
-app.use('/api/courses', trackDatabaseActivity('courses-db'));
-app.use('/api/payments', trackDatabaseActivity('payments-db'));
+// Setup activity tracking with actual database operation monitoring
+setupActivityTracking(app);
 
 // API Routes - all under /api prefix
 app.use('/api/users', userRoutes);

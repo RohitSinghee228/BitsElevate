@@ -10,6 +10,58 @@ function generateRequestId() {
     return crypto.randomBytes(8).toString('hex');
 }
 
+// Direct mapping of API endpoints to databases
+const apiToDatabaseMap = {
+  // Course endpoints
+  '/api/courses/courseManagement/getAll': ['courses-db', 'users-db'],
+  '/api/courses/courseManagement/create': ['courses-db', 'users-db'],
+  '/api/courses/courseManagement/enroll': ['courses-db', 'users-db', 'payments-db'],
+  '/api/courses/courseManagement/cancelEnrollment': ['courses-db', 'users-db', 'payments-db'],
+  '/api/courses/courseManagement/saveProgress': ['courses-db', 'users-db'],
+  '/api/courses/courseManagement/completedCourse': ['courses-db', 'users-db'],
+  
+  // User endpoints
+  '/api/users/register': ['users-db'],
+  '/api/users/login': ['users-db'],
+  '/api/users/profile': ['users-db'],
+  
+  // Payment endpoints
+  '/api/payments/create-payment-intent': ['payments-db', 'users-db', 'courses-db'],
+  '/api/payments/confirm-payment': ['payments-db', 'users-db', 'courses-db'],
+  '/api/payments/transactions': ['payments-db', 'users-db'],
+  '/api/payments/refund': ['payments-db', 'users-db', 'courses-db']
+};
+
+// Function to find matching endpoint mapping using path pattern matching
+function findMatchingEndpoint(path) {
+  // Try exact match first
+  if (apiToDatabaseMap[path]) {
+    return apiToDatabaseMap[path];
+  }
+  
+  // Try pattern matching for endpoints with IDs
+  for (const [endpoint, databases] of Object.entries(apiToDatabaseMap)) {
+    // Convert endpoint to regex pattern (replace :id with regex for uuid)
+    const pattern = endpoint.replace(/\/:[^\/]+/g, '/[^/]+');
+    const regex = new RegExp(`^${pattern}$`);
+    
+    if (regex.test(path)) {
+      return databases;
+    }
+  }
+  
+  // Default databases if no specific matching found
+  if (path.includes('/api/courses')) {
+    return ['courses-db'];
+  } else if (path.includes('/api/users')) {
+    return ['users-db'];
+  } else if (path.includes('/api/payments')) {
+    return ['payments-db'];
+  }
+  
+  return [];
+}
+
 // Function to send layer activity update with enhanced details
 async function sendLayerActivity(layerId, status, details = {}) {
     try {
@@ -158,6 +210,15 @@ const trackLayerActivity = (layerId) => {
             // Remove this request from active requests
             activeRequests.delete(req.visualizationRequestId);
             
+            // If this is infrastructure layer, use the hardcoded mapping to send database updates
+            if (layerId === 'infrastructure') {
+                // Get the databases that should be accessed for this endpoint
+                const dbsToActivate = findMatchingEndpoint(path);
+                
+                // Activate each database in sequence
+                await sendHardcodedDbUpdates(req, dbsToActivate);
+            }
+            
             // Wait a bit before marking this layer as inactive to ensure the visualization flows smoothly
             const layerDelay = getLayerDelay(layerId, isLoginOperation, isPaymentOperation);
             
@@ -207,6 +268,28 @@ const trackLayerActivity = (layerId) => {
                 requestId: req.visualizationRequestId,
                 path: path
             });
+        }
+    }
+    
+    // Helper function for hardcoded database updates
+    async function sendHardcodedDbUpdates(req, databases) {
+        // Activate each database in sequence with consistent timing
+        for (let i = 0; i < databases.length; i++) {
+            const dbId = databases[i];
+            const staggerDelay = i * 1500; // Stagger database activations by 1.5s
+            
+            setTimeout(async () => {
+                // Get operation description based on database and path
+                const operation = determineDatabaseOperation(dbId, req);
+                
+                // Activate the database
+                await sendDatabaseActivity(dbId, 'active', operation);
+                
+                // Deactivate after a fixed time
+                setTimeout(async () => {
+                    await sendDatabaseActivity(dbId, 'inactive');
+                }, 5000); // Keep each database active for 5 seconds
+            }, staggerDelay);
         }
     }
     
@@ -343,8 +426,11 @@ const trackDatabaseActivity = (dbId) => {
     return async (req, res, next) => {
         // Skip payment database activation for GET requests on course routes
         if (dbId === 'payments-db' && req.method === 'GET' && 
-            (req.originalUrl.includes('/courses/') || req.originalUrl.includes('/courseManagement/'))) {
+            (req.originalUrl.includes('/courses/') || 
+             req.originalUrl.includes('/courseManagement/') ||
+             req.originalUrl.match(/\/api\/courses\/courseManagement\/getAll/i))) {
             // Don't activate payment database for course viewing operations
+            console.log(`Skipping payment DB activation for course request: ${req.originalUrl}`);
             return next();
         }
         
@@ -373,7 +459,24 @@ const trackDatabaseActivity = (dbId) => {
     };
 };
 
+// Setup activity tracking with the simplified approach
+const setupActivityTracking = (app) => {
+    // Set up UUID middleware
+    app.use((req, res, next) => {
+        // Generate a unique ID for the visualization
+        req.visualizationRequestId = generateRequestId();
+        next();
+    });
+    
+    // Apply middleware for each layer
+    app.use(trackLayerActivity('presentation'));
+    app.use('/api', trackLayerActivity('application'));
+    app.use('/api', trackLayerActivity('domain'));
+    app.use('/api', trackLayerActivity('infrastructure'));
+};
+
 module.exports = {
     trackLayerActivity,
-    trackDatabaseActivity
+    trackDatabaseActivity,
+    setupActivityTracking
 }; 

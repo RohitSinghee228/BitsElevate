@@ -1528,9 +1528,28 @@
                 if (layerId === 'infrastructure') {
                     setTimeout(() => {
                         const dbIds = Object.keys(databases);
-                        const randomDb = dbIds[Math.floor(Math.random() * dbIds.length)];
-                        updateDbStatus(randomDb, 'active', currentRequest ? currentRequest.id : null);
-                        activateConnection(`infrastructure-to-${randomDb}`);
+                        // Smart database selection based on path
+                        let dbToActivate;
+                        
+                        if (currentRequest && currentRequest.path && currentRequest.path.includes('/users/')) {
+                            dbToActivate = 'users-db';
+                        } else if (currentRequest && currentRequest.path && currentRequest.path.includes('/courses/')) {
+                            dbToActivate = 'courses-db';
+                        } else if (currentRequest && currentRequest.path && currentRequest.path.includes('/payments/')) {
+                            dbToActivate = 'payments-db';
+                        } else {
+                            // Use random DB as fallback
+                            dbToActivate = dbIds[Math.floor(Math.random() * dbIds.length)];
+                        }
+                        
+                        // Don't activate payment DB for course management
+                        if (currentRequest && currentRequest.path && currentRequest.path.includes('/courseManagement/') && dbToActivate === 'payments-db') {
+                            console.log('Avoiding payment DB activation for course management');
+                            dbToActivate = 'courses-db';
+                        }
+                        
+                        updateDbStatus(dbToActivate, 'active', currentRequest ? currentRequest.id : null);
+                        activateConnection(`infrastructure-to-${dbToActivate}`);
                     }, 500); // Slight delay after layer activation
                 }
                 
@@ -1538,9 +1557,28 @@
                 if (layerId === 'domain' && Math.random() > 0.5) {
                     setTimeout(() => {
                         const dbIds = Object.keys(databases);
-                        const randomDb = dbIds[Math.floor(Math.random() * dbIds.length)];
-                        updateDbStatus(randomDb, 'active', currentRequest ? currentRequest.id : null);
-                        activateConnection(`domain-to-${randomDb}`);
+                        // Smart database selection based on path
+                        let dbToActivate;
+                        
+                        if (currentRequest && currentRequest.path && currentRequest.path.includes('/users/')) {
+                            dbToActivate = 'users-db';
+                        } else if (currentRequest && currentRequest.path && currentRequest.path.includes('/courses/')) {
+                            dbToActivate = 'courses-db';
+                        } else if (currentRequest && currentRequest.path && currentRequest.path.includes('/payments/')) {
+                            dbToActivate = 'payments-db';
+                        } else {
+                            // Use random DB as fallback
+                            dbToActivate = dbIds[Math.floor(Math.random() * dbIds.length)];
+                        }
+                        
+                        // Don't activate payment DB for course management
+                        if (currentRequest && currentRequest.path && currentRequest.path.includes('/courseManagement/') && dbToActivate === 'payments-db') {
+                            console.log('Avoiding payment DB activation for course management in domain layer');
+                            dbToActivate = 'courses-db';
+                        }
+                        
+                        updateDbStatus(dbToActivate, 'active', currentRequest ? currentRequest.id : null);
+                        activateConnection(`domain-to-${dbToActivate}`);
                     }, 500); // Slight delay after layer activation
                 }
                 
